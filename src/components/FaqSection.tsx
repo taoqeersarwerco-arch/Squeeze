@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { ChevronDown, HelpCircle } from 'lucide-react';
+import { ChevronDown, HelpCircle, Sparkles } from 'lucide-react';
 
 interface FaqItem {
   question: string;
@@ -59,21 +59,21 @@ export function FaqSection() {
   };
 
   return (
-    <section className="mx-auto w-full max-w-4xl py-12 px-4 sm:px-6">
+    <section className="mx-auto w-full max-w-4xl py-16 px-4 sm:px-6">
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <div className="text-center mb-8">
-        <div className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 mb-3 border border-indigo-200/50 dark:border-indigo-800/40">
-          <HelpCircle className="h-3.5 w-3.5" />
-          Frequently Asked Questions
+      <div className="text-center mb-10">
+        <div className="inline-flex items-center gap-1.5 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-300 mb-3 shadow-md">
+          <HelpCircle className="h-3.5 w-3.5 text-indigo-400" />
+          <span>Frequently Asked Questions</span>
         </div>
-        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-100">
+        <h2 className="text-2xl sm:text-4xl font-extrabold tracking-tight text-white">
           Everything You Need to Know
         </h2>
-        <p className="mt-2 text-sm text-zinc-500 dark:text-zinc-400">
+        <p className="mt-2.5 text-sm text-zinc-400 max-w-lg mx-auto">
           Fast, transparent, and private image processing directly in your browser.
         </p>
       </div>
@@ -84,23 +84,23 @@ export function FaqSection() {
           return (
             <div
               key={idx}
-              className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900/60 overflow-hidden transition-all shadow-xs"
+              className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl overflow-hidden transition-all duration-200 hover:border-white/20 shadow-md"
             >
               <button
                 type="button"
                 onClick={() => setOpenIdx(isOpen ? null : idx)}
-                className="flex w-full items-center justify-between p-4 sm:p-5 text-left text-sm sm:text-base font-semibold text-zinc-900 dark:text-zinc-100 hover:text-indigo-600 dark:hover:text-indigo-400 transition"
+                className="flex w-full items-center justify-between p-4 sm:p-5 text-left text-sm sm:text-base font-semibold text-white hover:text-indigo-400 transition cursor-pointer"
               >
                 <span>{faq.question}</span>
                 <ChevronDown
                   className={`h-4 w-4 flex-shrink-0 text-zinc-400 transition-transform duration-200 ${
-                    isOpen ? 'rotate-180 text-indigo-600' : ''
+                    isOpen ? 'rotate-180 text-indigo-400' : ''
                   }`}
                 />
               </button>
 
               {isOpen && (
-                <div className="px-4 sm:px-5 pb-5 pt-0 text-sm text-zinc-600 dark:text-zinc-400 leading-relaxed border-t border-zinc-100 dark:border-zinc-800/60 mt-1">
+                <div className="px-4 sm:px-5 pb-5 pt-0 text-xs sm:text-sm text-zinc-400 leading-relaxed border-t border-white/5 mt-1">
                   <p className="pt-3">{faq.answer}</p>
                 </div>
               )}

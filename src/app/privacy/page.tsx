@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 import { ShieldCheck, Lock, EyeOff } from 'lucide-react';
@@ -12,24 +11,24 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+    <div className="min-h-[100dvh] flex flex-col bg-[#090B0E] text-zinc-100">
       <Navbar />
 
-      <main className="flex-1 py-12 px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 sm:p-10 shadow-sm space-y-6 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
-          <div className="border-b border-zinc-200 dark:border-zinc-800 pb-5">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-50 dark:bg-emerald-950/60 px-3 py-1 text-xs font-semibold text-emerald-600 dark:text-emerald-400 border border-emerald-200/50 mb-2">
+      <main className="flex-1 py-16 px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl rounded-[2.5rem] border border-white/10 bg-zinc-900/60 backdrop-blur-2xl p-6 sm:p-12 shadow-2xl space-y-7 text-sm leading-relaxed text-zinc-300">
+          <div className="border-b border-white/10 pb-6">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/15 border border-emerald-500/25 px-3 py-1 text-xs font-semibold text-emerald-400 mb-3">
               <ShieldCheck className="h-3.5 w-3.5" /> Zero Data Collection
             </span>
-            <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-zinc-100">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white">
               Privacy Policy
             </h1>
             <p className="text-xs text-zinc-400 mt-1">Last updated: October 2026</p>
           </div>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <Lock className="h-4 w-4 text-emerald-500" /> 1. In-Browser Local Processing
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <Lock className="h-4 w-4 text-emerald-400" /> 1. In-Browser Local Processing
             </h2>
             <p>
               At <strong>Squeeze</strong>, your privacy is our foundational architecture. Unlike traditional online conversion platforms that upload your sensitive images to remote cloud servers, Squeeze processes <strong>100% of your images locally in your browser</strong> using HTML5 Canvas, Web Workers, and WebAssembly.
@@ -40,8 +39,8 @@ export default function PrivacyPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100 flex items-center gap-2">
-              <EyeOff className="h-4 w-4 text-emerald-500" /> 2. Personal Data & Analytics
+            <h2 className="text-base font-bold text-white flex items-center gap-2">
+              <EyeOff className="h-4 w-4 text-emerald-400" /> 2. Personal Data & Analytics
             </h2>
             <p>
               We do not require user account registration, email addresses, or payment information. We do not sell, rent, or monetize your personal information.
@@ -49,7 +48,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <h2 className="text-base font-bold text-white">
               3. Advertising & Cookies
             </h2>
             <p>
@@ -58,7 +57,7 @@ export default function PrivacyPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <h2 className="text-base font-bold text-white">
               4. Contact
             </h2>
             <p>

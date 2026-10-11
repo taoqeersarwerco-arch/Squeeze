@@ -46,38 +46,36 @@ export default async function CompressFormatPage({ params }: PageProps) {
   const fmtMeta = FORMATS[match.format as SupportedFormat];
 
   return (
-    <div>
-      <ImageConverterApp
-        initialTargetFormat={match.format as SupportedFormat}
-        pageTitle={match.title}
-        pageSubtitle={match.desc}
-      />
-
-      <section className="mx-auto max-w-4xl px-4 sm:px-6 py-12 border-t border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300">
-        <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-6">
+    <ImageConverterApp
+      initialTargetFormat={match.format as SupportedFormat}
+      pageTitle={match.title}
+      pageSubtitle={match.desc}
+    >
+      <section className="pt-6 text-zinc-300">
+        <h2 className="text-xl sm:text-3xl font-extrabold text-white mb-6">
           Why Compress {fmtMeta.name} with Squeeze?
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm leading-relaxed">
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-xs">
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm leading-relaxed">
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-6 shadow-sm">
+            <h3 className="font-semibold text-white mb-2">
               Perceptual SSIM Optimization
             </h3>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <p className="text-xs text-zinc-400 leading-relaxed">
               Traditional compressors simply lower JPEG quality factors indiscriminately, resulting in blurry details and visible block artifacts. Squeeze employs structural similarity comparisons to remove only invisible high-frequency noise.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-xs">
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-2">
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-6 shadow-sm">
+            <h3 className="font-semibold text-white mb-2">
               Instant In-Browser Processing
             </h3>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <p className="text-xs text-zinc-400 leading-relaxed">
               Never wait in a queue for cloud servers to convert your images. All compression algorithms execute using the hardware power of your own machine.
             </p>
           </div>
         </div>
       </section>
-    </div>
+    </ImageConverterApp>
   );
 }

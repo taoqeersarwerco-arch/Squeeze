@@ -51,79 +51,77 @@ export default async function ConvertPairPage({ params }: PageProps) {
   const toFmt = FORMATS[match.to as SupportedFormat];
 
   return (
-    <div>
-      <ImageConverterApp
-        initialSourceFormat={match.from as SupportedFormat}
-        initialTargetFormat={match.to as SupportedFormat}
-        pageTitle={match.title}
-        pageSubtitle={match.desc}
-      />
-
+    <ImageConverterApp
+      initialSourceFormat={match.from as SupportedFormat}
+      initialTargetFormat={match.to as SupportedFormat}
+      pageTitle={match.title}
+      pageSubtitle={match.desc}
+    >
       {/* SEO Educational & Crawlable Content Section */}
-      <section className="mx-auto max-w-4xl px-4 sm:px-6 py-12 border-t border-zinc-200 dark:border-zinc-800 text-zinc-700 dark:text-zinc-300">
-        <h2 className="text-xl sm:text-2xl font-bold text-zinc-900 dark:text-zinc-100 mb-6">
+      <section className="pt-6 text-zinc-300">
+        <h2 className="text-xl sm:text-3xl font-extrabold text-white mb-6">
           How to Convert {fromFmt.name} to {toFmt.name} Online
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-xs">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-950/60 font-bold text-indigo-600 dark:text-indigo-400 mb-3 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mb-8">
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-5 shadow-sm">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-500/15 border border-indigo-500/30 font-bold text-indigo-400 mb-3 text-sm">
               1
             </span>
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
+            <h3 className="font-semibold text-white mb-1">
               Upload {fromFmt.name} Files
             </h3>
-            <p className="text-xs text-zinc-500 leading-relaxed">
-              Drag and drop your {match.from.toUpperCase()} files into the drop box above or paste directly from your clipboard.
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Drag and drop your {match.from.toUpperCase()} files into the drop zone above or paste directly from your clipboard.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-xs">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-950/60 font-bold text-indigo-600 dark:text-indigo-400 mb-3 text-sm">
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-5 shadow-sm">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-500/15 border border-indigo-500/30 font-bold text-indigo-400 mb-3 text-sm">
               2
             </span>
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
+            <h3 className="font-semibold text-white mb-1">
               Automated Squeeze
             </h3>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <p className="text-xs text-zinc-400 leading-relaxed">
               Our local Web Worker engine transforms your image into {toFmt.name} while optimizing file weight and preserving structural fidelity.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-5 shadow-xs">
-            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-50 dark:bg-indigo-950/60 font-bold text-indigo-600 dark:text-indigo-400 mb-3 text-sm">
+          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-5 shadow-sm">
+            <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-500/15 border border-indigo-500/30 font-bold text-indigo-400 mb-3 text-sm">
               3
             </span>
-            <h3 className="font-semibold text-zinc-900 dark:text-zinc-100 mb-1">
+            <h3 className="font-semibold text-white mb-1">
               Compare & Download
             </h3>
-            <p className="text-xs text-zinc-500 leading-relaxed">
+            <p className="text-xs text-zinc-400 leading-relaxed">
               Use our split-screen slider to inspect pixel clarity before downloading your file or batch archive as a ZIP.
             </p>
           </div>
         </div>
 
         {/* Format Comparison Breakdown */}
-        <div className="rounded-2xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 overflow-hidden">
-          <h3 className="font-bold text-base text-zinc-900 dark:text-zinc-100 mb-3">
+        <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-6 overflow-hidden">
+          <h3 className="font-bold text-base text-white mb-3">
             {fromFmt.name} vs {toFmt.name}: Key Differences
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-xs leading-relaxed">
             <div>
-              <p className="font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
+              <p className="font-semibold text-indigo-400 mb-1">
                 About {fromFmt.name} ({fromFmt.ext})
               </p>
-              <p className="text-zinc-500">{fromFmt.desc}</p>
+              <p className="text-zinc-400">{fromFmt.desc}</p>
             </div>
             <div>
-              <p className="font-semibold text-indigo-600 dark:text-indigo-400 mb-1">
+              <p className="font-semibold text-indigo-400 mb-1">
                 About {toFmt.name} ({toFmt.ext})
               </p>
-              <p className="text-zinc-500">{toFmt.desc}</p>
+              <p className="text-zinc-400">{toFmt.desc}</p>
             </div>
           </div>
         </div>
       </section>
-    </div>
+    </ImageConverterApp>
   );
 }

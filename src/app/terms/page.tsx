@@ -10,20 +10,20 @@ export const metadata: Metadata = {
 
 export default function TermsPage() {
   return (
-    <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+    <div className="min-h-[100dvh] flex flex-col bg-[#090B0E] text-zinc-100">
       <Navbar />
 
-      <main className="flex-1 py-12 px-4 sm:px-6">
-        <div className="mx-auto max-w-3xl rounded-3xl border border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-900 p-6 sm:p-10 shadow-sm space-y-6 text-sm leading-relaxed text-zinc-700 dark:text-zinc-300">
-          <div className="border-b border-zinc-200 dark:border-zinc-800 pb-5">
-            <h1 className="text-3xl font-extrabold text-zinc-900 dark:text-zinc-100">
+      <main className="flex-1 py-16 px-4 sm:px-6">
+        <div className="mx-auto max-w-3xl rounded-[2.5rem] border border-white/10 bg-zinc-900/60 backdrop-blur-2xl p-6 sm:p-12 shadow-2xl space-y-7 text-sm leading-relaxed text-zinc-300">
+          <div className="border-b border-white/10 pb-6">
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-white">
               Terms of Service
             </h1>
             <p className="text-xs text-zinc-400 mt-1">Effective Date: October 2026</p>
           </div>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <h2 className="text-base font-bold text-white">
               1. Acceptance of Terms
             </h2>
             <p>
@@ -32,7 +32,7 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <h2 className="text-base font-bold text-white">
               2. Permitted Use & Ownership
             </h2>
             <p>
@@ -41,7 +41,7 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <h2 className="text-base font-bold text-white">
               3. Disclaimer of Warranty
             </h2>
             <p>
@@ -50,7 +50,7 @@ export default function TermsPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-bold text-zinc-900 dark:text-zinc-100">
+            <h2 className="text-base font-bold text-white">
               4. Modifications
             </h2>
             <p>

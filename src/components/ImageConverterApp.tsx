@@ -13,13 +13,14 @@ import { BatchDock } from './BatchDock';
 import { AdBanner } from './AdBanner';
 import { FaqSection } from './FaqSection';
 import { Footer } from './Footer';
-import { Sparkles, ArrowRight, ShieldCheck, Cpu } from 'lucide-react';
+import { Sparkles, ShieldCheck, Zap } from 'lucide-react';
 
 interface ImageConverterAppProps {
   initialTargetFormat?: SupportedFormat;
   initialSourceFormat?: SupportedFormat;
   pageTitle?: string;
   pageSubtitle?: string;
+  children?: React.ReactNode;
 }
 
 export function ImageConverterApp({
@@ -27,6 +28,7 @@ export function ImageConverterApp({
   initialSourceFormat,
   pageTitle,
   pageSubtitle,
+  children,
 }: ImageConverterAppProps) {
   const [items, setItems] = useState<ImageItem[]>([]);
   const [settings, setSettings] = useState<ConversionSettings>(() => ({
@@ -118,15 +120,11 @@ export function ImageConverterApp({
 
       files.forEach((file) => {
         const sourceFmt = detectFormat(file);
-        if (!sourceFmt) {
-          // If unsupported, skip or notify
-          return;
-        }
+        if (!sourceFmt) return;
 
         const id = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
         const origUrl = URL.createObjectURL(file);
 
-        // If source format is already target format, pick next optimal format
         let targetFmt = settings.targetFormat;
         if (sourceFmt === targetFmt) {
           targetFmt = sourceFmt === 'webp' ? 'png' : 'webp';
@@ -209,41 +207,48 @@ export function ImageConverterApp({
   const hasItems = items.length > 0;
 
   return (
-    <div className="min-h-screen flex flex-col bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 transition-colors">
+    <div className="relative min-h-[100dvh] flex flex-col bg-[#090B0E] text-zinc-100 overflow-x-hidden">
+      {/* Background Subtle Grid Pattern */}
+      <div className="pointer-events-none fixed inset-0 z-0 bg-grid-pattern opacity-40" />
+
+      {/* Fluid Floating Island Navbar */}
       <Navbar onOpenSettings={() => setIsSettingsOpen(true)} />
 
-      <main className="flex-1 pb-32">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-6 sm:pt-10 space-y-6">
+      <main className="relative z-10 flex-1 pb-36">
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-6 sm:pt-10 space-y-7">
           {/* Top Leaderboard Ad Slot (CLS-safe) */}
           <AdBanner slot="leaderboard" />
 
-          {/* Hero Header */}
-          <div className="text-center max-w-3xl mx-auto pt-2 pb-4">
-            <div className="inline-flex items-center gap-1.5 rounded-full bg-indigo-50 dark:bg-indigo-950/60 px-3 py-1 text-xs font-semibold text-indigo-600 dark:text-indigo-400 border border-indigo-200/50 dark:border-indigo-800/40 mb-3 shadow-2xs">
-              <Sparkles className="h-3.5 w-3.5" />
-              Next-Gen Perceptual Image Optimizer
+          {/* Hero Header with Agency Macro-Whitespace */}
+          <div className="text-center max-w-3xl mx-auto pt-4 pb-2">
+            {/* Microscopic Eyebrow Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-300 shadow-lg mb-4">
+              <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
+              <span>Client-Side Neural Engine</span>
             </div>
 
-            <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-zinc-900 dark:text-zinc-50 leading-[1.15]">
+            {/* Massive Heading */}
+            <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-[1.1] text-white">
               {pageTitle ? (
                 pageTitle
               ) : (
                 <>
-                  Convert & Compress Images <br className="hidden sm:inline" />
-                  <span className="bg-gradient-to-r from-indigo-600 via-blue-600 to-indigo-500 bg-clip-text text-transparent">
+                  Convert & Squeeze Images{' '}
+                  <span className="block mt-1 bg-gradient-to-r from-indigo-400 via-violet-300 to-cyan-400 bg-clip-text text-transparent">
                     Without Quality Loss
                   </span>
                 </>
               )}
             </h1>
 
-            <p className="mt-3 text-sm sm:text-base text-zinc-600 dark:text-zinc-400 max-w-xl mx-auto leading-relaxed">
+            {/* Subtitle */}
+            <p className="mt-4 text-sm sm:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
               {pageSubtitle ||
-                'Any-to-any conversion between JPG, PNG, ICO, SVG, and WebP. Smart perceptual SSIM compression running 100% locally in your browser.'}
+                'Any-to-any conversion between JPG, PNG, ICO, SVG, and WebP. Automated perceptual SSIM compression executed 100% locally in your browser.'}
             </p>
           </div>
 
-          {/* DropZone */}
+          {/* Double-Bezel DropZone */}
           <DropZone
             onFilesSelected={handleFilesSelected}
             hasItems={hasItems}
@@ -264,28 +269,31 @@ export function ImageConverterApp({
           )}
 
           {/* Mid-Page In-Feed Ad Banner */}
-          <AdBanner slot="infeed" className="my-6" />
+          <AdBanner slot="infeed" className="my-8" />
+
+          {/* Page-Specific Content / How-To Guides */}
+          {children}
 
           {/* FAQ Section with JSON-LD Schema */}
           <FaqSection />
         </div>
       </main>
 
-      {/* Batch Floating Dock */}
+      {/* Floating Batch Dock */}
       <BatchDock
         items={items}
         onClearAll={handleClearAll}
         slugifyNames={settings.slugifyNames}
       />
 
-      {/* Split Comparison Dialog */}
+      {/* Cinematic Split Comparison Dialog */}
       <CompareModal
         item={compareItem}
         onClose={() => setCompareItem(null)}
         slugifyNames={settings.slugifyNames}
       />
 
-      {/* Settings Dialog */}
+      {/* Global Settings Modal */}
       <GlobalSettingsModal
         isOpen={isSettingsOpen}
         onClose={() => setIsSettingsOpen(false)}
@@ -295,6 +303,7 @@ export function ImageConverterApp({
         hasItems={hasItems}
       />
 
+      {/* Footer */}
       <Footer />
     </div>
   );
