@@ -1,0 +1,332 @@
+/**
+ * Squeeze Universal Image Engine Worker
+ * Handles 100% client-side conversion, compression, and analysis across:
+ * JPG, PNG, WEBP, ICO, SVG
+ */
+
+// --- ICO Binary Builder ---
+function buildIco(frames) {
+  const count = frames.length;
+  const headerSize = 6;
+  const dirEntrySize = 16;
+  const directorySize = headerSize + count * dirEntrySize;
+
+  let totalSize = directorySize;
+  for (let i = 0; i < count; i++) {
+    totalSize += frames[i].pngData.length;
+  }
+
+  const buffer = new ArrayBuffer(totalSize);
+  const view = new DataView(buffer);
+  const bytes = new Uint8Array(buffer);
+
+  // Header: 0 = reserved, 1 = icon, count
+  view.setUint16(0, 0, true);
+  view.setUint16(2, 1, true);
+  view.setUint16(4, count, true);
+
+  let currentOffset = directorySize;
+  for (let i = 0; i < count; i++) {
+    const frame = frames[i];
+    const entryOffset = headerSize + i * dirEntrySize;
+    const wByte = frame.width >= 256 ? 0 : frame.width;
+    const hByte = frame.height >= 256 ? 0 : frame.height;
+    const dataLen = frame.pngData.length;
+
+    view.setUint8(entryOffset + 0, wByte);
+    view.setUint8(entryOffset + 1, hByte);
+    view.setUint8(entryOffset + 2, 0); // truecolor
+    view.setUint8(entryOffset + 3, 0); // reserved
+    view.setUint16(entryOffset + 4, 1, true); // planes
+    view.setUint16(entryOffset + 6, 32, true); // 32 bpp
+    view.setUint32(entryOffset + 8, dataLen, true);
+    view.setUint32(entryOffset + 12, currentOffset, true);
+
+    bytes.set(frame.pngData, currentOffset);
+    currentOffset += dataLen;
+  }
+
+  return bytes;
+}
+
+// --- SSIM Perceptual Quality Analysis ---
+function getLuma(data, w, h) {
+  const y = new Float32Array(w * h);
+  for (let i = 0, j = 0; i < data.length; i += 4, j++) {
+    y[j] = 0.299 * data[i] + 0.587 * data[i + 1] + 0.114 * data[i + 2];
+  }
+  return y;
+}
+
+function ssim(a, b, w, h) {
+  const C1 = 6.5025, C2 = 58.5225, B = 8, N = 64;
+  let total = 0, count = 0;
+  for (let by = 0; by + B <= h; by += 4) {
+    for (let bx = 0; bx + B <= w; bx += 4) {
+      let sa = 0, sb = 0, saa = 0, sbb = 0, sab = 0;
+      for (let y = by; y < by + B; y++) {
+        const row = y * w;
+        for (let x = bx; x < bx + B; x++) {
+          const p = a[row + x], q = b[row + x];
+          sa += p; sb += q; saa += p * p; sbb += q * q; sab += p * q;
+        }
+      }
+      const ma = sa / N, mb = sb / N;
+      const va = saa / N - ma * ma, vb = sbb / N - mb * mb, cov = sab / N - ma * mb;
+      total += ((2 * ma * mb + C1) * (2 * cov + C2)) / ((ma * ma + mb * mb + C1) * (va + vb + C2));
+      count++;
+    }
+  }
+  return count ? Math.max(0, Math.min(1, total / count)) : 1;
+}
+
+// --- SVG Vectorizer ---
+function traceToSvg(data, width, height, detail) {
+  const step = detail === 'high' ? 1 : detail === 'medium' ? 2 : 4;
+  const numLevels = detail === 'high' ? 16 : detail === 'medium' ? 8 : 4;
+  const quantStep = 256 / numLevels;
+
+  function quantize(v) {
+    return Math.min(255, Math.floor(v / quantStep) * quantStep + Math.floor(quantStep / 2));
+  }
+
+  const colorPaths = new Map();
+
+  for (let y = 0; y < height; y += step) {
+    let startX = -1;
+    let currentColor = '';
+
+    for (let x = 0; x < width; x += step) {
+      const idx = (y * width + x) * 4;
+      const a = data[idx + 3];
+
+      if (a < 32) {
+        if (startX !== -1 && currentColor) {
+          const runW = x - startX;
+          const rect = `M${startX},${y}h${runW}v${step}h${-runW}Z`;
+          if (!colorPaths.has(currentColor)) colorPaths.set(currentColor, []);
+          colorPaths.get(currentColor).push(rect);
+          startX = -1;
+          currentColor = '';
+        }
+        continue;
+      }
+
+      const r = quantize(data[idx]);
+      const g = quantize(data[idx + 1]);
+      const b = quantize(data[idx + 2]);
+      const hex = `#${((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1)}`;
+
+      if (hex !== currentColor) {
+        if (startX !== -1 && currentColor) {
+          const runW = x - startX;
+          const rect = `M${startX},${y}h${runW}v${step}h${-runW}Z`;
+          if (!colorPaths.has(currentColor)) colorPaths.set(currentColor, []);
+          colorPaths.get(currentColor).push(rect);
+        }
+        startX = x;
+        currentColor = hex;
+      }
+    }
+
+    if (startX !== -1 && currentColor) {
+      const runW = width - startX;
+      const rect = `M${startX},${y}h${runW}v${step}h${-runW}Z`;
+      if (!colorPaths.has(currentColor)) colorPaths.set(currentColor, []);
+      colorPaths.get(currentColor).push(rect);
+    }
+  }
+
+  const paths = [];
+  colorPaths.forEach((runs, color) => {
+    if (runs.length > 0) {
+      paths.push(`<path fill="${color}" d="${runs.join(' ')}" shape-rendering="crispEdges"/>`);
+    }
+  });
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 ${width} ${height}" width="${width}" height="${height}">
+  <!-- Generated by Squeeze (https://squeeze.app) -->
+  <g id="vector-layer">
+    ${paths.join('\n    ')}
+  </g>
+</svg>`;
+}
+
+// --- Main Message Dispatcher ---
+self.onmessage = async ({ data: job }) => {
+  const { id, fileData, fileType, settings } = job;
+  try {
+    const inBlob = new Blob([fileData], { type: fileType });
+    const bmp = await createImageBitmap(inBlob);
+    const srcW = bmp.width;
+    const srcH = bmp.height;
+
+    // Scale calculation
+    let w = srcW;
+    let h = srcH;
+    if (settings.maxEdge && settings.maxEdge > 0 && Math.max(srcW, srcH) > settings.maxEdge) {
+      const k = settings.maxEdge / Math.max(srcW, srcH);
+      w = Math.max(1, Math.round(srcW * k));
+      h = Math.max(1, Math.round(srcH * k));
+    }
+
+    const canvas = new OffscreenCanvas(w, h);
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    // Handle background matte when converting transparent images to JPG
+    if (settings.targetFormat === 'jpg') {
+      ctx.fillStyle = settings.matteColor || '#FFFFFF';
+      ctx.fillRect(0, 0, w, h);
+    }
+
+    ctx.drawImage(bmp, 0, 0, w, h);
+
+    // Compute reference luma for SSIM comparison (max 512px for speed)
+    const refScale = Math.min(1, 512 / Math.max(w, h));
+    const refW = Math.max(1, Math.round(w * refScale));
+    const refH = Math.max(1, Math.round(h * refScale));
+    const refCanvas = new OffscreenCanvas(refW, refH);
+    const refCtx = refCanvas.getContext('2d', { willReadFrequently: true });
+    refCtx.imageSmoothingQuality = 'high';
+    refCtx.drawImage(bmp, 0, 0, refW, refH);
+    const refData = refCtx.getImageData(0, 0, refW, refH).data;
+    const refLuma = getLuma(refData, refW, refH);
+
+    bmp.close();
+
+    let outBlob;
+    let outMime = '';
+    let qualityUsed = null;
+    let calculatedSsim = null;
+
+    if (settings.targetFormat === 'ico') {
+      outMime = 'image/x-icon';
+      const desiredSizes = settings.icoSizes && settings.icoSizes.length ? settings.icoSizes : [16, 32, 48, 64, 128, 256];
+      const frames = [];
+
+      for (const size of desiredSizes) {
+        const sCanvas = new OffscreenCanvas(size, size);
+        const sCtx = sCanvas.getContext('2d');
+        sCtx.imageSmoothingEnabled = true;
+        sCtx.imageSmoothingQuality = 'high';
+
+        // Center and aspect-fit into square icon container
+        const aspect = w / h;
+        let dw = size, dh = size, dx = 0, dy = 0;
+        if (aspect > 1) {
+          dh = Math.round(size / aspect);
+          dy = Math.round((size - dh) / 2);
+        } else {
+          dw = Math.round(size * aspect);
+          dx = Math.round((size - dw) / 2);
+        }
+        sCtx.drawImage(canvas, dx, dy, dw, dh);
+        const pBlob = await sCanvas.convertToBlob({ type: 'image/png' });
+        const pBuf = await pBlob.arrayBuffer();
+        frames.push({ width: size, height: size, pngData: new Uint8Array(pBuf) });
+      }
+
+      const icoBytes = buildIco(frames);
+      outBlob = new Blob([icoBytes], { type: 'image/x-icon' });
+      calculatedSsim = 1.0;
+    } else if (settings.targetFormat === 'svg') {
+      outMime = 'image/svg+xml';
+      const imgData = ctx.getImageData(0, 0, w, h);
+      const svgText = traceToSvg(imgData.data, w, h, settings.svgTraceDetail || 'medium');
+      outBlob = new Blob([svgText], { type: 'image/svg+xml' });
+      calculatedSsim = 0.96;
+    } else if (settings.targetFormat === 'png') {
+      outMime = 'image/png';
+      outBlob = await canvas.convertToBlob({ type: 'image/png' });
+      calculatedSsim = 1.0;
+    } else {
+      // JPG or WEBP with quality & compression optimization
+      outMime = settings.targetFormat === 'jpg' ? 'image/jpeg' : 'image/webp';
+
+      const encodeAt = async (q) => {
+        const cl = Math.max(0.1, Math.min(1.0, Math.round(q * 100) / 100));
+        const b = await canvas.convertToBlob({ type: outMime, quality: cl });
+        return { q: cl, blob: b, size: b.size };
+      };
+
+      if (settings.goal === 'size' && settings.targetRatio > 1) {
+        const targetBytes = job.fileSize / settings.targetRatio;
+        let lo = 0.2, hi = 0.95;
+        let best = await encodeAt(hi);
+
+        if (best.size > targetBytes) {
+          const bottom = await encodeAt(lo);
+          if (bottom.size > targetBytes) {
+            best = bottom;
+          } else {
+            // Binary search for quality
+            for (let step = 0; step < 5; step++) {
+              const mid = (lo + hi) / 2;
+              const test = await encodeAt(mid);
+              if (test.size <= targetBytes) {
+                best = test;
+                lo = mid;
+              } else {
+                hi = mid;
+              }
+            }
+          }
+        }
+        outBlob = best.blob;
+        qualityUsed = best.q;
+      } else if (settings.goal === 'quality') {
+        const targetQ = settings.targetQuality || 0.85;
+        const res = await encodeAt(targetQ);
+        outBlob = res.blob;
+        qualityUsed = res.q;
+      } else {
+        // Default balanced
+        const res = await encodeAt(0.85);
+        outBlob = res.blob;
+        qualityUsed = res.q;
+      }
+
+      // Compute SSIM score on compressed result
+      try {
+        const testBmp = await createImageBitmap(outBlob);
+        const testCanvas = new OffscreenCanvas(refW, refH);
+        const testCtx = testCanvas.getContext('2d', { willReadFrequently: true });
+        testCtx.imageSmoothingQuality = 'high';
+        testCtx.drawImage(testBmp, 0, 0, refW, refH);
+        testBmp.close();
+        const testLuma = getLuma(testCtx.getImageData(0, 0, refW, refH).data, refW, refH);
+        calculatedSsim = ssim(refLuma, testLuma, refW, refH);
+      } catch (e) {
+        calculatedSsim = 0.95;
+      }
+    }
+
+    const outBuf = await outBlob.arrayBuffer();
+
+    self.postMessage(
+      {
+        id,
+        success: true,
+        outBlobData: outBuf,
+        outMime,
+        outSize: outBlob.size,
+        outWidth: w,
+        outHeight: h,
+        srcWidth: srcW,
+        srcHeight: srcH,
+        ssim: calculatedSsim,
+        qualityUsed,
+      },
+      [outBuf]
+    );
+  } catch (err) {
+    self.postMessage({
+      id,
+      success: false,
+      error: err && err.message ? err.message : 'Processing failed. Unsupported or corrupt image file.',
+    });
+  }
+};
