@@ -16,7 +16,7 @@ export function Footer() {
           </div>
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
             <p className="font-medium text-zinc-300 text-sm">Fast processing</p>
-            <p className="mt-1 text-zinc-500 text-xs leading-relaxed">Runs on your browser's built-in capabilities. Multiple images at once.</p>
+            <p className="mt-1 text-zinc-500 text-xs leading-relaxed">Runs on your browser&apos;s built-in capabilities. Multiple images at once.</p>
           </div>
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
             <p className="font-medium text-zinc-300 text-sm">Completely free</p>

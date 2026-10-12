@@ -299,7 +299,7 @@ self.onmessage = async ({ data: job }) => {
         testBmp.close();
         const testLuma = getLuma(testCtx.getImageData(0, 0, refW, refH).data, refW, refH);
         calculatedSsim = ssim(refLuma, testLuma, refW, refH);
-      } catch (e) {
+      } catch {
         calculatedSsim = 0.95;
       }
     }

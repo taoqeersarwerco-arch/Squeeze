@@ -4,7 +4,6 @@ import { Metadata } from 'next';
 import { SEO_CONVERSION_PAIRS, FORMATS } from '@/lib/constants';
 import { SupportedFormat } from '@/lib/types';
 import { ImageConverterApp } from '@/components/ImageConverterApp';
-import { CheckCircle2, ArrowRight } from 'lucide-react';
 
 interface PageProps {
   params: Promise<{ pair: string }>;
@@ -23,9 +22,6 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   if (!match) {
     return { title: 'Convert Images | Squeeze' };
   }
-
-  const fromFmt = FORMATS[match.from as SupportedFormat]?.name || match.from.toUpperCase();
-  const toFmt = FORMATS[match.to as SupportedFormat]?.name || match.to.toUpperCase();
 
   return {
     title: `${match.title} - Free & Online | Squeeze`,

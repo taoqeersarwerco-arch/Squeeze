@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { KeyRound, Copy, Check, Loader2, Sparkles } from 'lucide-react';
+import { KeyRound, Copy, Check, Loader2 } from 'lucide-react';
 
 export function DeveloperRequestForm() {
   const [email, setEmail] = useState('');

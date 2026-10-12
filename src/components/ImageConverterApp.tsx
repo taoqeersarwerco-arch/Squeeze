@@ -24,7 +24,6 @@ interface ImageConverterAppProps {
 
 export function ImageConverterApp({
   initialTargetFormat,
-  initialSourceFormat,
   pageTitle,
   pageSubtitle,
   children,
@@ -34,15 +33,15 @@ export function ImageConverterApp({
     ...DEFAULT_SETTINGS,
     targetFormat: initialTargetFormat || DEFAULT_SETTINGS.targetFormat,
   }));
+  const [prevTargetFormat, setPrevTargetFormat] = useState(initialTargetFormat);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const activeUrlsRef = useRef<Set<string>>(new Set());
 
-  // Keep target format aligned if initial prop changes
-  useEffect(() => {
-    if (initialTargetFormat) {
-      setSettings((prev) => ({ ...prev, targetFormat: initialTargetFormat }));
-    }
-  }, [initialTargetFormat]);
+  // Adjust target format during render if prop changes (React recommended pattern)
+  if (initialTargetFormat && initialTargetFormat !== prevTargetFormat) {
+    setPrevTargetFormat(initialTargetFormat);
+    setSettings((prev) => ({ ...prev, targetFormat: initialTargetFormat }));
+  }
 
   // Clean up object URLs on component unmount ONLY
   useEffect(() => {
@@ -110,11 +109,12 @@ export function ImageConverterApp({
             };
           })
         );
-      } catch (err: any) {
+      } catch (err: unknown) {
+        const errorMessage = err instanceof Error ? err.message : 'Failed';
         setItems((prev) =>
           prev.map((i) =>
             i.id === item.id
-              ? { ...i, status: 'error', error: err?.message || 'Failed' }
+              ? { ...i, status: 'error', error: errorMessage }
               : i
           )
         );

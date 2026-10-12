@@ -13,9 +13,9 @@ export function AdBanner({ slot, className = '' }: AdBannerProps) {
   useEffect(() => {
     if (adClientId && typeof window !== 'undefined') {
       try {
-        // @ts-ignore
+        // @ts-expect-error Google Adsense global push array
         (window.adsbygoogle = window.adsbygoogle || []).push({});
-      } catch (e) {
+      } catch {
         // Ignored
       }
     }

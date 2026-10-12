@@ -1,32 +1,84 @@
 # Squeeze ⚡
 
-> **Private, lightning-fast in-browser image conversion and perceptual compression engine.**  
-> Convert between **JPG, PNG, ICO, SVG, and WebP** with zero quality loss and $0 server hosting bills.
+> **Private, zero-upload in-browser image conversion and perceptual compression engine.**  
+> Convert between **JPG, PNG, ICO, SVG, and WebP** with zero quality loss and $0 server hosting bills.  
+> Live at: [trysqueeze.online](https://trysqueeze.online)
 
 ---
 
-## ✨ Features
+## 🏛️ Architecture & Core Mechanics
 
-- **Any-to-Any Format Matrix**:
-  - **JPG / JPEG** ⇄ **PNG** ⇄ **WEBP** ⇄ **ICO** ⇄ **SVG**
-  - **Favicon (.ico) Generator**: Packs multi-resolution icons (16×16, 32×32, 48×48, 64×64, 128×128, 256×256) into a genuine 32-bit RGBA Windows ICO container.
-  - **SVG Vector Rasterizer**: Converts vector graphics into crisp high-DPI transparent PNGs, JPEGs, or WebP.
-  - **Bitmap-to-SVG Vectorizer**: Color-quantized contour tracing to transform logos and silhouettes into scalable SVG vectors.
-  - **Smart Alpha Matte**: Choose customizable background colors when converting transparent assets to JPEG.
-- **Perceptual Compression (SSIM)**:
-  - Uses the **Structural Similarity Index Measure (SSIM)** to eliminate invisible byte bloat and EXIF metadata without creating visual compression artifacts.
-  - Choose between **Target Quality (SSIM)** or **Target Shrink Ratio** (e.g. 5×, 10×, 15× smaller).
-- **Interactive Split Comparison**:
-  - Side-by-side draggable divider slider with 100% pixel zoom mode to inspect fine edge clarity before saving.
-- **Batch Processing & ZIP Archive**:
-  - Drag-and-drop or clipboard paste multiple photos simultaneously.
-  - Downloads individual files or packages the whole queue into an in-memory ZIP archive using `JSZip`.
-- **100% Client-Side Privacy**:
-  - All processing runs directly on your device via HTML5 Canvas and multi-threaded Web Workers. No images are ever uploaded or transmitted over the network.
-- **Monetization & AdSense Ready**:
-  - Pre-built CLS-safe (Cumulative Layout Shift) reserved ad containers that protect your Google Lighthouse Core Web Vitals score.
-- **Programmatic SEO (pSEO)**:
-  - Pre-rendered static landing pages for top high-volume search queries (`/convert/png-to-ico`, `/convert/svg-to-png`, `/convert/jpg-to-webp`, `/compress/jpg`, etc.) with JSON-LD schema markup (`WebApplication` and `FAQPage`).
+Squeeze runs entirely on client-side hardware using HTML5 Canvas, WebAssembly-ready pipelines, and multi-threaded Web Workers. No image bytes ever leave the user's browser.
+
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                       Squeeze Engine Core                       │
+├─────────────────┬───────────────────┬───────────────────────────┤
+│ Web Worker Pool │ Perceptual SSIM   │ Binary ICO & SVG Tracing  │
+│ 3-worker queue  │ Quality score     │ 16-256px icon packing &   │
+│ off-thread exec │ visual difference │ marching-squares vector   │
+└─────────────────┴───────────────────┴───────────────────────────┘
+                                │
+                                ▼
+┌─────────────────────────────────────────────────────────────────┐
+│              Minimalist Liquid Glass Interface                  │
+│       Obsidian Graphite (#08090B) · Milled Glass Borders        │
+│          Dynamic Motion Parallax · Specular Highlights          │
+└─────────────────────────────────────────────────────────────────┘
+```
+
+### Key Technical Capabilities:
+- **Off-Thread Worker Pool** ([`public/workers/conversion.worker.js`](./public/workers/conversion.worker.js)): Multi-threaded batch processing prevents main-thread UI freezing.
+- **Perceptual SSIM Quality Guard** ([`src/lib/ssim.ts`](./src/lib/ssim.ts)): Mathematical Structural Similarity Index Measure computes exact visual degradation to find optimal compression sweet spots.
+- **Binary Windows ICO Packer** ([`src/lib/ico.ts`](./src/lib/ico.ts)): Encodes genuine 32-bit RGBA multi-resolution Windows `.ico` container files (16×16, 32×32, 48×48, 64×64, 128×128, 256×256).
+- **Raster-to-SVG Vector Tracer** ([`src/lib/svg-tracer.ts`](./src/lib/svg-tracer.ts)): Marching-squares contour tracer converts raster silhouettes into scalable vector SVG paths.
+- **Developer API & CLI Sandbox** ([`/developers`](https://trysqueeze.online/developers)): Free instant API key issuance and cURL snippets for programmatic integrations.
+- **Programmatic SEO (38 Routes)**: 15 dedicated conversion pairs, 3 smart compression routes, and educational guides with structured JSON-LD schema.
+
+---
+
+## 📂 Project Structure
+
+```
+Squeeze/
+├── public/
+│   └── workers/
+│       └── conversion.worker.js      # Multi-threaded conversion & SSIM worker
+├── src/
+│   ├── app/                          # Next.js App Router (38 routes)
+│   │   ├── (marketing)/              # About, Learn, Terms, Privacy
+│   │   ├── convert/[pair]/           # Programmatic SEO conversion pairs
+│   │   ├── compress/[format]/        # Programmatic SEO compression tools
+│   │   ├── developers/               # Developer API sandbox
+│   │   ├── api/developers/request/   # Instant API key provisioning
+│   │   ├── sitemap.ts                # Dynamic XML sitemap generator
+│   │   ├── robots.ts                 # Search crawler robots.txt
+│   │   └── layout.tsx                # MetadataBase (trysqueeze.online)
+│   ├── components/                   # UI Components & Modules
+│   │   ├── Navbar.tsx                # Hover/click submenus & mobile navigation
+│   │   ├── Footer.tsx                # Categorized footer links & trust badges
+│   │   ├── LiquidBackground.tsx      # Parallax drifting plasma atmosphere
+│   │   ├── DropZone.tsx              # Drag-and-drop & clipboard paste capture
+│   │   ├── ConversionQueue.tsx       # Live status, SSIM badge & format controls
+│   │   ├── BatchDock.tsx             # Floating batch action & ZIP packaging dock
+│   │   ├── GlobalSettingsModal.tsx   # Perceptual SSIM & target ratio tuning
+│   │   ├── ConversionHubGrid.tsx     # Directory grid of all 18 tools
+│   │   ├── DeveloperRequestForm.tsx  # Developer API key generator form
+│   │   ├── FaqSection.tsx            # Expandable FAQ accordions
+│   │   ├── AdBanner.tsx              # CLS-safe monetization slot
+│   │   └── index.ts                  # Clean barrel component exports
+│   └── lib/                          # Core Utilities & Engine
+│       ├── engine.ts                 # Worker pool manager & queue dispatcher
+│       ├── ssim.ts                   # SSIM image quality algorithm
+│       ├── svg-tracer.ts             # Raster-to-SVG contour vectorizer
+│       ├── ico.ts                    # Binary multi-res ICO container packer
+│       ├── constants.ts              # Format specs, conversion pairs, SEO data
+│       ├── types.ts                  # Core TypeScript types & data contracts
+│       └── index.ts                  # Clean barrel utility exports
+├── AGENTS.md                         # Project development rules
+├── package.json                      # Project scripts and dependencies
+└── tsconfig.json                     # Strict TypeScript configuration
+```
 
 ---
 
@@ -38,26 +90,24 @@
 
 ### Installation
 ```bash
-# Clone the repository
 git clone https://github.com/taoqeersarwerco-arch/Squeeze.git
 cd Squeeze
-
-# Install dependencies
 npm install
 ```
 
-### Running Locally
+### Development
 ```bash
-# Start development server
 npm run dev
-
 # Open http://localhost:3000
 ```
 
-### Production Build
+### Production Build & Verification
 ```bash
-# Build optimized production bundle with static prerendering
+# Type check and build all 38 prerendered routes
 npm run build
+
+# Verify code style and zero-lint errors
+npm run lint
 
 # Start production server
 npm run start
@@ -65,34 +115,18 @@ npm run start
 
 ---
 
-## 🌐 Custom Domain & Production Deployment
+## 🌐 Custom Domain & Deployment
 
-Because Squeeze processes all images client-side, it costs **$0/month to host**, even with millions of visitors.
+Squeeze is configured for production on **`trysqueeze.online`**.
 
-### Deploying to Vercel
-1. Import your GitHub repository to [Vercel](https://vercel.com).
-2. Framework preset will automatically detect **Next.js**.
-3. Under **Project Settings > Domains**, add your custom domain (e.g. `squeeze.app` or `yourdomain.com`).
-4. Add the CNAME / A records provided by Vercel to your DNS registrar (Cloudflare, Namecheap, GoDaddy). Free SSL will be generated automatically.
-
-### Deploying to Cloudflare Pages
-1. Connect your repository to **Cloudflare Pages**.
-2. Set Build command: `npm run build`.
-3. Set Output directory: `.next`.
-4. Connect your custom domain directly with Cloudflare Edge caching and DDoS protection.
-
----
-
-## 💰 Enabling Google AdSense & Ads
-
-1. Once your custom domain is connected, apply for [Google AdSense](https://adsense.google.com).
-2. Add your AdSense Publisher ID to your environment variables:
-   ```env
-   NEXT_PUBLIC_ADSENSE_CLIENT_ID=ca-pub-XXXXXXXXXXXXXXXX
-   ```
-3. The `<AdBanner />` component will automatically switch from reserved skeleton mode to serving live responsive banner ads without layout shifts.
+### Connecting to Vercel:
+1. In the Vercel Dashboard, go to **Settings > Domains**.
+2. Add `trysqueeze.online` and `www.trysqueeze.online`.
+3. Point your registrar DNS:
+   - **A Record**: `@` &rarr; `76.76.21.21`
+   - **CNAME Record**: `www` &rarr; `cname.vercel-dns.com`
 
 ---
 
 ## ⚖️ License & Privacy
-MIT License. All image conversions happen locally in the user's browser.
+MIT License. 100% private: All image conversions and compressions run locally on the client's machine. No image data is ever collected, stored, or transmitted.

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
-import { Cpu, Zap, Shield, Image as ImageIcon } from 'lucide-react';
+import { Cpu, Zap } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {

@@ -4,7 +4,7 @@ import crypto from 'crypto';
 export async function POST(request: Request) {
   try {
     const body = await request.json();
-    const { email, project, usecase } = body;
+    const { email, project } = body;
 
     if (!email || typeof email !== 'string' || !email.includes('@')) {
       return NextResponse.json(
@@ -32,7 +32,7 @@ export async function POST(request: Request) {
       rateLimit: '100 requests / hour',
       message: 'API Key generated successfully. Keep this secret.',
     });
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { error: 'Invalid request payload.' },
       { status: 400 }

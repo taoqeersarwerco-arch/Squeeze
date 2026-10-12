@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { ConversionSettings, SupportedFormat, CompressionGoal } from '@/lib/types';
+import { ConversionSettings } from '@/lib/types';
 import { FORMATS } from '@/lib/constants';
 import { X, Sliders } from 'lucide-react';
 

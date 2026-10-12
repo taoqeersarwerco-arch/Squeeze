@@ -2,7 +2,7 @@
 
 import React, { useState, useRef } from 'react';
 import Link from 'next/link';
-import { Sliders, Menu, X, ChevronDown, ArrowRight, Zap, RefreshCw } from 'lucide-react';
+import { Sliders, Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { SEO_CONVERSION_PAIRS, SEO_COMPRESS_FORMATS } from '@/lib/constants';
 
 interface NavbarProps {

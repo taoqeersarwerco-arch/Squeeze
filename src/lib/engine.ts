@@ -47,7 +47,7 @@ class EngineManager {
   private workerQueue: {
     job: EngineJobRequest;
     resolve: (res: EngineJobResponse) => void;
-    reject: (err: any) => void;
+    reject: (err: unknown) => void;
   }[] = [];
   private activeJobs = new Map<Worker, string>();
 
@@ -82,7 +82,7 @@ class EngineManager {
     this.processNext();
   }
 
-  private handleWorkerError(worker: Worker, error: any) {
+  private handleWorkerError(worker: Worker, error: unknown) {
     console.error('Worker error:', error);
     this.activeJobs.delete(worker);
     // Restart worker if crashed
@@ -94,7 +94,7 @@ class EngineManager {
         replacement.onmessage = (e) => this.handleWorkerMessage(replacement, e.data);
         replacement.onerror = (err) => this.handleWorkerError(replacement, err);
         this.workers[idx] = replacement;
-      } catch (e) {
+      } catch {
         // Ignored
       }
     }
