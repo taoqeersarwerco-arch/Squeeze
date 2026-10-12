@@ -229,7 +229,7 @@ export function ImageConverterApp({
   const hasItems = items.length > 0;
 
   return (
-    <div className="relative min-h-[100dvh] flex flex-col bg-[var(--background)] text-zinc-100 overflow-x-hidden">
+    <div className="relative min-h-[100dvh] flex flex-col bg-transparent text-zinc-100 overflow-x-hidden">
       {/* Navbar */}
       <Navbar onOpenSettings={() => setIsSettingsOpen(true)} />
 

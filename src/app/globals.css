@@ -195,3 +195,86 @@ input[type="range"]::-moz-range-thumb {
   color: #FFFFFF;
 }
 
+/* ─── Liquid Background Motion Keyframes ─── */
+@keyframes liquid-drift-1 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(60px, -40px, 0) scale(1.1);
+  }
+  66% {
+    transform: translate3d(-40px, 50px, 0) scale(0.95);
+  }
+}
+
+@keyframes liquid-drift-2 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  33% {
+    transform: translate3d(-50px, 60px, 0) scale(1.08);
+  }
+  66% {
+    transform: translate3d(40px, -30px, 0) scale(0.92);
+  }
+}
+
+@keyframes liquid-drift-3 {
+  0%, 100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(50px, -50px, 0) scale(1.15);
+  }
+}
+
+@keyframes orbit-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes orbit-reverse {
+  from {
+    transform: rotate(360deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+.animate-liquid-drift-1 {
+  animation: liquid-drift-1 22s ease-in-out infinite;
+}
+
+.animate-liquid-drift-2 {
+  animation: liquid-drift-2 28s ease-in-out infinite;
+}
+
+.animate-liquid-drift-3 {
+  animation: liquid-drift-3 34s ease-in-out infinite;
+}
+
+.animate-orbit-slow {
+  animation: orbit-slow 100s linear infinite;
+}
+
+.animate-orbit-reverse {
+  animation: orbit-reverse 130s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-liquid-drift-1,
+  .animate-liquid-drift-2,
+  .animate-liquid-drift-3,
+  .animate-orbit-slow,
+  .animate-orbit-reverse {
+    animation: none !important;
+  }
+}
+
+

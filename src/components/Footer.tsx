@@ -6,7 +6,7 @@ import { SEO_COMPRESS_FORMATS } from '@/lib/constants';
 
 export function Footer() {
   return (
-    <footer className="w-full border-t border-white/[0.06] bg-[var(--background)] pt-14 pb-16 text-xs text-zinc-500">
+    <footer className="w-full border-t border-white/[0.06] bg-black/40 backdrop-blur-md pt-14 pb-16 text-xs text-zinc-500">
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         {/* Trust Chips */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-10 border-b border-white/[0.06]">

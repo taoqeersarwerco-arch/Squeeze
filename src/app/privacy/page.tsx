@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 
 export default function PrivacyPage() {
   return (
-    <div className="relative min-h-[100dvh] flex flex-col bg-[var(--background)] text-zinc-100">
+    <div className="relative min-h-[100dvh] flex flex-col bg-transparent text-zinc-100">
       <Navbar />
 
       <main className="relative z-10 flex-1 py-12 sm:py-16 px-4 sm:px-6">
