@@ -20,6 +20,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://trysqueeze.online'),
+  alternates: {
+    canonical: '/',
+  },
   title: 'Squeeze - Free In-Browser Image Converter & Compressor',
   description:
     'Convert and compress JPG, PNG, ICO, SVG, and WebP images instantly in your browser. 100% private, nothing is uploaded. Fast and free.',
