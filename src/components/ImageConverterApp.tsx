@@ -38,9 +38,12 @@ export function ImageConverterApp({
   const activeUrlsRef = useRef<Set<string>>(new Set());
 
   // Adjust target format during render if prop changes (React recommended pattern)
-  if (initialTargetFormat && initialTargetFormat !== prevTargetFormat) {
+  if (initialTargetFormat !== prevTargetFormat) {
     setPrevTargetFormat(initialTargetFormat);
-    setSettings((prev) => ({ ...prev, targetFormat: initialTargetFormat }));
+    setSettings((prev) => ({
+      ...prev,
+      targetFormat: initialTargetFormat || DEFAULT_SETTINGS.targetFormat,
+    }));
   }
 
   // Clean up object URLs on component unmount ONLY

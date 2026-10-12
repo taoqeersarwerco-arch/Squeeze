@@ -1,7 +1,7 @@
 # Squeeze ⚡
 
 > **Private, zero-upload in-browser image conversion and perceptual compression engine.**  
-> Convert between **JPG, PNG, ICO, SVG, and WebP** with zero quality loss and $0 server hosting bills.  
+> Convert between **JPG, PNG, ICO, SVG, and WebP** with lossless precision for supported formats, SSIM-guided perceptual fidelity, and $0 server hosting bills.  
 > Live at: [trysqueeze.online](https://trysqueeze.online)
 
 ---
@@ -124,7 +124,7 @@ Squeeze is configured for production on **`trysqueeze.online`**.
 2. Add `trysqueeze.online` and `www.trysqueeze.online`.
 3. Point your registrar DNS:
    - **A Record**: `@` &rarr; `76.76.21.21`
-   - **CNAME Record**: `www` &rarr; `cname.vercel-dns.com`
+   - **CNAME Record**: `www` &rarr; `cname.vercel-dns.com` *(or the canonical alias provided in your Vercel Dashboard)*
 
 ---
 
