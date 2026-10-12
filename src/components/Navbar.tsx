@@ -12,18 +12,16 @@ interface NavbarProps {
 export function Navbar({ onOpenSettings }: NavbarProps) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const [mobileSection, setMobileSection] = useState<'convert' | 'compress' | null>(null);
-  const [hoverDropdown, setHoverDropdown] = useState<'convert' | 'compress' | null>(null);
-  const [pinnedDropdown, setPinnedDropdown] = useState<'convert' | 'compress' | null>(null);
+  const [activeMenu, setActiveMenu] = useState<'convert' | 'compress' | null>(null);
+  const [isPinned, setIsPinned] = useState(false);
   const navContainerRef = useRef<HTMLElement | null>(null);
   const closeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-
-  const activeDropdown = pinnedDropdown || hoverDropdown;
 
   React.useEffect(() => {
     const handlePointerDownOutside = (e: MouseEvent | TouchEvent) => {
       if (navContainerRef.current && !navContainerRef.current.contains(e.target as Node)) {
-        setPinnedDropdown(null);
-        setHoverDropdown(null);
+        setIsPinned(false);
+        setActiveMenu(null);
       }
     };
     document.addEventListener('mousedown', handlePointerDownOutside);
@@ -39,21 +37,31 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
       clearTimeout(closeTimeoutRef.current);
       closeTimeoutRef.current = null;
     }
-    setHoverDropdown(menu);
+    setIsPinned(false);
+    setActiveMenu(menu);
   };
 
   const handleMouseLeave = () => {
+    if (isPinned) return;
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+    }
     closeTimeoutRef.current = setTimeout(() => {
-      setHoverDropdown(null);
+      setActiveMenu(null);
     }, 220);
   };
 
   const toggleDropdownClick = (menu: 'convert' | 'compress') => {
-    if (pinnedDropdown === menu) {
-      setPinnedDropdown(null);
-      setHoverDropdown(null);
+    if (closeTimeoutRef.current) {
+      clearTimeout(closeTimeoutRef.current);
+      closeTimeoutRef.current = null;
+    }
+    if (activeMenu === menu && isPinned) {
+      setIsPinned(false);
+      setActiveMenu(null);
     } else {
-      setPinnedDropdown(menu);
+      setIsPinned(true);
+      setActiveMenu(menu);
     }
   };
 
@@ -61,8 +69,8 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
     if (closeTimeoutRef.current) {
       clearTimeout(closeTimeoutRef.current);
     }
-    setPinnedDropdown(null);
-    setHoverDropdown(null);
+    setIsPinned(false);
+    setActiveMenu(null);
     setMobileOpen(false);
   };
 
@@ -83,7 +91,7 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
         <nav ref={navContainerRef} className="hidden md:flex items-center gap-1 text-[13px] font-medium text-zinc-400">
           {/* Convert with Hover & Click Submenu */}
           <div
-            className="relative"
+            className="relative group/convert"
             onMouseEnter={() => handleMouseEnter('convert')}
             onMouseLeave={handleMouseLeave}
           >
@@ -91,72 +99,72 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
               type="button"
               onClick={() => toggleDropdownClick('convert')}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-lg transition-colors duration-150 cursor-pointer ${
-                activeDropdown === 'convert'
+                activeMenu === 'convert'
                   ? 'text-white bg-white/[0.08]'
-                  : 'hover:text-white hover:bg-white/[0.06]'
+                  : 'hover:text-white hover:bg-white/[0.06] group-hover/convert:text-white group-hover/convert:bg-white/[0.06]'
               }`}
             >
               <span>Convert</span>
-              <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${activeDropdown === 'convert' ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`h-3 w-3 transition-transform duration-200 group-hover/convert:rotate-180 ${activeMenu === 'convert' ? 'rotate-180' : ''}`} />
             </button>
 
             {/* Convert Submenu Flyout */}
-            {activeDropdown === 'convert' && (
+            <div
+              className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[600px] max-w-[90vw] z-50 transition-all duration-150 ${
+                activeMenu === 'convert'
+                  ? 'block opacity-100 pointer-events-auto'
+                  : 'hidden group-hover/convert:block group-hover/convert:opacity-100 group-hover/convert:pointer-events-auto'
+              }`}
+            >
+              {/* Invisible hover bridge */}
+              <div className="absolute -top-2 left-0 right-0 h-4 bg-transparent pointer-events-auto" />
               <div
-                className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[600px] max-w-[90vw] pointer-events-auto z-50 animate-in fade-in zoom-in-95 duration-150"
-                onMouseEnter={() => handleMouseEnter('convert')}
-                onMouseLeave={handleMouseLeave}
+                className="rounded-2xl border border-white/[0.10] bg-zinc-950/95 backdrop-blur-2xl p-5 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.85)] space-y-4"
+                style={{ boxShadow: 'var(--glass-inset), 0 24px 48px -12px rgba(0,0,0,0.85)' }}
               >
-                {/* Invisible hover bridge */}
-                <div className="absolute -top-2 left-0 right-0 h-4 bg-transparent" />
-                <div
-                  className="rounded-2xl border border-white/[0.10] bg-zinc-950/95 backdrop-blur-2xl p-5 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.85)] space-y-4"
-                  style={{ boxShadow: 'var(--glass-inset), 0 24px 48px -12px rgba(0,0,0,0.85)' }}
-                >
-                  <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
-                    <div>
-                      <p className="text-xs font-semibold text-white">Image Conversion Pairs</p>
-                      <p className="text-[11px] text-[var(--text-secondary)]">Instant in-browser format conversion</p>
-                    </div>
-                    <Link
-                      href="/"
-                      onClick={closeDropdown}
-                      className="inline-flex items-center gap-1 text-[11px] text-zinc-400 hover:text-white transition"
-                    >
-                      <span>Custom converter</span>
-                      <ArrowRight className="h-3 w-3" />
-                    </Link>
+                <div className="flex items-center justify-between pb-3 border-b border-white/[0.06]">
+                  <div>
+                    <p className="text-xs font-semibold text-white">Image Conversion Pairs</p>
+                    <p className="text-[11px] text-[var(--text-secondary)]">Instant in-browser format conversion</p>
                   </div>
+                  <Link
+                    href="/"
+                    onClick={closeDropdown}
+                    className="inline-flex items-center gap-1 text-[11px] text-zinc-400 hover:text-white transition"
+                  >
+                    <span>Custom converter</span>
+                    <ArrowRight className="h-3 w-3" />
+                  </Link>
+                </div>
 
-                  <div className="grid grid-cols-3 gap-2">
-                    {SEO_CONVERSION_PAIRS.map((pair) => (
-                      <Link
-                        key={`${pair.from}-${pair.to}`}
-                        href={`/convert/${pair.from}-to-${pair.to}`}
-                        onClick={closeDropdown}
-                        className="group/item flex items-center justify-between p-2 rounded-lg border border-white/[0.04] bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all"
-                      >
-                        <div className="min-w-0">
-                          <div className="flex items-center gap-1 text-xs font-medium text-zinc-300 group-hover/item:text-white">
-                            <span className="uppercase">{pair.from}</span>
-                            <span className="text-zinc-500">&rarr;</span>
-                            <span className="uppercase text-white font-semibold">{pair.to}</span>
-                          </div>
-                          <p className="text-[10px] text-zinc-500 truncate mt-0.5">
-                            {pair.to === 'ico' ? 'Favicon' : pair.to === 'svg' ? 'Vector trace' : 'Convert'}
-                          </p>
+                <div className="grid grid-cols-3 gap-2">
+                  {SEO_CONVERSION_PAIRS.map((pair) => (
+                    <Link
+                      key={`${pair.from}-${pair.to}`}
+                      href={`/convert/${pair.from}-to-${pair.to}`}
+                      onClick={closeDropdown}
+                      className="group/item flex items-center justify-between p-2 rounded-lg border border-white/[0.04] bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all"
+                    >
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-1 text-xs font-medium text-zinc-300 group-hover/item:text-white">
+                          <span className="uppercase">{pair.from}</span>
+                          <span className="text-zinc-500">&rarr;</span>
+                          <span className="uppercase text-white font-semibold">{pair.to}</span>
                         </div>
-                      </Link>
-                    ))}
-                  </div>
+                        <p className="text-[10px] text-zinc-500 truncate mt-0.5">
+                          {pair.to === 'ico' ? 'Favicon' : pair.to === 'svg' ? 'Vector trace' : 'Convert'}
+                        </p>
+                      </div>
+                    </Link>
+                  ))}
                 </div>
               </div>
-            )}
+            </div>
           </div>
 
           {/* Compress with Hover & Click Submenu */}
           <div
-            className="relative"
+            className="relative group/compress"
             onMouseEnter={() => handleMouseEnter('compress')}
             onMouseLeave={handleMouseLeave}
           >
@@ -164,54 +172,54 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
               type="button"
               onClick={() => toggleDropdownClick('compress')}
               className={`flex items-center gap-1 px-3 py-1.5 rounded-lg transition-colors duration-150 cursor-pointer ${
-                activeDropdown === 'compress'
+                activeMenu === 'compress'
                   ? 'text-white bg-white/[0.08]'
-                  : 'hover:text-white hover:bg-white/[0.06]'
+                  : 'hover:text-white hover:bg-white/[0.06] group-hover/compress:text-white group-hover/compress:bg-white/[0.06]'
               }`}
             >
               <span>Compress</span>
-              <ChevronDown className={`h-3 w-3 transition-transform duration-200 ${activeDropdown === 'compress' ? 'rotate-180' : ''}`} />
+              <ChevronDown className={`h-3 w-3 transition-transform duration-200 group-hover/compress:rotate-180 ${activeMenu === 'compress' ? 'rotate-180' : ''}`} />
             </button>
 
             {/* Compress Submenu Flyout */}
-            {activeDropdown === 'compress' && (
+            <div
+              className={`absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[340px] z-50 transition-all duration-150 ${
+                activeMenu === 'compress'
+                  ? 'block opacity-100 pointer-events-auto'
+                  : 'hidden group-hover/compress:block group-hover/compress:opacity-100 group-hover/compress:pointer-events-auto'
+              }`}
+            >
+              {/* Invisible hover bridge */}
+              <div className="absolute -top-2 left-0 right-0 h-4 bg-transparent pointer-events-auto" />
               <div
-                className="absolute top-full left-1/2 -translate-x-1/2 pt-2 w-[340px] pointer-events-auto z-50 animate-in fade-in zoom-in-95 duration-150"
-                onMouseEnter={() => handleMouseEnter('compress')}
-                onMouseLeave={handleMouseLeave}
+                className="rounded-2xl border border-white/[0.10] bg-zinc-950/95 backdrop-blur-2xl p-4 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.85)] space-y-2"
+                style={{ boxShadow: 'var(--glass-inset), 0 24px 48px -12px rgba(0,0,0,0.85)' }}
               >
-                {/* Invisible hover bridge */}
-                <div className="absolute -top-2 left-0 right-0 h-4 bg-transparent" />
-                <div
-                  className="rounded-2xl border border-white/[0.10] bg-zinc-950/95 backdrop-blur-2xl p-4 shadow-[0_24px_48px_-12px_rgba(0,0,0,0.85)] space-y-2"
-                  style={{ boxShadow: 'var(--glass-inset), 0 24px 48px -12px rgba(0,0,0,0.85)' }}
-                >
-                  <div className="pb-2 mb-1 border-b border-white/[0.06]">
-                    <p className="text-xs font-semibold text-white">Lossless & Smart Compression</p>
-                    <p className="text-[11px] text-[var(--text-secondary)]">Shrink image file size with zero upload</p>
-                  </div>
-
-                  {SEO_COMPRESS_FORMATS.map((cf) => (
-                    <Link
-                      key={cf.format}
-                      href={`/compress/${cf.format}`}
-                      onClick={closeDropdown}
-                      className="group/item flex items-center justify-between p-2.5 rounded-xl border border-white/[0.04] bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all"
-                    >
-                      <div>
-                        <p className="text-xs font-semibold text-white group-hover/item:text-white">
-                          Compress {cf.name}
-                        </p>
-                        <p className="text-[10px] text-zinc-500 mt-0.5">
-                          {cf.format === 'jpg' ? 'Perceptual photo shrinkage' : cf.format === 'png' ? 'Transparent graphic squeeze' : 'High performance web images'}
-                        </p>
-                      </div>
-                      <ArrowRight className="h-3 w-3 text-zinc-600 group-hover/item:text-white transition-colors" />
-                    </Link>
-                  ))}
+                <div className="pb-2 mb-1 border-b border-white/[0.06]">
+                  <p className="text-xs font-semibold text-white">Lossless & Smart Compression</p>
+                  <p className="text-[11px] text-[var(--text-secondary)]">Shrink image file size with zero upload</p>
                 </div>
+
+                {SEO_COMPRESS_FORMATS.map((cf) => (
+                  <Link
+                    key={cf.format}
+                    href={`/compress/${cf.format}`}
+                    onClick={closeDropdown}
+                    className="group/item flex items-center justify-between p-2.5 rounded-xl border border-white/[0.04] bg-white/[0.02] hover:bg-white/[0.08] hover:border-white/[0.12] transition-all"
+                  >
+                    <div>
+                      <p className="text-xs font-semibold text-white group-hover/item:text-white">
+                        Compress {cf.name}
+                      </p>
+                      <p className="text-[10px] text-zinc-500 mt-0.5">
+                        {cf.format === 'jpg' ? 'Perceptual photo shrinkage' : cf.format === 'png' ? 'Transparent graphic squeeze' : 'High performance web images'}
+                      </p>
+                    </div>
+                    <ArrowRight className="h-3 w-3 text-zinc-600 group-hover/item:text-white transition-colors" />
+                  </Link>
+                ))}
               </div>
-            )}
+            </div>
           </div>
 
           {/* Learn */}
