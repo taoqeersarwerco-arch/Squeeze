@@ -12,6 +12,7 @@ import { BatchDock } from './BatchDock';
 import { AdBanner } from './AdBanner';
 import { FaqSection } from './FaqSection';
 import { Footer } from './Footer';
+import { ConversionHubGrid } from './ConversionHubGrid';
 
 interface ImageConverterAppProps {
   initialTargetFormat?: SupportedFormat;
@@ -247,6 +248,38 @@ export function ImageConverterApp({
             </p>
           </div>
 
+          {/* Quick Preset Format Selector */}
+          <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+            <span className="text-[11px] font-medium text-zinc-500 mr-1 hidden sm:inline">
+              Convert to:
+            </span>
+            {Object.values(FORMATS).map((fmt) => {
+              const isSelected = settings.targetFormat === fmt.id;
+              return (
+                <button
+                  key={fmt.id}
+                  type="button"
+                  onClick={() => {
+                    const newFmt = fmt.id;
+                    setSettings((prev) => ({ ...prev, targetFormat: newFmt }));
+                    if (items.length > 0) {
+                      items.forEach((item) => {
+                        processItem(item, { ...settings, targetFormat: newFmt });
+                      });
+                    }
+                  }}
+                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase transition cursor-pointer border ${
+                    isSelected
+                      ? 'border-white/25 bg-white text-zinc-900 shadow-md'
+                      : 'border-white/[0.08] bg-white/[0.02] text-zinc-400 hover:text-white hover:bg-white/[0.06] hover:border-white/[0.14]'
+                  }`}
+                >
+                  {fmt.id}
+                </button>
+              );
+            })}
+          </div>
+
           {/* DropZone */}
           <DropZone
             onFilesSelected={handleFilesSelected}
@@ -268,6 +301,19 @@ export function ImageConverterApp({
 
           {/* Below-fold Ad Slot */}
           <AdBanner slot="infeed" className="my-6" />
+
+          {/* All Conversion & Compression Options Grid */}
+          <ConversionHubGrid
+            currentTargetFormat={settings.targetFormat}
+            onSelectFormat={(newFormat) => {
+              setSettings((prev) => ({ ...prev, targetFormat: newFormat }));
+              if (items.length > 0) {
+                items.forEach((item) => {
+                  processItem(item, { ...settings, targetFormat: newFormat });
+                });
+              }
+            }}
+          />
 
           {/* Page-Specific Content / How-To Guides */}
           {children}
