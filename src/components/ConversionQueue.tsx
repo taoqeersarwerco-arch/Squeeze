@@ -4,13 +4,12 @@ import React from 'react';
 import { ImageItem, SupportedFormat } from '@/lib/types';
 import { FORMATS } from '@/lib/constants';
 import { formatBytes, formatFileName } from '@/lib/engine';
-import { Download, Trash2, SplitSquareVertical, Loader2, AlertCircle, Sparkles } from 'lucide-react';
+import { Download, Trash2, Loader2, AlertCircle, Sparkles } from 'lucide-react';
 
 interface ConversionQueueProps {
   items: ImageItem[];
   onRemoveItem: (id: string) => void;
   onUpdateTargetFormat: (id: string, format: SupportedFormat) => void;
-  onOpenCompare: (item: ImageItem) => void;
   slugifyNames: boolean;
 }
 
@@ -18,7 +17,6 @@ export function ConversionQueue({
   items,
   onRemoveItem,
   onUpdateTargetFormat,
-  onOpenCompare,
   slugifyNames,
 }: ConversionQueueProps) {
   if (items.length === 0) return null;
@@ -35,8 +33,8 @@ export function ConversionQueue({
             {items.length} file{items.length > 1 ? 's' : ''}
           </span>
         </div>
-        <span className="text-[11px] text-zinc-400 hidden sm:inline">
-          Click any thumbnail to inspect pixel differences
+        <span className="text-[11px] text-emerald-400/80 font-medium hidden sm:inline">
+          Processed 100% locally in browser memory
         </span>
       </div>
 
@@ -56,17 +54,9 @@ export function ConversionQueue({
               key={item.id}
               className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-3 p-3.5 sm:p-4 rounded-2xl border border-white/10 bg-zinc-900/60 backdrop-blur-xl shadow-lg hover:border-white/20 transition-all duration-200"
             >
-              {/* Left Section: Double-Bezel Thumbnail & Metadata */}
+              {/* Left Section: Thumbnail & Metadata */}
               <div className="flex items-center gap-3.5 min-w-0">
-                <button
-                  type="button"
-                  onClick={() => isDone && onOpenCompare(item)}
-                  disabled={!isDone}
-                  title="Click to compare before/after"
-                  className={`relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/40 transition-all duration-200 ${
-                    isDone ? 'cursor-pointer hover:ring-2 hover:ring-indigo-500/60 hover:scale-105' : 'cursor-default'
-                  }`}
-                >
+                <div className="relative flex h-14 w-14 flex-shrink-0 items-center justify-center overflow-hidden rounded-xl border border-white/10 bg-black/40 shadow-inner">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
                     src={item.origUrl}
@@ -78,7 +68,7 @@ export function ConversionQueue({
                       <Loader2 className="h-5 w-5 animate-spin text-indigo-400" />
                     </div>
                   )}
-                </button>
+                </div>
 
                 <div className="min-w-0 flex-1">
                   <div className="flex items-center gap-2">
@@ -157,27 +147,17 @@ export function ConversionQueue({
                   </select>
                 </div>
 
-                <div className="flex items-center gap-1.5">
-                  {/* Compare Button */}
-                  <button
-                    type="button"
-                    onClick={() => onOpenCompare(item)}
-                    disabled={!isDone}
-                    title="Compare before & after"
-                    className="flex h-8 w-8 items-center justify-center rounded-xl border border-white/10 bg-white/5 text-zinc-300 hover:bg-white/10 hover:text-white disabled:opacity-30 transition cursor-pointer"
-                  >
-                    <SplitSquareVertical className="h-4 w-4" />
-                  </button>
-
+                <div className="flex items-center gap-2">
                   {/* Direct Download Button */}
                   {isDone && item.outUrl && (
                     <a
                       href={item.outUrl}
                       download={outFileName}
                       title={`Download ${outFileName}`}
-                      className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-600/90 text-white hover:bg-indigo-500 shadow-md shadow-indigo-600/20 hover:scale-105 transition cursor-pointer"
+                      className="inline-flex items-center gap-1.5 rounded-xl bg-gradient-to-r from-indigo-600 to-violet-600 hover:from-indigo-500 hover:to-violet-500 px-3.5 py-1.5 text-xs font-bold text-white shadow-md shadow-indigo-600/30 transition hover:scale-102 cursor-pointer"
                     >
-                      <Download className="h-4 w-4" />
+                      <Download className="h-3.5 w-3.5" />
+                      <span>Download {item.targetFormat.toUpperCase()}</span>
                     </a>
                   )}
 

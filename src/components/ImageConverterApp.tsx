@@ -7,7 +7,6 @@ import { detectFormat, getEngine } from '@/lib/engine';
 import { Navbar } from './Navbar';
 import { DropZone } from './DropZone';
 import { ConversionQueue } from './ConversionQueue';
-import { CompareModal } from './CompareModal';
 import { GlobalSettingsModal } from './GlobalSettingsModal';
 import { BatchDock } from './BatchDock';
 import { AdBanner } from './AdBanner';
@@ -35,7 +34,6 @@ export function ImageConverterApp({
     ...DEFAULT_SETTINGS,
     targetFormat: initialTargetFormat || DEFAULT_SETTINGS.targetFormat,
   }));
-  const [compareItem, setCompareItem] = useState<ImageItem | null>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const activeUrlsRef = useRef<Set<string>>(new Set());
 
@@ -60,16 +58,6 @@ export function ImageConverterApp({
       urls.clear();
     };
   }, []);
-
-  // Keep compareItem in sync with items updates
-  useEffect(() => {
-    if (compareItem) {
-      const updated = items.find((i) => i.id === compareItem.id);
-      if (updated && (updated.outUrl !== compareItem.outUrl || updated.status !== compareItem.status)) {
-        setCompareItem(updated);
-      }
-    }
-  }, [items, compareItem]);
 
   // Process a single item
   const processItem = useCallback(
@@ -205,7 +193,6 @@ export function ImageConverterApp({
       }
       return prev.filter((i) => i.id !== id);
     });
-    setCompareItem((current) => (current?.id === id ? null : current));
   }, []);
 
   // Update target format for single item
@@ -238,7 +225,6 @@ export function ImageConverterApp({
     });
     activeUrlsRef.current.clear();
     setItems([]);
-    setCompareItem(null);
   }, []);
 
   const hasItems = items.length > 0;
@@ -299,7 +285,6 @@ export function ImageConverterApp({
                 items={items}
                 onRemoveItem={handleRemoveItem}
                 onUpdateTargetFormat={handleUpdateTargetFormat}
-                onOpenCompare={(item) => setCompareItem(item)}
                 slugifyNames={settings.slugifyNames}
               />
             </div>
@@ -320,13 +305,6 @@ export function ImageConverterApp({
       <BatchDock
         items={items}
         onClearAll={handleClearAll}
-        slugifyNames={settings.slugifyNames}
-      />
-
-      {/* Cinematic Split Comparison Dialog */}
-      <CompareModal
-        item={compareItem}
-        onClose={() => setCompareItem(null)}
         slugifyNames={settings.slugifyNames}
       />
 
