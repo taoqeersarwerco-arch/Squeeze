@@ -18,6 +18,45 @@ export function CompareModal({ item, onClose, slugifyNames }: CompareModalProps)
   const stageRef = useRef<HTMLDivElement>(null);
   const isDragging = useRef(false);
 
+  // Self-healing Blob URL states
+  const [origSrc, setOrigSrc] = useState<string>('');
+  const [outSrc, setOutSrc] = useState<string>('');
+
+  useEffect(() => {
+    if (item?.origUrl) {
+      setOrigSrc(item.origUrl);
+    } else if (item?.file) {
+      try {
+        setOrigSrc(URL.createObjectURL(item.file));
+      } catch {}
+    }
+    if (item?.outUrl) {
+      setOutSrc(item.outUrl);
+    } else if (item?.outBlob) {
+      try {
+        setOutSrc(URL.createObjectURL(item.outBlob));
+      } catch {}
+    }
+  }, [item]);
+
+  const handleOrigError = useCallback(() => {
+    if (item?.file) {
+      try {
+        const fresh = URL.createObjectURL(item.file);
+        setOrigSrc(fresh);
+      } catch {}
+    }
+  }, [item?.file]);
+
+  const handleOutError = useCallback(() => {
+    if (item?.outBlob) {
+      try {
+        const fresh = URL.createObjectURL(item.outBlob);
+        setOutSrc(fresh);
+      } catch {}
+    }
+  }, [item?.outBlob]);
+
   // Close on Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -62,6 +101,10 @@ export function CompareModal({ item, onClose, slugifyNames }: CompareModalProps)
   const savedBytes = item.file.size - item.outSize;
   const savedPercent = item.file.size > 0 ? Math.round((savedBytes / item.file.size) * 100) : 0;
 
+  const width = item.origWidth || item.outWidth || 800;
+  const height = item.origHeight || item.outHeight || 600;
+  const aspectRatio = `${width} / ${height}`;
+
   return (
     <div
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-2xl p-4 overflow-y-auto animate-in fade-in duration-200"
@@ -103,42 +146,53 @@ export function CompareModal({ item, onClose, slugifyNames }: CompareModalProps)
         </div>
 
         {/* Interactive Split Viewer Stage */}
-        <div className="relative max-h-[58vh] overflow-auto bg-black/50 p-4 sm:p-6 flex items-center justify-center">
+        <div className="relative min-h-[340px] sm:min-h-[460px] max-h-[64vh] overflow-hidden bg-black/60 p-4 sm:p-6 flex items-center justify-center">
           <div
             ref={stageRef}
             onPointerDown={handlePointerDown}
             onPointerMove={handlePointerMove}
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
-            className={`relative mx-auto select-none cursor-ew-resize overflow-hidden rounded-2xl border border-white/15 shadow-2xl ${
+            className={`relative mx-auto select-none cursor-ew-resize overflow-hidden rounded-2xl border border-white/15 bg-zinc-950/80 shadow-2xl flex items-center justify-center ${
               isZoomed ? 'w-auto' : 'w-full max-w-2xl'
             }`}
-            style={{ touchAction: 'none' }}
+            style={{
+              touchAction: 'none',
+              aspectRatio,
+              maxHeight: '54vh',
+              maxWidth: '100%',
+            }}
           >
             {/* Image A: Original */}
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
-              src={item.origUrl}
+              src={origSrc || item.origUrl}
               alt="Original"
-              className={`block w-full h-auto pointer-events-none ${isZoomed ? 'rendering-pixelated' : ''}`}
+              onError={handleOrigError}
+              className={`block w-full h-full object-contain pointer-events-none select-none ${
+                isZoomed ? 'rendering-pixelated scale-125' : ''
+              }`}
             />
 
             {/* Image B: Converted (Clipped) */}
             <div
-              className="absolute inset-0 h-full pointer-events-none"
+              className="absolute inset-0 w-full h-full pointer-events-none overflow-hidden"
               style={{ clipPath: `inset(0 0 0 ${dividerPos}%)` }}
             >
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
-                src={item.outUrl}
+                src={outSrc || item.outUrl}
                 alt="Converted"
-                className={`block w-full h-auto pointer-events-none ${isZoomed ? 'rendering-pixelated' : ''}`}
+                onError={handleOutError}
+                className={`block w-full h-full object-contain pointer-events-none select-none ${
+                  isZoomed ? 'rendering-pixelated scale-125' : ''
+                }`}
               />
             </div>
 
             {/* Glowing Split Divider Line */}
             <div
-              className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_12px_rgba(255,255,255,0.7)] pointer-events-none"
+              className="absolute top-0 bottom-0 w-0.5 bg-white shadow-[0_0_14px_rgba(255,255,255,0.8)] pointer-events-none z-10"
               style={{ left: `${dividerPos}%` }}
             >
               <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex h-8 w-8 items-center justify-center rounded-full bg-white text-zinc-950 shadow-2xl border border-white">
@@ -147,10 +201,10 @@ export function CompareModal({ item, onClose, slugifyNames }: CompareModalProps)
             </div>
 
             {/* Floating Badges */}
-            <div className="absolute top-3 left-3 rounded-full bg-black/70 backdrop-blur-md px-3 py-1 text-[11px] font-bold text-white border border-white/15 pointer-events-none shadow-lg">
+            <div className="absolute top-3 left-3 z-10 rounded-full bg-black/75 backdrop-blur-md px-3 py-1 text-[11px] font-bold text-white border border-white/15 pointer-events-none shadow-lg">
               Original ({item.sourceFormat.toUpperCase()})
             </div>
-            <div className="absolute top-3 right-3 rounded-full bg-indigo-600/90 backdrop-blur-md px-3 py-1 text-[11px] font-bold text-white border border-indigo-400/30 pointer-events-none shadow-lg">
+            <div className="absolute top-3 right-3 z-10 rounded-full bg-indigo-600/90 backdrop-blur-md px-3 py-1 text-[11px] font-bold text-white border border-indigo-400/30 pointer-events-none shadow-lg">
               Squeezed ({item.targetFormat.toUpperCase()})
             </div>
           </div>

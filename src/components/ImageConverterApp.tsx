@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { ImageItem, SupportedFormat, ConversionSettings } from '@/lib/types';
 import { DEFAULT_SETTINGS, FORMATS } from '@/lib/constants';
 import { detectFormat, getEngine } from '@/lib/engine';
@@ -37,6 +37,7 @@ export function ImageConverterApp({
   }));
   const [compareItem, setCompareItem] = useState<ImageItem | null>(null);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const activeUrlsRef = useRef<Set<string>>(new Set());
 
   // Keep target format aligned if initial prop changes
   useEffect(() => {
@@ -45,15 +46,30 @@ export function ImageConverterApp({
     }
   }, [initialTargetFormat]);
 
-  // Clean up object URLs on unmount
+  // Clean up object URLs on component unmount ONLY
   useEffect(() => {
+    const urls = activeUrlsRef.current;
     return () => {
-      items.forEach((item) => {
-        if (item.origUrl) URL.revokeObjectURL(item.origUrl);
-        if (item.outUrl) URL.revokeObjectURL(item.outUrl);
+      urls.forEach((url) => {
+        try {
+          URL.revokeObjectURL(url);
+        } catch {
+          // Ignore
+        }
       });
+      urls.clear();
     };
-  }, [items]);
+  }, []);
+
+  // Keep compareItem in sync with items updates
+  useEffect(() => {
+    if (compareItem) {
+      const updated = items.find((i) => i.id === compareItem.id);
+      if (updated && (updated.outUrl !== compareItem.outUrl || updated.status !== compareItem.status)) {
+        setCompareItem(updated);
+      }
+    }
+  }, [items, compareItem]);
 
   // Process a single item
   const processItem = useCallback(
@@ -79,11 +95,17 @@ export function ImageConverterApp({
 
         const outBlob = new Blob([res.outBlobData], { type: res.outMime || 'application/octet-stream' });
         const outUrl = URL.createObjectURL(outBlob);
+        activeUrlsRef.current.add(outUrl);
 
         setItems((prev) =>
           prev.map((i) => {
             if (i.id !== item.id) return i;
-            if (i.outUrl) URL.revokeObjectURL(i.outUrl);
+            if (i.outUrl && i.outUrl !== outUrl) {
+              try {
+                URL.revokeObjectURL(i.outUrl);
+                activeUrlsRef.current.delete(i.outUrl);
+              } catch {}
+            }
             return {
               ...i,
               status: 'done',
@@ -124,6 +146,7 @@ export function ImageConverterApp({
 
         const id = `${Date.now()}-${Math.random().toString(36).substring(2, 9)}`;
         const origUrl = URL.createObjectURL(file);
+        activeUrlsRef.current.add(origUrl);
 
         let targetFmt = settings.targetFormat;
         if (sourceFmt === targetFmt) {
@@ -167,11 +190,22 @@ export function ImageConverterApp({
     setItems((prev) => {
       const target = prev.find((i) => i.id === id);
       if (target) {
-        if (target.origUrl) URL.revokeObjectURL(target.origUrl);
-        if (target.outUrl) URL.revokeObjectURL(target.outUrl);
+        if (target.origUrl) {
+          try {
+            URL.revokeObjectURL(target.origUrl);
+            activeUrlsRef.current.delete(target.origUrl);
+          } catch {}
+        }
+        if (target.outUrl) {
+          try {
+            URL.revokeObjectURL(target.outUrl);
+            activeUrlsRef.current.delete(target.outUrl);
+          } catch {}
+        }
       }
       return prev.filter((i) => i.id !== id);
     });
+    setCompareItem((current) => (current?.id === id ? null : current));
   }, []);
 
   // Update target format for single item
@@ -197,12 +231,15 @@ export function ImageConverterApp({
 
   // Clear all items
   const handleClearAll = useCallback(() => {
-    items.forEach((item) => {
-      if (item.origUrl) URL.revokeObjectURL(item.origUrl);
-      if (item.outUrl) URL.revokeObjectURL(item.outUrl);
+    activeUrlsRef.current.forEach((url) => {
+      try {
+        URL.revokeObjectURL(url);
+      } catch {}
     });
+    activeUrlsRef.current.clear();
     setItems([]);
-  }, [items]);
+    setCompareItem(null);
+  }, []);
 
   const hasItems = items.length > 0;
 
