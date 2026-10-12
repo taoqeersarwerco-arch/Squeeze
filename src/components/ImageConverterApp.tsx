@@ -83,7 +83,20 @@ export function ImageConverterApp({
           throw new Error(res.error || 'Conversion failed.');
         }
 
-        const outBlob = new Blob([res.outBlobData], { type: res.outMime || 'application/octet-stream' });
+        let outBlob = new Blob([res.outBlobData], { type: res.outMime || 'application/octet-stream' });
+        let outSize = res.outSize || outBlob.size;
+
+        // Smart Same-Format Bloat Guard:
+        // If the source format matches the target format, no dimension resizing occurred,
+        // and browser canvas re-encode produced a larger file than the original (e.g. uncompressed PNG),
+        // preserve the original file bytes with 100% fidelity to prevent accidental size inflation.
+        const noResize = !activeSettings.maxEdge || activeSettings.maxEdge <= 0;
+        const isSameFormat = item.sourceFormat === activeSettings.targetFormat;
+        if (isSameFormat && noResize && outSize > item.file.size) {
+          outBlob = item.file;
+          outSize = item.file.size;
+        }
+
         const outUrl = URL.createObjectURL(outBlob);
         activeUrlsRef.current.add(outUrl);
 
@@ -139,10 +152,8 @@ export function ImageConverterApp({
         const origUrl = URL.createObjectURL(file);
         activeUrlsRef.current.add(origUrl);
 
-        let targetFmt = settings.targetFormat;
-        if (sourceFmt === targetFmt) {
-          targetFmt = sourceFmt === 'webp' ? 'png' : 'webp';
-        }
+        // Prioritize explicit route target format, otherwise active settings format
+        const targetFmt = initialTargetFormat || settings.targetFormat;
 
         const item: ImageItem = {
           id,
@@ -213,11 +224,29 @@ export function ImageConverterApp({
   );
 
   // Reapply settings to all items
-  const handleReapply = useCallback(() => {
-    items.forEach((item) => {
-      processItem(item, settings);
-    });
-  }, [items, settings, processItem]);
+  const handleReapply = useCallback(
+    (customSettings?: ConversionSettings) => {
+      const active = customSettings || settings;
+      items.forEach((item) => {
+        processItem(item, { ...active, targetFormat: item.targetFormat });
+      });
+    },
+    [items, settings, processItem]
+  );
+
+  // Reset to default settings
+  const handleResetDefaults = useCallback(() => {
+    const reset: ConversionSettings = {
+      ...DEFAULT_SETTINGS,
+      targetFormat: initialTargetFormat || DEFAULT_SETTINGS.targetFormat,
+    };
+    setSettings(reset);
+    if (items.length > 0) {
+      items.forEach((item) => {
+        processItem(item, { ...reset, targetFormat: item.targetFormat });
+      });
+    }
+  }, [initialTargetFormat, items, processItem]);
 
   // Clear all items
   const handleClearAll = useCallback(() => {
@@ -251,37 +280,96 @@ export function ImageConverterApp({
             </p>
           </div>
 
-          {/* Quick Preset Format Selector */}
-          <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
-            <span className="text-[11px] font-medium text-zinc-500 mr-1 hidden sm:inline">
-              Convert to:
-            </span>
-            {Object.values(FORMATS).map((fmt) => {
-              const isSelected = settings.targetFormat === fmt.id;
-              return (
-                <button
-                  key={fmt.id}
-                  type="button"
-                  onClick={() => {
-                    const newFmt = fmt.id;
-                    setSettings((prev) => ({ ...prev, targetFormat: newFmt }));
-                    if (items.length > 0) {
-                      items.forEach((item) => {
-                        processItem(item, { ...settings, targetFormat: newFmt });
-                      });
-                    }
-                  }}
-                  className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase transition cursor-pointer border ${
-                    isSelected
-                      ? 'border-white/25 bg-white text-zinc-900 shadow-md'
-                      : 'border-white/[0.08] bg-white/[0.02] text-zinc-400 hover:text-white hover:bg-white/[0.06] hover:border-white/[0.14]'
-                  }`}
-                >
-                  {fmt.id}
-                </button>
-              );
-            })}
-          </div>
+          {/* Quick Format Selector OR Dedicated Pair Route Badge */}
+          {initialTargetFormat ? (
+            <div className="flex flex-wrap items-center justify-center gap-2 pt-1 text-xs">
+              <span className="inline-flex items-center gap-2 rounded-full border border-white/[0.08] bg-white/[0.03] px-3.5 py-1.5 text-zinc-300">
+                <span className="h-2 w-2 rounded-full bg-emerald-400" />
+                Target output: <strong className="font-semibold text-white uppercase">{settings.targetFormat}</strong>
+              </span>
+              <button
+                type="button"
+                onClick={() => setIsSettingsOpen(true)}
+                className="inline-flex items-center gap-1.5 rounded-full border border-white/[0.08] bg-white/[0.02] px-3.5 py-1.5 text-zinc-400 hover:text-white hover:border-white/[0.14] transition cursor-pointer"
+              >
+                <span>Tune Quality & Settings</span>
+              </button>
+            </div>
+          ) : (
+            <div className="flex flex-wrap items-center justify-center gap-1.5 pt-1">
+              <span className="text-[11px] font-medium text-zinc-500 mr-1 hidden sm:inline">
+                Convert to:
+              </span>
+              {Object.values(FORMATS).map((fmt) => {
+                const isSelected = settings.targetFormat === fmt.id;
+                return (
+                  <button
+                    key={fmt.id}
+                    type="button"
+                    onClick={() => {
+                      const newFmt = fmt.id;
+                      setSettings((prev) => ({ ...prev, targetFormat: newFmt }));
+                      setItems((prev) => prev.map((item) => ({ ...item, targetFormat: newFmt })));
+                      if (items.length > 0) {
+                        items.forEach((item) => {
+                          processItem(item, { ...settings, targetFormat: newFmt });
+                        });
+                      }
+                    }}
+                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold uppercase transition cursor-pointer border ${
+                      isSelected
+                        ? 'border-white/25 bg-white text-zinc-900 shadow-md'
+                        : 'border-white/[0.08] bg-white/[0.02] text-zinc-400 hover:text-white hover:bg-white/[0.06] hover:border-white/[0.14]'
+                    }`}
+                  >
+                    {fmt.id}
+                  </button>
+                );
+              })}
+            </div>
+          )}
+
+          {/* Active Custom Settings Bar */}
+          {(() => {
+            const isCustom =
+              settings.goal !== DEFAULT_SETTINGS.goal ||
+              settings.targetRatio !== DEFAULT_SETTINGS.targetRatio ||
+              settings.targetQuality !== DEFAULT_SETTINGS.targetQuality ||
+              settings.targetSsim !== DEFAULT_SETTINGS.targetSsim ||
+              settings.maxEdge !== DEFAULT_SETTINGS.maxEdge ||
+              settings.matteColor !== DEFAULT_SETTINGS.matteColor ||
+              settings.slugifyNames !== DEFAULT_SETTINGS.slugifyNames;
+
+            if (!isCustom) return null;
+
+            return (
+              <div className="flex items-center justify-between gap-3 px-4 py-2 rounded-xl border border-white/[0.08] bg-white/[0.03] backdrop-blur-md text-xs">
+                <div className="flex items-center gap-2 text-zinc-300">
+                  <span className="flex h-2 w-2 rounded-full bg-amber-400 animate-pulse" />
+                  <span>
+                    Custom settings active: {settings.goal === 'quality' ? 'Quality-first' : `${settings.targetRatio}x compression`}
+                    {settings.maxEdge > 0 && ` • Max ${settings.maxEdge}px`}
+                  </span>
+                </div>
+                <div className="flex items-center gap-3">
+                  <button
+                    type="button"
+                    onClick={() => setIsSettingsOpen(true)}
+                    className="text-zinc-400 hover:text-white transition cursor-pointer underline underline-offset-2"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={handleResetDefaults}
+                    className="text-zinc-500 hover:text-zinc-300 transition cursor-pointer"
+                  >
+                    Reset
+                  </button>
+                </div>
+              </div>
+            );
+          })()}
 
           {/* DropZone */}
           <DropZone
@@ -310,6 +398,7 @@ export function ImageConverterApp({
             currentTargetFormat={settings.targetFormat}
             onSelectFormat={(newFormat) => {
               setSettings((prev) => ({ ...prev, targetFormat: newFormat }));
+              setItems((prev) => prev.map((item) => ({ ...item, targetFormat: newFormat })));
               if (items.length > 0) {
                 items.forEach((item) => {
                   processItem(item, { ...settings, targetFormat: newFormat });
@@ -340,6 +429,7 @@ export function ImageConverterApp({
         settings={settings}
         onUpdateSettings={(s) => setSettings(s)}
         onReapply={handleReapply}
+        onResetDefaults={handleResetDefaults}
         hasItems={hasItems}
       />
 

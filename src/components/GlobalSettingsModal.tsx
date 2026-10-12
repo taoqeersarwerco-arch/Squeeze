@@ -10,7 +10,8 @@ interface GlobalSettingsModalProps {
   onClose: () => void;
   settings: ConversionSettings;
   onUpdateSettings: (newSettings: ConversionSettings) => void;
-  onReapply: () => void;
+  onReapply: (customSettings?: ConversionSettings) => void;
+  onResetDefaults?: () => void;
   hasItems: boolean;
 }
 
@@ -20,6 +21,7 @@ export function GlobalSettingsModal({
   settings,
   onUpdateSettings,
   onReapply,
+  onResetDefaults,
   hasItems,
 }: GlobalSettingsModalProps) {
   if (!isOpen) return null;
@@ -222,29 +224,41 @@ export function GlobalSettingsModal({
         </div>
 
         {/* Footer Actions */}
-        <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between">
-          {hasItems ? (
+        <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between gap-3">
+          {onResetDefaults ? (
             <button
               type="button"
-              onClick={() => {
-                onReapply();
-                onClose();
-              }}
-              className="rounded-lg border border-white/[0.10] bg-white/[0.04] text-zinc-300 px-4 py-2 text-xs font-medium hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
+              onClick={onResetDefaults}
+              className="text-xs text-zinc-500 hover:text-zinc-300 transition cursor-pointer"
             >
-              Re-convert all files
+              Reset to defaults
             </button>
           ) : (
             <div />
           )}
 
-          <button
-            type="button"
-            onClick={onClose}
-            className="rounded-lg bg-white text-zinc-900 px-5 py-2 text-xs font-semibold hover:bg-zinc-100 transition cursor-pointer"
-          >
-            Done
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={onClose}
+              className="rounded-lg border border-white/[0.08] bg-white/[0.04] text-zinc-400 px-3.5 py-2 text-xs font-medium hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
+            >
+              Cancel
+            </button>
+
+            <button
+              type="button"
+              onClick={() => {
+                if (hasItems) {
+                  onReapply(settings);
+                }
+                onClose();
+              }}
+              className="rounded-lg bg-white text-zinc-900 px-4 py-2 text-xs font-semibold hover:bg-zinc-100 transition cursor-pointer shadow-md"
+            >
+              {hasItems ? 'Apply & Re-convert' : 'Save Settings'}
+            </button>
+          </div>
         </div>
       </div>
     </div>

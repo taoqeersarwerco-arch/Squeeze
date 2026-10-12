@@ -44,8 +44,13 @@ export function ConversionQueue({
           const isDone = item.status === 'done' && item.outBlob;
           const isProcessing = item.status === 'processing';
           const isError = item.status === 'error';
-          const savedBytes = isDone ? item.file.size - item.outSize : 0;
-          const savedPercent = isDone && item.file.size > 0 ? Math.round((savedBytes / item.file.size) * 100) : 0;
+          const origSize = item.file.size;
+          const outSize = item.outSize;
+          const isSmaller = isDone && outSize < origSize;
+          const isLarger = isDone && outSize > origSize;
+          const isIdentical = isDone && outSize === origSize;
+          const diffBytes = Math.abs(origSize - outSize);
+          const deltaPercent = origSize > 0 ? Math.round((diffBytes / origSize) * 100) : 0;
           const outFileName = formatFileName(item.file.name, item.targetFormat, slugifyNames);
 
           return (
@@ -94,19 +99,26 @@ export function ConversionQueue({
                           {formatBytes(item.outSize)}
                         </span>
 
-                        {savedPercent > 0 ? (
-                          <span className="inline-flex items-center rounded-md bg-white/[0.04] border border-white/[0.06] px-1.5 py-0.5 text-[11px] font-medium text-zinc-300">
-                            {savedPercent}% smaller
+                        {isSmaller ? (
+                          <span className="inline-flex items-center rounded-md bg-emerald-500/10 border border-emerald-500/20 px-1.5 py-0.5 text-[11px] font-medium text-emerald-400">
+                            &darr; {deltaPercent}% smaller
+                          </span>
+                        ) : isLarger ? (
+                          <span
+                            className="inline-flex items-center rounded-md bg-amber-500/10 border border-amber-500/20 px-1.5 py-0.5 text-[11px] font-medium text-amber-300"
+                            title="Format re-encode resulted in a larger file (typical when converting to uncompressed PNG)"
+                          >
+                            &uarr; +{deltaPercent}% larger
                           </span>
                         ) : (
-                          <span className="rounded-md bg-white/[0.03] border border-white/[0.05] px-1.5 py-0.5 text-[10px] text-zinc-500">
-                            Same quality
+                          <span className="inline-flex items-center rounded-md bg-white/[0.04] border border-white/[0.08] px-1.5 py-0.5 text-[10px] text-zinc-300 font-medium">
+                            Original size
                           </span>
                         )}
 
                         {item.ssim !== null && item.ssim !== undefined && (
-                          <span className="hidden sm:inline text-[11px] text-zinc-500">
-                            Quality: {(item.ssim * 100).toFixed(1)}%
+                          <span className="hidden sm:inline text-[11px] text-zinc-400">
+                            SSIM: {(item.ssim * 100).toFixed(1)}%
                           </span>
                         )}
                       </>

@@ -22,8 +22,10 @@ export function BatchDock({ items, onClearAll, slugifyNames }: BatchDockProps) {
 
   const origTotal = doneItems.reduce((acc, i) => acc + i.file.size, 0);
   const outTotal = doneItems.reduce((acc, i) => acc + i.outSize, 0);
-  const savedTotal = origTotal - outTotal;
-  const savedPercent = origTotal > 0 ? Math.round((savedTotal / origTotal) * 100) : 0;
+  const isSmaller = outTotal < origTotal;
+  const isLarger = outTotal > origTotal;
+  const diffTotal = Math.abs(origTotal - outTotal);
+  const deltaPercent = origTotal > 0 ? Math.round((diffTotal / origTotal) * 100) : 0;
 
   const handleDownloadAll = async () => {
     if (doneItems.length === 0) return;
@@ -91,17 +93,35 @@ export function BatchDock({ items, onClearAll, slugifyNames }: BatchDockProps) {
                   Converting {doneItems.length + 1} of {items.length}...
                 </span>
               ) : doneItems.length > 0 ? (
-                <>
-                  Saved {formatBytes(savedTotal)} ({savedPercent}% smaller)
-                </>
+                isSmaller ? (
+                  <span className="text-emerald-400 font-semibold">
+                    Saved {formatBytes(diffTotal)} ({deltaPercent}% smaller)
+                  </span>
+                ) : isLarger ? (
+                  <span className="text-amber-300 font-semibold">
+                    +{formatBytes(diffTotal)} (+{deltaPercent}% larger)
+                  </span>
+                ) : (
+                  <span className="text-zinc-300 font-medium">
+                    Original size preserved (0% change)
+                  </span>
+                )
               ) : (
                 'Converting...'
               )}
             </p>
             <p className="text-[11px] text-zinc-500 truncate tabular-nums hidden sm:block">
-              {doneItems.length > 0
-                ? `${formatBytes(origTotal)} down to ${formatBytes(outTotal)}`
-                : 'Processing your images'}
+              {doneItems.length > 0 ? (
+                isSmaller ? (
+                  `${formatBytes(origTotal)} down to ${formatBytes(outTotal)}`
+                ) : isLarger ? (
+                  `${formatBytes(origTotal)} up to ${formatBytes(outTotal)}`
+                ) : (
+                  `${formatBytes(origTotal)} (unchanged)`
+                )
+              ) : (
+                'Processing your images'
+              )}
             </p>
           </div>
         </div>
