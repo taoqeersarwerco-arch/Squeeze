@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useRef, useState, useEffect } from 'react';
-import { UploadCloud, Plus, ArrowUpRight, Sparkles, Layers } from 'lucide-react';
+import { UploadCloud, Plus, ArrowUpRight } from 'lucide-react';
 import { FORMATS } from '@/lib/constants';
 import { SupportedFormat } from '@/lib/types';
 
@@ -55,6 +55,7 @@ export function DropZone({ onFilesSelected, hasItems, presetTargetFormat }: Drop
     }
   };
 
+  // Compact add-more strip when items already exist
   if (hasItems) {
     return (
       <div
@@ -62,10 +63,10 @@ export function DropZone({ onFilesSelected, hasItems, presetTargetFormat }: Drop
         onDragLeave={handleDragLeave}
         onDrop={handleDrop}
         onClick={() => inputRef.current?.click()}
-        className={`group relative flex items-center justify-between gap-4 p-2 rounded-2xl border transition-all duration-200 cursor-pointer ${
+        className={`group relative flex items-center justify-between gap-4 p-2.5 rounded-xl border backdrop-blur-xl transition-all duration-200 cursor-pointer ${
           isDragOver
-            ? 'border-indigo-500 bg-indigo-500/15 shadow-lg shadow-indigo-500/20'
-            : 'border-white/10 bg-zinc-900/40 hover:border-white/20 hover:bg-zinc-900/60'
+            ? 'border-white/20 bg-white/[0.06]'
+            : 'border-white/[0.08] bg-white/[0.02] hover:border-white/[0.14] hover:bg-white/[0.04]'
         }`}
       >
         <input
@@ -76,50 +77,55 @@ export function DropZone({ onFilesSelected, hasItems, presetTargetFormat }: Drop
           className="hidden"
           onChange={handleChange}
         />
-        <div className="flex items-center gap-3.5 px-3 py-2">
-          <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400 group-hover:scale-105 transition-transform">
-            <Plus className="h-5 w-5" />
+        <div className="flex items-center gap-3 px-1">
+          <div className="flex h-9 w-9 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.04] text-zinc-400 group-hover:text-white transition-colors">
+            <Plus className="h-4 w-4" />
           </div>
           <div>
-            <p className="text-sm font-semibold text-white">
-              Add more photos or vectors
+            <p className="text-sm font-medium text-white">
+              Add more images
             </p>
-            <p className="text-xs text-zinc-400">
-              Drag & drop more files or paste directly from clipboard
+            <p className="text-xs text-[var(--text-secondary)]">
+              Drop files or paste from clipboard
             </p>
           </div>
         </div>
 
         <button
           type="button"
-          className="mr-2 inline-flex items-center gap-1.5 rounded-xl border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold text-white hover:bg-white/15 transition-all shadow-sm"
+          className="mr-1 inline-flex items-center gap-1.5 rounded-lg border border-white/[0.10] bg-white/[0.06] px-3.5 py-1.5 text-xs font-medium text-zinc-300 hover:bg-white/[0.10] hover:text-white transition-all"
         >
-          <span>Browse Files</span>
-          <ArrowUpRight className="h-3.5 w-3.5 text-zinc-300" />
+          <span>Browse</span>
+          <ArrowUpRight className="h-3 w-3" />
         </button>
       </div>
     );
   }
 
+  // Full empty-state dropzone
   return (
     <div
       onDragOver={handleDragOver}
       onDragLeave={handleDragLeave}
       onDrop={handleDrop}
       onClick={() => inputRef.current?.click()}
-      className={`group relative rounded-[2.5rem] p-2 transition-all duration-300 cursor-pointer ${
+      className={`group relative rounded-[2rem] p-[3px] transition-all duration-300 cursor-pointer ${
         isDragOver
-          ? 'bg-gradient-to-b from-indigo-500/30 to-violet-500/20 shadow-2xl shadow-indigo-500/25 scale-[1.01]'
-          : 'bg-gradient-to-b from-white/10 via-white/5 to-transparent shadow-xl hover:from-white/15'
+          ? 'bg-white/[0.08]'
+          : 'bg-white/[0.04] hover:bg-white/[0.06]'
       }`}
     >
-      {/* Outer Shell Border Highlight */}
+      {/* Specular top edge */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/4 h-px bg-gradient-to-r from-transparent via-white/[0.15] to-transparent rounded-full" />
+
+      {/* Inner glass pane */}
       <div
-        className={`relative flex flex-col items-center justify-center p-8 sm:p-14 text-center rounded-[calc(2.5rem-0.5rem)] border backdrop-blur-2xl transition-all duration-300 ${
+        className={`relative flex flex-col items-center justify-center p-10 sm:p-16 text-center rounded-[calc(2rem-3px)] border backdrop-blur-2xl transition-all duration-300 ${
           isDragOver
-            ? 'border-indigo-400/50 bg-zinc-950/80'
-            : 'border-white/10 bg-zinc-950/70 hover:border-white/20'
+            ? 'border-white/[0.15] bg-white/[0.04]'
+            : 'border-white/[0.08] bg-white/[0.02] hover:border-white/[0.12]'
         }`}
+        style={{ boxShadow: 'var(--glass-inset)' }}
       >
         <input
           ref={inputRef}
@@ -130,64 +136,43 @@ export function DropZone({ onFilesSelected, hasItems, presetTargetFormat }: Drop
           onChange={handleChange}
         />
 
-        {/* Ambient Top Glow Beacon */}
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-48 h-1 bg-gradient-to-r from-transparent via-indigo-500 to-transparent opacity-50 blur-xs" />
-
-        {/* Machined Hardware Icon Enclosure */}
-        <div className="relative mb-6 flex h-20 w-20 items-center justify-center rounded-2xl bg-gradient-to-b from-white/10 to-white/5 border border-white/15 shadow-inner group-hover:scale-105 transition-transform duration-300">
-          <UploadCloud className="h-9 w-9 text-indigo-400 stroke-[1.75]" />
-          <span className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-emerald-500/90 text-white shadow-md border border-zinc-950">
-            <Sparkles className="h-3 w-3" />
-          </span>
+        {/* Icon */}
+        <div className="mb-6 flex h-16 w-16 items-center justify-center rounded-2xl border border-white/[0.08] bg-white/[0.03] group-hover:bg-white/[0.05] transition-all duration-200">
+          <UploadCloud className="h-7 w-7 text-zinc-400 group-hover:text-zinc-200 transition-colors duration-200 stroke-[1.5]" />
         </div>
 
         {/* Headline */}
-        <h2 className="text-2xl sm:text-3xl font-extrabold tracking-tight text-white mb-2 max-w-lg">
+        <h2 className="text-xl sm:text-2xl font-semibold tracking-tight text-white mb-2">
           {presetTargetFormat ? (
-            <>
-              Drop images to convert to{' '}
-              <span className="bg-gradient-to-r from-indigo-400 to-violet-400 bg-clip-text text-transparent uppercase">
-                {presetTargetFormat}
-              </span>
-            </>
+            <>Drop images to convert to {presetTargetFormat.toUpperCase()}</>
           ) : (
-            <>
-              Drop images to <span className="bg-gradient-to-r from-indigo-400 to-cyan-400 bg-clip-text text-transparent">convert & squeeze</span>
-            </>
+            'Drop images here to convert'
           )}
         </h2>
 
-        {/* Subtitle with Clipboard indicator */}
-        <p className="max-w-md text-sm text-zinc-400 mb-8 leading-relaxed">
-          Zero uploads. 100% in-browser compute. Drag & drop files, or paste from clipboard with{' '}
-          <kbd className="rounded-md border border-white/15 bg-white/5 px-1.5 py-0.5 font-mono text-xs text-zinc-300">
+        {/* Subtitle */}
+        <p className="max-w-sm text-sm text-[var(--text-secondary)] mb-8 leading-relaxed">
+          Your files never leave your device. Drag and drop, or paste with{' '}
+          <kbd className="rounded border border-white/[0.10] bg-white/[0.04] px-1.5 py-0.5 font-mono text-[11px] text-zinc-300">
             Ctrl+V
           </kbd>
         </p>
 
-        {/* Nested Button-in-Button CTA Architecture */}
-        <div className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 pl-6 pr-2 py-2 text-sm font-semibold text-white shadow-lg shadow-indigo-600/30 group-hover:shadow-indigo-500/50 group-hover:from-indigo-500 group-hover:to-violet-500 transition-all duration-200">
-          <span>Choose Files from Device</span>
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 text-white shadow-inner group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200">
-            <ArrowUpRight className="h-4 w-4" />
+        {/* CTA Button */}
+        <div className="inline-flex items-center gap-2.5 rounded-xl bg-white text-zinc-900 pl-5 pr-2 py-2 text-sm font-semibold shadow-lg group-hover:shadow-xl transition-all duration-200">
+          <span>Select Images</span>
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-zinc-900/10">
+            <ArrowUpRight className="h-3.5 w-3.5" />
           </div>
         </div>
 
-        {/* Formats Grid Pill */}
-        <div className="mt-10 flex flex-wrap items-center justify-center gap-2">
-          <span className="text-[11px] font-semibold uppercase tracking-wider text-zinc-400 mr-1 flex items-center gap-1">
-            <Layers className="h-3 w-3" />
-            Supports:
-          </span>
+        {/* Supported Formats */}
+        <div className="mt-10 flex flex-wrap items-center justify-center gap-1.5">
           {Object.values(FORMATS).map((fmt) => (
             <span
               key={fmt.id}
-              className="inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold text-zinc-300 bg-white/5 border border-white/10 hover:border-white/20 transition-colors"
+              className="inline-flex items-center rounded-md px-2 py-1 text-[11px] font-medium text-zinc-500 bg-white/[0.03] border border-white/[0.06]"
             >
-              <span
-                className="h-1.5 w-1.5 rounded-full"
-                style={{ backgroundColor: fmt.color }}
-              />
               {fmt.id.toUpperCase()}
             </span>
           ))}

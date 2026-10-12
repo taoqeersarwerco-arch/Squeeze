@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const viewport: Viewport = {
-  themeColor: '#4f46e5',
+  themeColor: '#08090B',
   width: 'device-width',
   initialScale: 1,
 };
@@ -21,7 +21,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: 'Squeeze - Free In-Browser Image Converter & Compressor',
   description:
-    'Convert JPG, PNG, ICO, SVG, and WebP into each other and compress image files with zero quality loss. 100% private, client-side, fast and free.',
+    'Convert and compress JPG, PNG, ICO, SVG, and WebP images instantly in your browser. 100% private, nothing is uploaded. Fast and free.',
   keywords: [
     'image converter',
     'compress images',
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Squeeze - Free In-Browser Image Converter & Compressor',
     description:
-      'Convert JPG, PNG, ICO, SVG, and WebP into each other with perceptual SSIM quality protection. 100% client-side privacy.',
+      'Convert and compress JPG, PNG, ICO, SVG, and WebP images instantly in your browser. Private and free.',
     type: 'website',
     locale: 'en_US',
     siteName: 'Squeeze',
@@ -50,7 +50,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'Squeeze - Free In-Browser Image Converter & Compressor',
     description:
-      'Convert JPG, PNG, ICO, SVG, and WebP into each other and compress image files with zero quality loss.',
+      'Convert and compress JPG, PNG, ICO, SVG, and WebP images instantly in your browser. Private and free.',
   },
 };
 
@@ -64,7 +64,7 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-zinc-50 dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100">
+      <body className="min-h-full flex flex-col font-sans bg-[#08090B] text-zinc-100">
         {children}
       </body>
     </html>

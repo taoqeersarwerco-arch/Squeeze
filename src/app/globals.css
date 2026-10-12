@@ -1,14 +1,29 @@
 @import "tailwindcss";
 
 :root {
-  --background: #090B0E;
-  --foreground: #F3F4F6;
-  --surface: #11141A;
-  --surface-raised: #171B23;
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-highlight: rgba(255, 255, 255, 0.16);
-  --accent: #6366F1;
-  --accent-glow: rgba(99, 102, 241, 0.25);
+  --background: #08090B;
+  --foreground: #F4F4F5;
+  --surface: #0E1015;
+  --surface-raised: #141720;
+
+  /* Liquid Glass Material Tokens */
+  --glass-surface: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-highlight: rgba(255, 255, 255, 0.12);
+  --glass-shadow: 0 24px 48px -12px rgba(0, 0, 0, 0.7);
+  --glass-inset: inset 0 1px 0 rgba(255, 255, 255, 0.08), inset 0 -1px 0 rgba(255, 255, 255, 0.02);
+
+  /* Typography */
+  --text-primary: #FFFFFF;
+  --text-secondary: #94A3B8;
+  --text-tertiary: #64748B;
+
+  /* Interaction */
+  --hover-surface: rgba(255, 255, 255, 0.06);
+  --hover-border: rgba(255, 255, 255, 0.16);
+  --active-surface: rgba(255, 255, 255, 0.10);
+
+  /* Easing */
   --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
   --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
@@ -37,11 +52,6 @@ body {
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background-image: 
-    radial-gradient(circle at 50% -10%, rgba(99, 102, 241, 0.15), transparent 50%),
-    radial-gradient(circle at 10% 25%, rgba(139, 92, 246, 0.08), transparent 35%),
-    radial-gradient(circle at 90% 40%, rgba(16, 185, 129, 0.05), transparent 35%);
-  background-attachment: fixed;
 }
 
 /* Tabular Numerals for Byte and Percentage Calculations */
@@ -65,23 +75,123 @@ button:active:not(:disabled), a[role="button"]:active:not(:disabled) {
 
 /* Custom scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: rgba(17, 20, 26, 0.5);
+  background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.10);
   border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.25);
+  background: rgba(255, 255, 255, 0.20);
 }
 
-/* Subtle Animated Mesh Grid */
-.bg-grid-pattern {
-  background-size: 32px 32px;
-  background-image: linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-                    linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+/* ─── Liquid Glass Utility Classes ─── */
+
+.glass-surface {
+  background: var(--glass-surface);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-inset);
 }
+
+.glass-surface-raised {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.10);
+  box-shadow: var(--glass-inset), var(--glass-shadow);
+}
+
+.glass-hover {
+  transition: background-color 200ms ease, border-color 200ms ease;
+}
+.glass-hover:hover {
+  background: var(--hover-surface);
+  border-color: var(--hover-border);
+}
+
+/* Specular top-edge highlight for floating elements */
+.glass-specular::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.15), transparent);
+  pointer-events: none;
+}
+
+/* Range slider styling */
+input[type="range"] {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 100%;
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(255, 255, 255, 0.08);
+  outline: none;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  cursor: pointer;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.4);
+  transition: box-shadow 150ms ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+  box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.15), 0 2px 12px rgba(0, 0, 0, 0.5);
+}
+
+input[type="range"]::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  cursor: pointer;
+  border: none;
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.1), 0 2px 8px rgba(0, 0, 0, 0.4);
+}
+
+/* ─── Learn Section Prose Styling ─── */
+.prose-squeeze h2 {
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: #FFFFFF;
+  margin-top: 2.5rem;
+  margin-bottom: 0.75rem;
+  letter-spacing: -0.01em;
+}
+.prose-squeeze p {
+  font-size: 0.9375rem;
+  line-height: 1.75;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+}
+.prose-squeeze strong {
+  color: #E2E8F0;
+  font-weight: 600;
+}
+.prose-squeeze table {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1.5rem;
+}
+.prose-squeeze a {
+  color: #CBD5E1;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  transition: color 150ms;
+}
+.prose-squeeze a:hover {
+  color: #FFFFFF;
+}
+

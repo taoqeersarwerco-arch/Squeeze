@@ -52,26 +52,32 @@ export default async function CompressFormatPage({ params }: PageProps) {
       pageSubtitle={match.desc}
     >
       <section className="pt-6 text-zinc-300">
-        <h2 className="text-xl sm:text-3xl font-extrabold text-white mb-6">
+        <h2 className="text-xl sm:text-2xl font-bold text-white mb-6">
           Why Compress {fmtMeta.name} with Squeeze?
         </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-5 text-sm leading-relaxed">
-          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-6 shadow-sm">
-            <h3 className="font-semibold text-white mb-2">
-              Perceptual SSIM Optimization
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm leading-relaxed">
+          <div
+            className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl p-5 sm:p-6"
+            style={{ boxShadow: 'var(--glass-inset)' }}
+          >
+            <h3 className="font-semibold text-white mb-2 text-sm">
+              Smart Quality Preservation
             </h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Traditional compressors simply lower JPEG quality factors indiscriminately, resulting in blurry details and visible block artifacts. Squeeze employs structural similarity comparisons to remove only invisible high-frequency noise.
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              Standard tools lower quality indiscriminately, creating noticeable blur. Squeeze preserves critical edge details and color balance while removing data your eyes cannot detect.
             </p>
           </div>
 
-          <div className="rounded-2xl border border-white/10 bg-zinc-900/50 backdrop-blur-xl p-6 shadow-sm">
-            <h3 className="font-semibold text-white mb-2">
-              Instant In-Browser Processing
+          <div
+            className="rounded-xl border border-white/[0.08] bg-white/[0.02] backdrop-blur-xl p-5 sm:p-6"
+            style={{ boxShadow: 'var(--glass-inset)' }}
+          >
+            <h3 className="font-semibold text-white mb-2 text-sm">
+              100% In-Browser Privacy
             </h3>
-            <p className="text-xs text-zinc-400 leading-relaxed">
-              Never wait in a queue for cloud servers to convert your images. All compression algorithms execute using the hardware power of your own machine.
+            <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
+              Never wait in a queue or upload personal photos to unfamiliar servers. All compression happens locally on your computer or phone.
             </p>
           </div>
         </div>

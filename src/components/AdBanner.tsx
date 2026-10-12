@@ -30,7 +30,7 @@ export function AdBanner({ slot, className = '' }: AdBannerProps) {
 
   return (
     <div
-      className={`mx-auto flex flex-col items-center justify-center overflow-hidden rounded-2xl border border-zinc-200/60 dark:border-zinc-800/60 bg-zinc-50/50 dark:bg-zinc-900/30 transition-all ${slotDimensions} ${className}`}
+      className={`mx-auto flex flex-col items-center justify-center overflow-hidden rounded-xl border border-white/[0.05] bg-white/[0.01] transition-all ${slotDimensions} ${className}`}
       aria-label="Advertisement"
     >
       {adClientId ? (
@@ -44,11 +44,8 @@ export function AdBanner({ slot, className = '' }: AdBannerProps) {
         />
       ) : (
         <div className="flex flex-col items-center justify-center p-3 text-center">
-          <span className="text-[10px] font-semibold tracking-wider uppercase text-zinc-400 dark:text-zinc-500">
-            Sponsored Advertisement
-          </span>
-          <span className="text-[11px] text-zinc-400/80 mt-0.5">
-            Non-intrusive ad zone (CLS Protected)
+          <span className="text-[10px] font-medium tracking-wider uppercase text-zinc-600">
+            Ad
           </span>
         </div>
       )}

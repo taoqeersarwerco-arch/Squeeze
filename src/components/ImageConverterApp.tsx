@@ -12,7 +12,6 @@ import { BatchDock } from './BatchDock';
 import { AdBanner } from './AdBanner';
 import { FaqSection } from './FaqSection';
 import { Footer } from './Footer';
-import { Sparkles, ShieldCheck, Zap } from 'lucide-react';
 
 interface ImageConverterAppProps {
   initialTargetFormat?: SupportedFormat;
@@ -230,48 +229,25 @@ export function ImageConverterApp({
   const hasItems = items.length > 0;
 
   return (
-    <div className="relative min-h-[100dvh] flex flex-col bg-[#090B0E] text-zinc-100 overflow-x-hidden">
-      {/* Background Subtle Grid Pattern */}
-      <div className="pointer-events-none fixed inset-0 z-0 bg-grid-pattern opacity-40" />
-
-      {/* Fluid Floating Island Navbar */}
+    <div className="relative min-h-[100dvh] flex flex-col bg-[var(--background)] text-zinc-100 overflow-x-hidden">
+      {/* Navbar */}
       <Navbar onOpenSettings={() => setIsSettingsOpen(true)} />
 
       <main className="relative z-10 flex-1 pb-36">
-        <div className="mx-auto max-w-5xl px-4 sm:px-6 pt-6 sm:pt-10 space-y-7">
-          {/* Top Leaderboard Ad Slot (CLS-safe) */}
-          <AdBanner slot="leaderboard" />
-
-          {/* Hero Header with Agency Macro-Whitespace */}
-          <div className="text-center max-w-3xl mx-auto pt-4 pb-2">
-            {/* Microscopic Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3.5 py-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-zinc-300 shadow-lg mb-4">
-              <Sparkles className="h-3.5 w-3.5 text-indigo-400" />
-              <span>Client-Side Neural Engine</span>
-            </div>
-
-            {/* Massive Heading */}
-            <h1 className="text-4xl sm:text-6xl font-black tracking-tight leading-[1.1] text-white">
-              {pageTitle ? (
-                pageTitle
-              ) : (
-                <>
-                  Convert & Squeeze Images{' '}
-                  <span className="block mt-1 bg-gradient-to-r from-indigo-400 via-violet-300 to-cyan-400 bg-clip-text text-transparent">
-                    Without Quality Loss
-                  </span>
-                </>
-              )}
+        <div className="mx-auto max-w-4xl px-4 sm:px-6 pt-8 sm:pt-14 space-y-8">
+          {/* Hero Header */}
+          <div className="text-center max-w-2xl mx-auto pt-4 pb-2">
+            <h1 className="text-4xl sm:text-5xl font-bold tracking-tight leading-[1.15] text-white">
+              {pageTitle || 'Convert and Compress Images'}
             </h1>
 
-            {/* Subtitle */}
-            <p className="mt-4 text-sm sm:text-base text-zinc-400 max-w-xl mx-auto leading-relaxed">
+            <p className="mt-4 text-[15px] text-[var(--text-secondary)] max-w-lg mx-auto leading-relaxed">
               {pageSubtitle ||
-                'Any-to-any conversion between JPG, PNG, ICO, SVG, and WebP. Automated perceptual SSIM compression executed 100% locally in your browser.'}
+                'Private, instant, and runs entirely in your browser. Supports JPG, PNG, WebP, SVG, and ICO.'}
             </p>
           </div>
 
-          {/* Double-Bezel DropZone */}
+          {/* DropZone */}
           <DropZone
             onFilesSelected={handleFilesSelected}
             hasItems={hasItems}
@@ -290,8 +266,8 @@ export function ImageConverterApp({
             </div>
           )}
 
-          {/* Mid-Page In-Feed Ad Banner */}
-          <AdBanner slot="infeed" className="my-8" />
+          {/* Below-fold Ad Slot */}
+          <AdBanner slot="infeed" className="my-6" />
 
           {/* Page-Specific Content / How-To Guides */}
           {children}

@@ -3,7 +3,7 @@
 import React from 'react';
 import { ConversionSettings, SupportedFormat, CompressionGoal } from '@/lib/types';
 import { FORMATS } from '@/lib/constants';
-import { X, Sliders, Check } from 'lucide-react';
+import { X, Sliders } from 'lucide-react';
 
 interface GlobalSettingsModalProps {
   isOpen: boolean;
@@ -30,24 +30,30 @@ export function GlobalSettingsModal({
 
   return (
     <div
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/85 backdrop-blur-2xl p-4 overflow-y-auto animate-in fade-in duration-200"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/70 backdrop-blur-xl p-4 overflow-y-auto"
       onClick={(e) => e.target === e.currentTarget && onClose()}
     >
-      <div className="relative w-full max-w-lg rounded-[2rem] border border-white/15 bg-zinc-900/95 shadow-2xl shadow-black/80 p-6 sm:p-7">
+      <div
+        className="relative w-full max-w-lg rounded-2xl border border-white/[0.08] bg-zinc-950/95 backdrop-blur-2xl shadow-[0_32px_64px_-16px_rgba(0,0,0,0.8)] p-6 sm:p-7"
+        style={{ boxShadow: 'var(--glass-inset), 0 32px 64px -16px rgba(0,0,0,0.8)' }}
+      >
+        {/* Specular edge */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent rounded-full" />
+
         {/* Header */}
-        <div className="flex items-center justify-between pb-4 border-b border-white/10">
+        <div className="flex items-center justify-between pb-4 border-b border-white/[0.06]">
           <div className="flex items-center gap-2.5">
-            <div className="flex h-8 w-8 items-center justify-center rounded-xl bg-indigo-500/10 border border-indigo-500/20 text-indigo-400">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.08] bg-white/[0.04] text-zinc-400">
               <Sliders className="h-4 w-4" />
             </div>
-            <h3 className="text-base font-bold text-white">
-              Engine Parameters
+            <h3 className="text-base font-semibold text-white">
+              Settings
             </h3>
           </div>
           <button
             onClick={onClose}
             type="button"
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-400 hover:bg-white/10 hover:text-white transition cursor-pointer"
+            className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/[0.06] bg-white/[0.03] text-zinc-500 hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
           >
             <X className="h-4 w-4" />
           </button>
@@ -57,19 +63,19 @@ export function GlobalSettingsModal({
         <div className="space-y-5 pt-5 text-sm">
           {/* Default Target Format */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-2">
-              Default Target Format
+            <label className="block text-xs font-medium text-zinc-400 mb-2">
+              Save images as
             </label>
-            <div className="grid grid-cols-5 gap-2">
+            <div className="grid grid-cols-5 gap-1.5">
               {Object.values(FORMATS).map((fmt) => (
                 <button
                   key={fmt.id}
                   type="button"
                   onClick={() => update({ targetFormat: fmt.id })}
-                  className={`flex flex-col items-center justify-center py-2.5 px-1 rounded-xl border text-xs font-bold uppercase transition cursor-pointer ${
+                  className={`flex flex-col items-center justify-center py-2.5 px-1 rounded-lg border text-xs font-medium uppercase transition cursor-pointer ${
                     settings.targetFormat === fmt.id
-                      ? 'border-indigo-500 bg-indigo-500/20 text-white shadow-md shadow-indigo-500/20'
-                      : 'border-white/10 bg-white/5 text-zinc-400 hover:border-white/20 hover:text-white'
+                      ? 'border-white/20 bg-white/[0.08] text-white'
+                      : 'border-white/[0.06] bg-white/[0.02] text-zinc-500 hover:border-white/[0.12] hover:text-zinc-300'
                   }`}
                 >
                   <span>{fmt.id}</span>
@@ -80,31 +86,31 @@ export function GlobalSettingsModal({
 
           {/* Goal Selector */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-2">
-              Compression Algorithm Priority
+            <label className="block text-xs font-medium text-zinc-400 mb-2">
+              Optimize for
             </label>
-            <div className="grid grid-cols-2 rounded-xl bg-white/5 border border-white/10 p-1">
+            <div className="grid grid-cols-2 rounded-lg bg-white/[0.03] border border-white/[0.06] p-1">
               <button
                 type="button"
                 onClick={() => update({ goal: 'quality' })}
-                className={`py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`py-2 rounded-md text-xs font-medium transition cursor-pointer ${
                   settings.goal === 'quality'
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-white/[0.08] text-white'
+                    : 'text-zinc-500 hover:text-zinc-300'
                 }`}
               >
-                Target Quality (SSIM)
+                Best quality
               </button>
               <button
                 type="button"
                 onClick={() => update({ goal: 'size' })}
-                className={`py-2 rounded-lg text-xs font-semibold transition cursor-pointer ${
+                className={`py-2 rounded-md text-xs font-medium transition cursor-pointer ${
                   settings.goal === 'size'
-                    ? 'bg-indigo-600 text-white shadow-md'
-                    : 'text-zinc-400 hover:text-white'
+                    ? 'bg-white/[0.08] text-white'
+                    : 'text-zinc-500 hover:text-zinc-300'
                 }`}
               >
-                Target File Shrink Ratio
+                Smallest file
               </button>
             </div>
           </div>
@@ -112,9 +118,9 @@ export function GlobalSettingsModal({
           {/* Sliders depending on goal */}
           {settings.goal === 'quality' ? (
             <div>
-              <div className="flex justify-between text-xs mb-1.5">
-                <span className="font-medium text-zinc-300">Perceptual Quality Level</span>
-                <span className="font-bold text-indigo-400 tabular-nums">
+              <div className="flex justify-between text-xs mb-2">
+                <span className="font-medium text-zinc-400">Quality</span>
+                <span className="font-semibold text-zinc-300 tabular-nums">
                   {Math.round(settings.targetQuality * 100)}%
                 </span>
               </div>
@@ -125,18 +131,18 @@ export function GlobalSettingsModal({
                 step="0.05"
                 value={settings.targetQuality}
                 onChange={(e) => update({ targetQuality: parseFloat(e.target.value) })}
-                className="w-full accent-indigo-500"
+                className="w-full"
               />
-              <p className="text-[11px] text-zinc-500 mt-1">
-                85% provides optimal visual preservation while eliminating redundant byte bloat.
+              <p className="text-[11px] text-zinc-600 mt-1.5">
+                Higher values keep more detail but produce larger files. 85% is a good default.
               </p>
             </div>
           ) : (
             <div>
-              <div className="flex justify-between text-xs mb-1.5">
-                <span className="font-medium text-zinc-300">Shrink Ratio Target</span>
-                <span className="font-bold text-indigo-400 tabular-nums">
-                  {settings.targetRatio}&times; smaller
+              <div className="flex justify-between text-xs mb-2">
+                <span className="font-medium text-zinc-400">Size reduction</span>
+                <span className="font-semibold text-zinc-300 tabular-nums">
+                  {settings.targetRatio}x smaller
                 </span>
               </div>
               <input
@@ -146,66 +152,77 @@ export function GlobalSettingsModal({
                 step="1"
                 value={settings.targetRatio}
                 onChange={(e) => update({ targetRatio: parseInt(e.target.value, 10) })}
-                className="w-full accent-indigo-500"
+                className="w-full"
               />
+              <p className="text-[11px] text-zinc-600 mt-1.5">
+                Higher values make files much smaller but may reduce image sharpness.
+              </p>
             </div>
           )}
 
           {/* Max Edge Dimensions */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-2">
-              Maximum Edge (Downscaling Limit)
+            <label className="block text-xs font-medium text-zinc-400 mb-2">
+              Maximum image size
             </label>
             <select
               value={settings.maxEdge}
               onChange={(e) => update({ maxEdge: parseInt(e.target.value, 10) })}
-              className="w-full rounded-xl border border-white/10 bg-zinc-800 px-3.5 py-2 text-xs font-medium text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 cursor-pointer"
+              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs font-medium text-zinc-300 focus:outline-none focus:ring-1 focus:ring-white/20 cursor-pointer"
             >
-              <option value="0">Keep original resolution (No downscaling)</option>
-              <option value="2560">Cap longest edge to 2560 px (WordPress / 4K)</option>
-              <option value="1920">Cap longest edge to 1920 px (Full HD)</option>
-              <option value="1280">Cap longest edge to 1280 px (Web standard)</option>
-              <option value="800">Cap longest edge to 800 px (Thumbnail)</option>
+              <option value="0">Keep original size</option>
+              <option value="2560">Up to 2560px (4K displays)</option>
+              <option value="1920">Up to 1920px (Full HD)</option>
+              <option value="1280">Up to 1280px (Web standard)</option>
+              <option value="800">Up to 800px (Thumbnails)</option>
             </select>
+            <p className="text-[11px] text-zinc-600 mt-1.5">
+              Scales down images larger than this. Smaller images are kept as-is.
+            </p>
           </div>
 
           {/* Matte color for transparency -> JPG */}
           <div>
-            <label className="block text-xs font-semibold text-zinc-300 mb-2">
-              Alpha Matte Background (for JPG conversion)
+            <label className="block text-xs font-medium text-zinc-400 mb-2">
+              Background color for JPG
             </label>
             <div className="flex items-center gap-3">
               <input
                 type="color"
                 value={settings.matteColor}
                 onChange={(e) => update({ matteColor: e.target.value })}
-                className="h-8 w-12 rounded cursor-pointer border border-white/15 bg-transparent"
+                className="h-8 w-10 rounded cursor-pointer border border-white/[0.10] bg-transparent"
               />
-              <span className="text-xs text-zinc-400 font-mono">
+              <span className="text-xs text-zinc-500 font-mono">
                 {settings.matteColor.toUpperCase()}
               </span>
-              <span className="text-xs text-zinc-500">
-                (Fills transparency when converting to JPEG)
-              </span>
             </div>
+            <p className="text-[11px] text-zinc-600 mt-1.5">
+              When converting transparent images to JPG, this color fills the transparent areas.
+            </p>
           </div>
 
           {/* Web-friendly names */}
-          <label className="flex items-center gap-2 cursor-pointer select-none">
+          <label className="flex items-center gap-2.5 cursor-pointer select-none">
             <input
               type="checkbox"
               checked={settings.slugifyNames}
               onChange={(e) => update({ slugifyNames: e.target.checked })}
-              className="rounded border-white/20 bg-zinc-800 text-indigo-500 focus:ring-indigo-500"
+              className="rounded border-white/20 bg-white/[0.04] text-white focus:ring-white/20"
             />
-            <span className="text-xs font-medium text-zinc-300">
-              Web-safe slugified filenames (e.g., <code className="font-mono text-indigo-400">clean-asset.webp</code>)
-            </span>
+            <div>
+              <span className="text-xs font-medium text-zinc-300">
+                Clean filenames for web
+              </span>
+              <p className="text-[11px] text-zinc-600">
+                Removes spaces and special characters (e.g., <code className="font-mono text-zinc-400">my-photo.webp</code>)
+              </p>
+            </div>
           </label>
         </div>
 
         {/* Footer Actions */}
-        <div className="mt-7 pt-4 border-t border-white/10 flex items-center justify-between">
+        <div className="mt-6 pt-4 border-t border-white/[0.06] flex items-center justify-between">
           {hasItems ? (
             <button
               type="button"
@@ -213,9 +230,9 @@ export function GlobalSettingsModal({
                 onReapply();
                 onClose();
               }}
-              className="rounded-full border border-white/15 bg-white/10 text-white px-4 py-2 text-xs font-semibold hover:bg-white/15 transition cursor-pointer"
+              className="rounded-lg border border-white/[0.10] bg-white/[0.04] text-zinc-300 px-4 py-2 text-xs font-medium hover:bg-white/[0.08] hover:text-white transition cursor-pointer"
             >
-              Reapply to Current Files
+              Re-convert all files
             </button>
           ) : (
             <div />
@@ -224,9 +241,9 @@ export function GlobalSettingsModal({
           <button
             type="button"
             onClick={onClose}
-            className="rounded-full bg-gradient-to-r from-indigo-600 to-violet-600 text-white px-6 py-2 text-xs font-bold hover:from-indigo-500 hover:to-violet-500 transition shadow-md shadow-indigo-600/30 cursor-pointer"
+            className="rounded-lg bg-white text-zinc-900 px-5 py-2 text-xs font-semibold hover:bg-zinc-100 transition cursor-pointer"
           >
-            Apply & Close
+            Done
           </button>
         </div>
       </div>
