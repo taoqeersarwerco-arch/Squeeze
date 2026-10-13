@@ -87,7 +87,7 @@ export default function PrivacyPage() {
                 <EyeOff className="h-3.5 w-3.5" /> Zero File Retention
               </span>
               <p className="text-zinc-400">
-                No database or cloud storage of user graphic files. Memory freed on tab close.
+                No database or cloud storage of user graphic files. In-memory data released upon session close.
               </p>
             </div>
             <div className="space-y-1">
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
                 <strong>Zero Server Transmission:</strong> During image conversion, resizing, and compression in the web app, <em>zero image bytes are transmitted over the network</em>. You can verify this at any time by disconnecting your internet connection or inspecting your browser&apos;s Network Developer Tools.
               </li>
               <li>
-                <strong>Immediate Memory Disposal:</strong> Once you download your converted image or navigate away, memory references are immediately garbage-collected by your browser.
+                <strong>Release of Memory References:</strong> Once you download your converted image or navigate away, in-memory object references and Canvas buffer allocations are released for standard browser garbage collection, without persistent local caching by Squeeze.
               </li>
             </ul>
           </section>
@@ -130,10 +130,10 @@ export default function PrivacyPage() {
           {/* Section 2 */}
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <EyeOff className="h-4 w-4 text-emerald-400" /> 2. Information We Never Collect
+              <EyeOff className="h-4 w-4 text-emerald-400" /> 2. Information Handled During Browser Conversion
             </h2>
             <p>
-              Because of our client-side runtime, Squeeze <strong>does not</strong> and <strong>cannot</strong> collect, inspect, monetize, or store:
+              When utilizing our web-based image conversion tools, Squeeze <strong>does not receive, collect, inspect, monetize, or store</strong>:
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
               <li>The photographic or graphic contents of your files.</li>
@@ -141,6 +141,9 @@ export default function PrivacyPage() {
               <li>Embedded geolocation data, camera serial numbers, or facial biometric features.</li>
               <li>User passwords, credit card credentials, or mandatory personal account profiles.</li>
             </ul>
+            <p className="text-xs text-zinc-400 mt-2">
+              <em>Note on Cloud REST API:</em> If you explicitly choose our programmatic Cloud REST API instead of the browser converter, file bytes are transmitted ephemerally in transit solely to execute the requested conversion and are never stored or retained beyond the immediate response (see Section 4).
+            </p>
           </section>
 
           {/* Section 3 */}

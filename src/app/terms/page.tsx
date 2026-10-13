@@ -106,14 +106,17 @@ export default function TermsPage() {
           {/* Section 3 */}
           <section className="space-y-3">
             <h2 className="text-lg font-bold text-white flex items-center gap-2">
-              <Shield className="h-4 w-4 text-emerald-400" /> 3. 100% Intellectual Property &amp; User Media Ownership
+              <Shield className="h-4 w-4 text-emerald-400" /> 3. Intellectual Property &amp; User Content Rights
             </h2>
             <p className="text-zinc-200 font-medium">
-              You retain sole and exclusive copyright and intellectual property rights in and to all images processed through Squeeze.
+              You retain whatever intellectual property rights, copyright, and title you already hold in the images and media you process through Squeeze. Squeeze claims zero ownership, title, or interest in your content.
             </p>
             <ul className="list-disc pl-5 space-y-1.5 text-zinc-400">
               <li>
-                <strong>No Transfer of Ownership:</strong> Squeeze does not claim any license, ownership, or intellectual property rights over any file or artwork you choose to convert or compress.
+                <strong>No Transfer of Ownership:</strong> Processing media through Squeeze does not transfer any intellectual property rights to Squeeze. Squeeze acquires no license to use, display, or distribute your images.
+              </li>
+              <li>
+                <strong>User Authority &amp; Permissions:</strong> You represent and warrant that you hold all necessary rights, licenses, permissions, or legal authority to convert, compress, or process any files you submit to the Service.
               </li>
               <li>
                 <strong>No Scraping or AI Model Training:</strong> Because our browser converter does not upload your files to our servers, your images are never stored, indexed, or used to train generative artificial intelligence or machine learning models.
