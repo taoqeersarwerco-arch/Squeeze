@@ -121,14 +121,14 @@ export function DeveloperHubClient() {
     <div className="space-y-16 pb-20">
       {/* ─── Hero Section ─── */}
       <section className="text-center sm:text-left max-w-4xl mx-auto pt-6">
-        <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-emerald-500/20 bg-emerald-500/10 text-emerald-400 text-xs font-semibold mb-6">
-          <Sparkles className="h-3.5 w-3.5" />
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-white/[0.10] bg-white/[0.03] text-zinc-300 text-xs font-medium mb-6 backdrop-blur-md">
+          <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
           <span>Developer Hub &bull; Web Worker SDK &amp; Cloud API v1</span>
         </div>
 
         <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-white leading-[1.15]">
           Programmatic Image Processing.{' '}
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-300 to-cyan-400">
+          <span className="text-zinc-400 font-bold">
             Client-Side or Headless.
           </span>
         </h1>
@@ -149,10 +149,10 @@ export function DeveloperHubClient() {
             return (
               <div
                 key={idx}
-                className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 text-left"
+                className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 text-left hover:border-white/[0.14] hover:bg-white/[0.04] transition"
                 style={{ boxShadow: 'var(--glass-inset)' }}
               >
-                <Icon className="h-4 w-4 text-emerald-400 mb-2" />
+                <Icon className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors mb-2" />
                 <p className="text-xs font-bold text-white">{item.title}</p>
                 <p className="text-[11px] text-zinc-500 mt-0.5">{item.desc}</p>
               </div>
@@ -165,7 +165,7 @@ export function DeveloperHubClient() {
       <section className="max-w-4xl mx-auto">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-white/[0.08]">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+            <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
               Architecture Selection
             </span>
             <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -208,15 +208,15 @@ export function DeveloperHubClient() {
         >
           <div className={`space-y-3 p-4 rounded-xl border transition ${
             integrationMode === 'browser'
-              ? 'border-emerald-500/40 bg-emerald-950/10'
-              : 'border-white/[0.06] bg-black/20 opacity-70'
+              ? 'border-white/25 bg-white/[0.04] shadow-md'
+              : 'border-white/[0.06] bg-black/20 opacity-70 hover:opacity-90'
           }`}>
             <div className="flex items-center justify-between">
-              <span className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase">
-                <Cpu className="h-4 w-4" /> Client SDK (@squeeze/browser)
+              <span className="flex items-center gap-2 text-xs font-bold text-white uppercase">
+                <Cpu className="h-4 w-4 text-zinc-400" /> Client SDK (@squeeze/browser)
               </span>
               {integrationMode === 'browser' && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-emerald-500/20 text-emerald-400">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded border border-white/20 bg-white/10 text-white">
                   Selected
                 </span>
               )}
@@ -226,26 +226,32 @@ export function DeveloperHubClient() {
               Ideal for client apps, SaaS portals, and frontends where privacy and server hosting costs matter. Process multi-gigabyte queues directly on client cores without server load.
             </p>
             <ul className="text-xs text-zinc-300 space-y-1.5 pt-2 border-t border-white/[0.06]">
-              <li className="flex items-center gap-2 text-emerald-400 font-medium">
-                ✓ 100% GDPR, HIPAA, and SOC-2 compliant
+              <li className="flex items-center gap-2 text-zinc-200 font-medium">
+                <span className="text-emerald-400 font-bold">✓</span> 100% GDPR, HIPAA, and SOC-2 compliant
               </li>
-              <li>✓ Zero bandwidth egress charges</li>
-              <li>✓ Instant zero-latency local pipeline</li>
-              <li>✓ Offline &amp; PWA operational mode</li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Zero bandwidth egress charges
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Instant zero-latency local pipeline
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Offline &amp; PWA operational mode
+              </li>
             </ul>
           </div>
 
           <div className={`space-y-3 p-4 rounded-xl border transition ${
             integrationMode === 'rest'
-              ? 'border-emerald-500/40 bg-emerald-950/10'
-              : 'border-white/[0.06] bg-black/20 opacity-70'
+              ? 'border-white/25 bg-white/[0.04] shadow-md'
+              : 'border-white/[0.06] bg-black/20 opacity-70 hover:opacity-90'
           }`}>
             <div className="flex items-center justify-between">
-              <span className="flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase">
-                <Server className="h-4 w-4" /> Cloud REST API (/v1)
+              <span className="flex items-center gap-2 text-xs font-bold text-white uppercase">
+                <Server className="h-4 w-4 text-zinc-400" /> Cloud REST API (/v1)
               </span>
               {integrationMode === 'rest' && (
-                <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-cyan-500/20 text-cyan-400">
+                <span className="text-[10px] font-semibold px-2 py-0.5 rounded border border-white/20 bg-white/10 text-white">
                   Selected
                 </span>
               )}
@@ -255,10 +261,18 @@ export function DeveloperHubClient() {
               Standard RESTful multipart HTTP endpoints for automated server workflows, CI/CD pipelines, backend microservices, and mobile native apps (iOS / Android).
             </p>
             <ul className="text-xs text-zinc-300 space-y-1.5 pt-2 border-t border-white/[0.06]">
-              <li>✓ Works across any language (cURL, Python, Go, Rust)</li>
-              <li>✓ Headless server-to-server webhook callbacks</li>
-              <li>✓ Automated EXIF strip and SSIM thresholding</li>
-              <li>✓ Base64 or stream response buffering</li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Works across any language (cURL, Python, Go, Rust)
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Headless server-to-server webhook callbacks
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Automated EXIF strip and SSIM thresholding
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="text-emerald-400 font-bold">✓</span> Base64 or stream response buffering
+              </li>
             </ul>
           </div>
         </div>
@@ -267,7 +281,7 @@ export function DeveloperHubClient() {
       {/* ─── LIVE DEVELOPER CONSOLE ─── */}
       <section className="max-w-4xl mx-auto">
         <div className="mb-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             Control Center
           </span>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -290,7 +304,7 @@ export function DeveloperHubClient() {
       {/* ─── INTERACTIVE SANDBOX & TESTER ─── */}
       <section className="max-w-4xl mx-auto">
         <div className="mb-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             Live Simulator
           </span>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -307,7 +321,7 @@ export function DeveloperHubClient() {
       {/* ─── MULTI-LANGUAGE CODE PLAYGROUND ─── */}
       <section className="max-w-4xl mx-auto">
         <div className="mb-4">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             Code Integration
           </span>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -324,7 +338,7 @@ export function DeveloperHubClient() {
       {/* ─── Web Worker Pipeline Architecture Diagram ─── */}
       <section className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             System Design
           </span>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -371,7 +385,7 @@ export function DeveloperHubClient() {
                 className="relative rounded-xl border border-white/[0.08] bg-black/40 p-5 space-y-2"
               >
                 <div className="flex items-center justify-between">
-                  <span className="font-mono text-xs font-bold text-emerald-400">{node.step}</span>
+                  <span className="font-mono text-xs font-bold text-zinc-300">{node.step}</span>
                   <span className="text-[10px] font-mono text-zinc-500 uppercase">{node.sub}</span>
                 </div>
                 <h4 className="text-sm font-bold text-white">{node.title}</h4>
@@ -382,7 +396,7 @@ export function DeveloperHubClient() {
 
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 text-xs text-zinc-400 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <Lock className="h-4 w-4 text-emerald-400 flex-shrink-0" />
+              <Lock className="h-4 w-4 text-zinc-400 flex-shrink-0" />
               <span>
                 Zero byte transmission guarantee: Client SDK operations never perform an outbound HTTP POST for images.
               </span>
@@ -400,7 +414,7 @@ export function DeveloperHubClient() {
       {/* ─── Full API Reference & Parameter Matrices ─── */}
       <section className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             API Specification
           </span>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -438,42 +452,42 @@ export function DeveloperHubClient() {
                 </thead>
                 <tbody className="divide-y divide-white/[0.04] text-zinc-300 font-mono text-[11px]">
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">file</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">file</td>
                     <td className="py-2.5 pr-4 text-zinc-400">Binary File</td>
                     <td className="py-2.5 pr-4 text-rose-400 font-semibold">Yes</td>
                     <td className="py-2.5 pr-4 text-zinc-500">-</td>
                     <td className="py-2.5 font-sans text-zinc-400">The source image binary (PNG, JPG, WebP, SVG).</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">format</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">format</td>
                     <td className="py-2.5 pr-4 text-zinc-400">string</td>
                     <td className="py-2.5 pr-4 text-rose-400 font-semibold">Yes</td>
                     <td className="py-2.5 pr-4 text-zinc-500">-</td>
                     <td className="py-2.5 font-sans text-zinc-400">Target format: webp | png | jpg | ico | svg.</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">quality</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">quality</td>
                     <td className="py-2.5 pr-4 text-zinc-400">integer</td>
                     <td className="py-2.5 pr-4 text-zinc-500">No</td>
                     <td className="py-2.5 pr-4 text-zinc-300">85</td>
                     <td className="py-2.5 font-sans text-zinc-400">Compression quality scalar between 1 and 100.</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">targetSsim</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">targetSsim</td>
                     <td className="py-2.5 pr-4 text-zinc-400">float</td>
                     <td className="py-2.5 pr-4 text-zinc-500">No</td>
                     <td className="py-2.5 pr-4 text-zinc-300">0.95</td>
                     <td className="py-2.5 font-sans text-zinc-400">Minimum allowable perceptual structural similarity.</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">stripExif</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">stripExif</td>
                     <td className="py-2.5 pr-4 text-zinc-400">boolean</td>
                     <td className="py-2.5 pr-4 text-zinc-500">No</td>
                     <td className="py-2.5 pr-4 text-zinc-300">true</td>
                     <td className="py-2.5 font-sans text-zinc-400">Remove camera geolocation and device metadata.</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">matteColor</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">matteColor</td>
                     <td className="py-2.5 pr-4 text-zinc-400">hex string</td>
                     <td className="py-2.5 pr-4 text-zinc-500">No</td>
                     <td className="py-2.5 pr-4 text-zinc-300">#FFFFFF</td>
@@ -510,14 +524,14 @@ export function DeveloperHubClient() {
                 </thead>
                 <tbody className="divide-y divide-white/[0.04] text-zinc-300 font-mono text-[11px]">
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">file</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">file</td>
                     <td className="py-2.5 pr-4 text-zinc-400">Binary File</td>
                     <td className="py-2.5 pr-4 text-rose-400 font-semibold">Yes</td>
                     <td className="py-2.5 pr-4 text-zinc-500">-</td>
                     <td className="py-2.5 font-sans text-zinc-400">Source image file to compress without format change.</td>
                   </tr>
                   <tr>
-                    <td className="py-2.5 pr-4 text-emerald-400 font-bold">targetSizeKb</td>
+                    <td className="py-2.5 pr-4 text-white font-mono font-semibold">targetSizeKb</td>
                     <td className="py-2.5 pr-4 text-zinc-400">integer</td>
                     <td className="py-2.5 pr-4 text-zinc-500">No</td>
                     <td className="py-2.5 pr-4 text-zinc-500">null</td>
@@ -585,7 +599,7 @@ export function DeveloperHubClient() {
       <section className="max-w-4xl mx-auto">
         <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+            <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
               Technical Documentation
             </span>
             <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -604,11 +618,11 @@ export function DeveloperHubClient() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <Link
             href="/learn/how-to-integrate-client-side-image-processing-api"
-            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-emerald-500/40 hover:bg-emerald-950/10 transition block"
+            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-white/20 hover:bg-white/[0.04] transition block"
             style={{ boxShadow: 'var(--glass-inset)' }}
           >
-            <Cpu className="h-4 w-4 text-emerald-400 mb-2" />
-            <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition mb-1">
+            <Cpu className="h-4 w-4 text-zinc-400 group-hover:text-white transition mb-2" />
+            <h3 className="text-sm font-bold text-white group-hover:text-zinc-200 transition mb-1">
               Integrating In-Browser Processing
             </h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
@@ -618,11 +632,11 @@ export function DeveloperHubClient() {
 
           <Link
             href="/learn/building-zero-upload-image-pipelines"
-            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-emerald-500/40 hover:bg-emerald-950/10 transition block"
+            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-white/20 hover:bg-white/[0.04] transition block"
             style={{ boxShadow: 'var(--glass-inset)' }}
           >
-            <Lock className="h-4 w-4 text-emerald-400 mb-2" />
-            <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition mb-1">
+            <Lock className="h-4 w-4 text-zinc-400 group-hover:text-white transition mb-2" />
+            <h3 className="text-sm font-bold text-white group-hover:text-zinc-200 transition mb-1">
               Building Zero-Upload Architectures
             </h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
@@ -632,11 +646,11 @@ export function DeveloperHubClient() {
 
           <Link
             href="/learn/automating-image-optimization-with-webhooks-and-rest-api"
-            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-emerald-500/40 hover:bg-cyan-950/10 transition block"
+            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-white/20 hover:bg-white/[0.04] transition block"
             style={{ boxShadow: 'var(--glass-inset)' }}
           >
-            <Server className="h-4 w-4 text-cyan-400 mb-2" />
-            <h3 className="text-sm font-bold text-white group-hover:text-cyan-400 transition mb-1">
+            <Server className="h-4 w-4 text-zinc-400 group-hover:text-white transition mb-2" />
+            <h3 className="text-sm font-bold text-white group-hover:text-zinc-200 transition mb-1">
               REST API Automation &amp; Webhooks
             </h3>
             <p className="text-xs text-zinc-400 leading-relaxed">
@@ -649,7 +663,7 @@ export function DeveloperHubClient() {
       {/* ─── Developer FAQ Accordion ─── */}
       <section className="max-w-4xl mx-auto">
         <div className="mb-6">
-          <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+          <span className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             Developer Knowledge Base
           </span>
           <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
@@ -689,7 +703,10 @@ export function DeveloperHubClient() {
       </section>
 
       {/* ─── Bottom CTA ─── */}
-      <section className="max-w-4xl mx-auto rounded-2xl border border-white/[0.12] bg-gradient-to-br from-emerald-950/20 via-black to-zinc-950 p-8 sm:p-10 text-center space-y-4">
+      <section
+        className="max-w-4xl mx-auto rounded-2xl border border-white/[0.10] bg-white/[0.02] p-8 sm:p-10 text-center space-y-4"
+        style={{ boxShadow: 'var(--glass-inset)' }}
+      >
         <h3 className="text-2xl font-bold text-white">
           Ready to supercharge your image infrastructure?
         </h3>
