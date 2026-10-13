@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 
 export function GithubIcon({ className = 'h-4 w-4', ...props }: React.SVGProps<SVGSVGElement>) {
