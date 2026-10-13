@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from 'next';
+import Script from 'next/script';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
@@ -75,12 +76,23 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
+  const adClientId = process.env.NEXT_PUBLIC_ADSENSE_CLIENT_ID;
+
   return (
     <html
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="relative min-h-full flex flex-col font-sans bg-[#08090B] text-zinc-100 overflow-x-hidden">
+        {adClientId && (
+          <Script
+            id="adsbygoogle-init"
+            async
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${adClientId}`}
+            crossOrigin="anonymous"
+            strategy="lazyOnload"
+          />
+        )}
         <LiquidBackground />
         {children}
         <Analytics />
