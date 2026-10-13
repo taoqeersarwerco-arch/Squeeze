@@ -158,11 +158,18 @@ class EngineManager {
 
   constructor() {
     if (typeof window !== 'undefined') {
+      const isIPadOS =
+        typeof navigator !== 'undefined' &&
+        navigator.platform === 'MacIntel' &&
+        navigator.maxTouchPoints > 1;
+
       const isMobile =
         typeof navigator !== 'undefined' &&
-        /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        (/Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ||
+          isIPadOS ||
+          Boolean((navigator as unknown as { userAgentData?: { mobile?: boolean } }).userAgentData?.mobile));
       const concurrency = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency || 4 : 4;
-      // On mobile devices, cap to 2 workers to prevent memory pressure from heavy smartphone camera photos
+      // On mobile and tablet devices, cap to 2 workers to prevent memory pressure from heavy smartphone/tablet camera photos
       const maxWorkers = isMobile ? 2 : 4;
       this.poolSize = Math.max(1, Math.min(maxWorkers, concurrency - 1));
       this.initWorkers();

@@ -120,7 +120,7 @@ export function DropZone({ onFilesSelected, hasItems, presetTargetFormat }: Drop
 
       {/* Inner glass pane */}
       <div
-        className={`relative flex flex-col items-center justify-center p-10 sm:p-16 text-center rounded-[calc(2rem-3px)] border backdrop-blur-2xl transition-all duration-300 ${
+        className={`relative flex flex-col items-center justify-center p-10 sm:p-16 text-center rounded-[calc(2rem_-_3px)] border backdrop-blur-2xl transition-all duration-300 ${
           isDragOver
             ? 'border-white/[0.15] bg-white/[0.04]'
             : 'border-white/[0.08] bg-white/[0.02] hover:border-white/[0.12]'
