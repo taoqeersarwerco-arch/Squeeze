@@ -163,11 +163,19 @@ input[type="range"]::-moz-range-thumb {
 
 /* ─── Learn Section Prose Styling ─── */
 .prose-squeeze h2 {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.35rem;
+  font-weight: 700;
   color: #FFFFFF;
-  margin-top: 2.5rem;
-  margin-bottom: 0.75rem;
+  margin-top: 2.75rem;
+  margin-bottom: 0.85rem;
+  letter-spacing: -0.015em;
+}
+.prose-squeeze h3 {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #E2E8F0;
+  margin-top: 1.75rem;
+  margin-bottom: 0.6rem;
   letter-spacing: -0.01em;
 }
 .prose-squeeze p {
@@ -176,23 +184,67 @@ input[type="range"]::-moz-range-thumb {
   color: var(--text-secondary);
   margin-bottom: 1.25rem;
 }
+.prose-squeeze ul,
+.prose-squeeze ol {
+  margin-top: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding-left: 1.25rem;
+}
+.prose-squeeze ul {
+  list-style-type: disc;
+}
+.prose-squeeze ol {
+  list-style-type: decimal;
+}
+.prose-squeeze li {
+  font-size: 0.9375rem;
+  line-height: 1.7;
+  color: var(--text-secondary);
+  margin-bottom: 0.4rem;
+}
 .prose-squeeze strong {
-  color: #E2E8F0;
+  color: #F8FAFC;
   font-weight: 600;
+}
+.prose-squeeze code {
+  font-family: var(--font-geist-mono), monospace;
+  font-size: 0.85em;
+  padding: 0.15rem 0.35rem;
+  border-radius: 0.375rem;
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #38BDF8;
 }
 .prose-squeeze table {
   width: 100%;
-  margin-top: 1rem;
-  margin-bottom: 1.5rem;
+  margin-top: 1.25rem;
+  margin-bottom: 1.75rem;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+}
+.prose-squeeze th {
+  text-align: left;
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  color: #F1F5F9;
+  font-weight: 600;
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.prose-squeeze td {
+  padding: 0.65rem 0.75rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--text-secondary);
 }
 .prose-squeeze a {
-  color: #CBD5E1;
+  color: #38BDF8;
   text-decoration: underline;
-  text-underline-offset: 2px;
+  text-underline-offset: 3px;
   transition: color 150ms;
 }
 .prose-squeeze a:hover {
-  color: #FFFFFF;
+  color: #7DD3FC;
 }
 
 /* ─── Liquid Background Motion Keyframes ─── */

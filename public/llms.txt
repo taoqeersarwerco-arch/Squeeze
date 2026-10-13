@@ -19,9 +19,19 @@ Platform: Modern Web Browsers (Chrome, Firefox, Safari, Edge)
 - [Compress PNG](https://www.trysqueeze.online/compress/png): Optimizes PNG image weight without introducing edge distortion or color banding.
 - [Compress WebP](https://www.trysqueeze.online/compress/webp): Maximizes WebP compression for high-performance Core Web Vitals and LCP speed.
 
-## Educational Guides
+## Educational Guides & Format Engineering
+- [What is PNG?](https://www.trysqueeze.online/learn/what-is-png): Anatomy, chunks (IHDR/IDAT), 8-bit alpha transparency, and Deflate LZ77 compression math.
+- [What is JPEG / JPG?](https://www.trysqueeze.online/learn/what-is-jpeg): RGB to YCbCr conversion, 4:2:0 chroma subsampling, DCT frequency quantization, and lossy artifacts.
+- [What is WebP?](https://www.trysqueeze.online/learn/what-is-webp): Google's VP8-derived next-gen format with lossy alpha transparency and 30% byte savings.
+- [What is SVG?](https://www.trysqueeze.online/learn/what-is-svg): XML vector geometry, infinite scalability, marching squares raster-to-vector tracing, and sanitization.
+- [What is ICO?](https://www.trysqueeze.online/learn/what-is-ico): Multi-resolution Windows binary packaging (16px to 256px) for production web favicons.
+- [Why Platforms Require Specific Formats](https://www.trysqueeze.online/learn/why-platforms-require-specific-formats): Technical analysis of decompression bombs, transcoding latency, and CDN costs.
+- [E-Commerce Image Requirements (Shopify & Amazon)](https://www.trysqueeze.online/learn/ecommerce-image-formats-shopify-amazon): Page speed conversion rates, zoom requirements, and catalog optimization.
+- [Why WordPress Restricts SVG](https://www.trysqueeze.online/learn/why-wordpress-restricts-svg): XML Cross-Site Scripting (XSS), entity injection (XXE), and safe vector solutions.
+- [Why Browsers Require Favicon.ico](https://www.trysqueeze.online/learn/why-browsers-require-ico-favicons): How Googlebot and browser tabs index root favicons and avoid downscaling blur.
+- [Why Social Media Compresses Images](https://www.trysqueeze.online/learn/why-social-media-compresses-images): Discord, Slack, and X compression thresholds and pre-optimization tactics.
 - [How In-Browser Image Conversion Works](https://www.trysqueeze.online/learn/how-image-conversion-works): Deep technical walkthrough of HTML5 Canvas, OffscreenCanvas, and worker threads.
-- [How Image Compression Works](https://www.trysqueeze.online/learn/how-image-compression-works): Mathematical explanation of lossy vs. lossless compression and DCT quantization.
+- [How Image Compression Works](https://www.trysqueeze.online/learn/how-image-compression-works): Mathematical explanation of lossy vs. lossless compression and SSIM scoring.
 - [Why Client-Side Image Tools Are Safer](https://www.trysqueeze.online/learn/your-data-stays-private): Security and zero-upload architecture comparison against cloud-based converters.
 
 ## Technical Specifications & Capabilities

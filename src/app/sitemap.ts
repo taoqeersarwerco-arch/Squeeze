@@ -1,5 +1,6 @@
 import { MetadataRoute } from 'next';
 import { SEO_CONVERSION_PAIRS, SEO_COMPRESS_FORMATS } from '@/lib/constants';
+import { ALL_ARTICLES } from '@/lib/articles';
 
 const BASE_URL = 'https://www.trysqueeze.online';
 
@@ -34,15 +35,9 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.9,
   }));
 
-  const learnRoutes = [
-    'how-image-conversion-works',
-    'how-image-compression-works',
-    'your-data-stays-private',
-    'what-happens-to-your-data',
-    'choosing-the-right-format',
-  ].map((slug) => ({
-    url: `${BASE_URL}/learn/${slug}`,
-    lastModified: now,
+  const learnRoutes = ALL_ARTICLES.map((article) => ({
+    url: `${BASE_URL}/learn/${article.slug}`,
+    lastModified: new Date(article.modifiedAt),
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));
