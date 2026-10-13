@@ -30,9 +30,16 @@ Platform: Modern Web Browsers (Chrome, Firefox, Safari, Edge)
 - [Why WordPress Restricts SVG](https://www.trysqueeze.online/learn/why-wordpress-restricts-svg): XML Cross-Site Scripting (XSS), entity injection (XXE), and safe vector solutions.
 - [Why Browsers Require Favicon.ico](https://www.trysqueeze.online/learn/why-browsers-require-ico-favicons): How Googlebot and browser tabs index root favicons and avoid downscaling blur.
 - [Why Social Media Compresses Images](https://www.trysqueeze.online/learn/why-social-media-compresses-images): Discord, Slack, and X compression thresholds and pre-optimization tactics.
-- [How In-Browser Image Conversion Works](https://www.trysqueeze.online/learn/how-image-conversion-works): Deep technical walkthrough of HTML5 Canvas, OffscreenCanvas, and worker threads.
-- [How Image Compression Works](https://www.trysqueeze.online/learn/how-image-compression-works): Mathematical explanation of lossy vs. lossless compression and SSIM scoring.
-- [Why Client-Side Image Tools Are Safer](https://www.trysqueeze.online/learn/your-data-stays-private): Security and zero-upload architecture comparison against cloud-based converters.
+- [Lossless vs. Lossy Compression](https://www.trysqueeze.online/learn/lossless-vs-lossy-compression): Mathematical exactness vs. perceptual approximation, HVS biology, and generation loss.
+- [What is SSIM?](https://www.trysqueeze.online/learn/what-is-ssim-image-quality): Structural Similarity Index Measure (luminance, contrast, structure) vs. PSNR/MSE.
+- [Raster vs. Vector Graphics](https://www.trysqueeze.online/learn/raster-vs-vector-graphics): Color matrices vs. Bézier geometry, complexity explosions, and tracing algorithms.
+- [Transparency & JPG Black Backgrounds](https://www.trysqueeze.online/learn/transparency-alpha-channels-and-jpg-matte): 32-bit RGBA alpha channel math and automated matte compositing.
+- [EXIF Metadata Privacy Risks](https://www.trysqueeze.online/learn/exif-metadata-privacy-risks): GPS tags, device fingerprints, and how in-browser canvas sanitizes photos.
+- [Core Web Vitals & LCP Image Optimization](https://www.trysqueeze.online/learn/image-optimization-for-core-web-vitals-lcp): How WebP reduces Largest Contentful Paint for higher Google rankings.
+- [How In-Browser Image Processing Works](https://www.trysqueeze.online/learn/how-in-browser-image-conversion-works): OffscreenCanvas, createImageBitmap, and multi-threaded Web Workers.
+- [Client-Side vs. Cloud Converters](https://www.trysqueeze.online/learn/client-side-vs-cloud-image-converters): Zero-upload architecture, data retention hazards, and enterprise compliance.
+- [Responsive Image Delivery (<picture> & srcset)](https://www.trysqueeze.online/learn/responsive-images-picture-tag-and-webp): HTML format negotiation, WebP sources, and legacy fallbacks.
+- [Retina & High-DPI Image Optimization](https://www.trysqueeze.online/learn/retina-high-dpi-image-optimization): Compressive images trick: 2x resolution at 75% quality for crisp, light graphics.
 
 ## Technical Specifications & Capabilities
 - Processing Environment: Client-Side Browser Memory (No remote upload)

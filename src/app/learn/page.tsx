@@ -33,6 +33,8 @@ export const metadata: Metadata = {
 const CATEGORIES = [
   'Format Fundamentals',
   'Platform Requirements',
+  'Compression Science',
+  'Web Performance & Engineering',
   'Privacy & Architecture',
 ] as const;
 
