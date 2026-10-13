@@ -4,7 +4,7 @@ import React from 'react';
 import { ImageItem, SupportedFormat } from '@/lib/types';
 import { FORMATS } from '@/lib/constants';
 import { formatBytes, formatFileName } from '@/lib/engine';
-import { Download, Trash2, Loader2, AlertCircle } from 'lucide-react';
+import { Download, Trash2, Loader2, AlertCircle, ChevronDown } from 'lucide-react';
 
 interface ConversionQueueProps {
   items: ImageItem[];
@@ -143,18 +143,21 @@ export function ConversionQueue({
                 {/* Target Format Selector */}
                 <div className="flex items-center gap-2">
                   <span className="text-[11px] text-zinc-500 hidden sm:inline">Save as:</span>
-                  <select
-                    value={item.targetFormat}
-                    onChange={(e) => onUpdateTargetFormat(item.id, e.target.value as SupportedFormat)}
-                    disabled={isProcessing}
-                    className="rounded-lg border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 text-xs font-medium uppercase text-zinc-300 hover:border-white/[0.14] focus:outline-none focus:ring-1 focus:ring-white/20 cursor-pointer transition"
-                  >
-                    {Object.values(FORMATS).map((fmt) => (
-                      <option key={fmt.id} value={fmt.id} className="bg-zinc-900 text-white">
-                        {fmt.id.toUpperCase()}
-                      </option>
-                    ))}
-                  </select>
+                  <div className="relative">
+                    <select
+                      value={item.targetFormat}
+                      onChange={(e) => onUpdateTargetFormat(item.id, e.target.value as SupportedFormat)}
+                      disabled={isProcessing}
+                      className="appearance-none rounded-lg border border-white/[0.08] bg-white/[0.04] pl-2.5 pr-7 py-1.5 text-xs font-medium uppercase text-zinc-300 hover:border-white/[0.14] focus:outline-none focus:ring-1 focus:ring-white/20 cursor-pointer transition"
+                    >
+                      {Object.values(FORMATS).map((fmt) => (
+                        <option key={fmt.id} value={fmt.id} className="bg-zinc-900 text-white">
+                          {fmt.id.toUpperCase()}
+                        </option>
+                      ))}
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 h-3 w-3 text-zinc-400" />
+                  </div>
                 </div>
 
                 <div className="flex items-center gap-1.5">

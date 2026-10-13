@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Play, Loader2, Sliders } from 'lucide-react';
+import { Play, Loader2, Sliders, ChevronDown } from 'lucide-react';
 
 export interface ApiLogEntry {
   id: string;
@@ -133,31 +133,37 @@ export function DeveloperApiTester({ apiKey, onLogRequest }: DeveloperApiTesterP
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 text-xs">
         <div>
           <label className="block text-zinc-400 font-medium mb-1.5">Source Format</label>
-          <select
-            value={fromFormat}
-            onChange={(e) => setFromFormat(e.target.value)}
-            className="w-full rounded-lg border border-white/[0.10] bg-black/60 px-3 py-2 text-zinc-200 focus:border-white/20 focus:outline-none"
-          >
-            <option value="png">PNG (Portable Network Graphics)</option>
-            <option value="jpg">JPG (Joint Photographic)</option>
-            <option value="webp">WebP (Google Modern)</option>
-            <option value="svg">SVG (Scalable Vector)</option>
-          </select>
+          <div className="relative">
+            <select
+              value={fromFormat}
+              onChange={(e) => setFromFormat(e.target.value)}
+              className="w-full appearance-none rounded-lg border border-white/[0.10] bg-black/60 pl-3 pr-8 py-2 text-zinc-200 focus:border-white/20 focus:outline-none cursor-pointer text-xs"
+            >
+              <option value="png" className="bg-zinc-950 text-zinc-200">PNG (Portable Network Graphics)</option>
+              <option value="jpg" className="bg-zinc-950 text-zinc-200">JPG (Joint Photographic)</option>
+              <option value="webp" className="bg-zinc-950 text-zinc-200">WebP (Google Modern)</option>
+              <option value="svg" className="bg-zinc-950 text-zinc-200">SVG (Scalable Vector)</option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+          </div>
         </div>
 
         <div>
           <label className="block text-zinc-400 font-medium mb-1.5">Target Format</label>
-          <select
-            value={toFormat}
-            onChange={(e) => setToFormat(e.target.value)}
-            className="w-full rounded-lg border border-white/[0.10] bg-black/60 px-3 py-2 text-zinc-200 focus:border-white/20 focus:outline-none"
-          >
-            <option value="webp">WebP (High-Compression)</option>
-            <option value="png">PNG (Lossless 32-bit)</option>
-            <option value="jpg">JPG (24-bit Photo)</option>
-            <option value="ico">ICO (Multi-Res 16-256px)</option>
-            <option value="svg">SVG (Vector Traced)</option>
-          </select>
+          <div className="relative">
+            <select
+              value={toFormat}
+              onChange={(e) => setToFormat(e.target.value)}
+              className="w-full appearance-none rounded-lg border border-white/[0.10] bg-black/60 pl-3 pr-8 py-2 text-zinc-200 focus:border-white/20 focus:outline-none cursor-pointer text-xs"
+            >
+              <option value="webp" className="bg-zinc-950 text-zinc-200">WebP (High-Compression)</option>
+              <option value="png" className="bg-zinc-950 text-zinc-200">PNG (Lossless 32-bit)</option>
+              <option value="jpg" className="bg-zinc-950 text-zinc-200">JPG (24-bit Photo)</option>
+              <option value="ico" className="bg-zinc-950 text-zinc-200">ICO (Multi-Res 16-256px)</option>
+              <option value="svg" className="bg-zinc-950 text-zinc-200">SVG (Vector Traced)</option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+          </div>
         </div>
 
         <div>
@@ -179,16 +185,19 @@ export function DeveloperApiTester({ apiKey, onLogRequest }: DeveloperApiTesterP
 
         <div>
           <label className="block text-zinc-400 font-medium mb-1.5">Max Edge Rescaling</label>
-          <select
-            value={maxEdge}
-            onChange={(e) => setMaxEdge(e.target.value)}
-            className="w-full rounded-lg border border-white/[0.10] bg-black/60 px-3 py-2 text-zinc-200 focus:border-white/20 focus:outline-none"
-          >
-            <option value="original">Original Dimensions (100%)</option>
-            <option value="2048">2,048 px (Web Standard)</option>
-            <option value="1920">1,920 px (Full HD)</option>
-            <option value="1080">1,080 px (Social Media)</option>
-          </select>
+          <div className="relative">
+            <select
+              value={maxEdge}
+              onChange={(e) => setMaxEdge(e.target.value)}
+              className="w-full appearance-none rounded-lg border border-white/[0.10] bg-black/60 pl-3 pr-8 py-2 text-zinc-200 focus:border-white/20 focus:outline-none cursor-pointer text-xs"
+            >
+              <option value="original" className="bg-zinc-950 text-zinc-200">Original Dimensions (100%)</option>
+              <option value="2048" className="bg-zinc-950 text-zinc-200">2,048 px (Web Standard)</option>
+              <option value="1920" className="bg-zinc-950 text-zinc-200">1,920 px (Full HD)</option>
+              <option value="1080" className="bg-zinc-950 text-zinc-200">1,080 px (Social Media)</option>
+            </select>
+            <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+          </div>
         </div>
       </div>
 

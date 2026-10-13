@@ -3,7 +3,7 @@
 import React from 'react';
 import { ConversionSettings } from '@/lib/types';
 import { FORMATS } from '@/lib/constants';
-import { X, Sliders } from 'lucide-react';
+import { X, Sliders, ChevronDown } from 'lucide-react';
 
 interface GlobalSettingsModalProps {
   isOpen: boolean;
@@ -167,17 +167,20 @@ export function GlobalSettingsModal({
             <label className="block text-xs font-medium text-zinc-400 mb-2">
               Maximum image size
             </label>
-            <select
-              value={settings.maxEdge}
-              onChange={(e) => update({ maxEdge: parseInt(e.target.value, 10) })}
-              className="w-full rounded-lg border border-white/[0.08] bg-white/[0.03] px-3 py-2 text-xs font-medium text-zinc-300 focus:outline-none focus:ring-1 focus:ring-white/20 cursor-pointer"
-            >
-              <option value="0">Keep original size</option>
-              <option value="2560">Up to 2560px (4K displays)</option>
-              <option value="1920">Up to 1920px (Full HD)</option>
-              <option value="1280">Up to 1280px (Web standard)</option>
-              <option value="800">Up to 800px (Thumbnails)</option>
-            </select>
+            <div className="relative">
+              <select
+                value={settings.maxEdge}
+                onChange={(e) => update({ maxEdge: parseInt(e.target.value, 10) })}
+                className="w-full appearance-none rounded-lg border border-white/[0.08] bg-white/[0.03] pl-3 pr-8 py-2 text-xs font-medium text-zinc-300 focus:outline-none focus:ring-1 focus:ring-white/20 cursor-pointer"
+              >
+                <option value="0" className="bg-zinc-950 text-zinc-200">Keep original size</option>
+                <option value="2560" className="bg-zinc-950 text-zinc-200">Up to 2560px (4K displays)</option>
+                <option value="1920" className="bg-zinc-950 text-zinc-200">Up to 1920px (Full HD)</option>
+                <option value="1280" className="bg-zinc-950 text-zinc-200">Up to 1280px (Web standard)</option>
+                <option value="800" className="bg-zinc-950 text-zinc-200">Up to 800px (Thumbnails)</option>
+              </select>
+              <ChevronDown className="pointer-events-none absolute right-2.5 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-zinc-400" />
+            </div>
             <p className="text-[11px] text-zinc-600 mt-1.5">
               Scales down images larger than this. Smaller images are kept as-is.
             </p>
