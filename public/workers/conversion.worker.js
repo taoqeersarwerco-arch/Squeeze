@@ -157,6 +157,23 @@ function traceToSvg(data, width, height, detail) {
 self.onmessage = async ({ data: job }) => {
   const { id, fileData, fileType, settings } = job;
   try {
+    if (job.sourceFormat === 'svg' && settings.targetFormat === 'svg') {
+      const outBlob = new Blob([fileData], { type: 'image/svg+xml' });
+      self.postMessage({
+        id,
+        success: true,
+        outBlobData: fileData,
+        outMime: 'image/svg+xml',
+        outSize: outBlob.size,
+        srcWidth: 0,
+        srcHeight: 0,
+        outWidth: 0,
+        outHeight: 0,
+        ssim: 1.0,
+      });
+      return;
+    }
+
     const inBlob = new Blob([fileData], { type: fileType });
     const bmp = await createImageBitmap(inBlob);
     const srcW = bmp.width;

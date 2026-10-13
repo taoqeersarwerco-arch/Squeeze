@@ -41,6 +41,111 @@ export function formatBytes(bytes: number): string {
   return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
 }
 
+/**
+ * In-browser SVG rasterizer using standard Image and Canvas APIs.
+ * Solves the browser limitation where Web Workers cannot decode SVG blobs via createImageBitmap().
+ */
+export async function rasterizeSvgToPng(
+  file: File,
+  targetFormat: SupportedFormat,
+  maxEdge?: number
+): Promise<{ pngData: ArrayBuffer; width: number; height: number }> {
+  return new Promise(async (resolve, reject) => {
+    try {
+      const svgText = await file.text();
+      let targetWidth = 512;
+      let targetHeight = 512;
+
+      // Extract native dimensions or viewBox if available
+      try {
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(svgText, 'image/svg+xml');
+        const svgEl = doc.querySelector('svg');
+        if (svgEl) {
+          const wAttr = parseFloat(svgEl.getAttribute('width') || '0');
+          const hAttr = parseFloat(svgEl.getAttribute('height') || '0');
+          const viewBox = svgEl.getAttribute('viewBox');
+
+          if (wAttr > 0 && hAttr > 0) {
+            targetWidth = wAttr;
+            targetHeight = hAttr;
+          } else if (viewBox) {
+            const parts = viewBox.trim().split(/[\s,]+/).map(Number);
+            if (parts.length === 4 && parts[2] > 0 && parts[3] > 0) {
+              targetWidth = parts[2];
+              targetHeight = parts[3];
+            }
+          }
+        }
+      } catch {
+        // Fallback to default 512x512
+      }
+
+      // For ICO targets, ensure high resolution (at least 512px) so 16px-256px mipmaps are razor sharp
+      if (targetFormat === 'ico') {
+        const largest = Math.max(targetWidth, targetHeight);
+        if (largest < 512) {
+          const scale = 512 / Math.max(1, largest);
+          targetWidth = Math.round(targetWidth * scale);
+          targetHeight = Math.round(targetHeight * scale);
+        }
+      }
+
+      // Respect user's maxEdge setting if specified
+      if (maxEdge && maxEdge > 0 && Math.max(targetWidth, targetHeight) > maxEdge) {
+        const scale = maxEdge / Math.max(targetWidth, targetHeight);
+        targetWidth = Math.max(1, Math.round(targetWidth * scale));
+        targetHeight = Math.max(1, Math.round(targetHeight * scale));
+      }
+
+      const blob = new Blob([svgText], { type: 'image/svg+xml;charset=utf-8' });
+      const url = URL.createObjectURL(blob);
+      const img = new Image();
+      img.crossOrigin = 'anonymous';
+
+      img.onload = () => {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = targetWidth;
+          canvas.height = targetHeight;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) {
+            URL.revokeObjectURL(url);
+            reject(new Error('Canvas 2D context is not supported in this browser.'));
+            return;
+          }
+
+          ctx.imageSmoothingEnabled = true;
+          ctx.imageSmoothingQuality = 'high';
+          ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+          URL.revokeObjectURL(url);
+
+          canvas.toBlob(async (pngBlob) => {
+            if (!pngBlob) {
+              reject(new Error('Failed to rasterize SVG into PNG.'));
+              return;
+            }
+            const pngData = await pngBlob.arrayBuffer();
+            resolve({ pngData, width: targetWidth, height: targetHeight });
+          }, 'image/png');
+        } catch (err) {
+          URL.revokeObjectURL(url);
+          reject(err);
+        }
+      };
+
+      img.onerror = () => {
+        URL.revokeObjectURL(url);
+        reject(new Error('Unable to render SVG image. Please verify that the SVG syntax is valid.'));
+      };
+
+      img.src = url;
+    } catch (err) {
+      reject(err);
+    }
+  });
+}
+
 class EngineManager {
   private workers: Worker[] = [];
   private poolSize = 3;
@@ -122,15 +227,37 @@ class EngineManager {
     settings: ConversionSettings,
     id: string
   ): Promise<EngineJobResponse> {
-    const fileData = await file.arrayBuffer();
+    let fileData: ArrayBuffer;
+    let fileType = file.type || 'application/octet-stream';
+    let fileSize = file.size;
+
+    // Handle SVG source format:
+    // Web Workers cannot decode SVG via createImageBitmap(). If target is raster (ico, png, jpg, webp),
+    // rasterize on the main thread first into high-resolution PNG bytes.
+    if (sourceFormat === 'svg' && settings.targetFormat !== 'svg') {
+      try {
+        const raster = await rasterizeSvgToPng(file, settings.targetFormat, settings.maxEdge);
+        fileData = raster.pngData;
+        fileType = 'image/png';
+        fileSize = fileData.byteLength;
+      } catch (err) {
+        return {
+          id,
+          success: false,
+          error: err instanceof Error ? err.message : 'Failed to parse SVG image.',
+        };
+      }
+    } else {
+      fileData = await file.arrayBuffer();
+    }
 
     const job: EngineJobRequest = {
       id,
       fileData,
       fileName: file.name,
-      fileType: file.type || 'application/octet-stream',
-      fileSize: file.size,
-      sourceFormat,
+      fileType,
+      fileSize,
+      sourceFormat: sourceFormat === 'svg' && settings.targetFormat !== 'svg' ? 'png' : sourceFormat,
       settings,
     };
 
