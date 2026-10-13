@@ -195,7 +195,7 @@ export function ConversionHubGrid({
         style={{ boxShadow: 'var(--glass-inset)' }}
       >
         <div className="space-y-0.5">
-          <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+          <p className="text-[11px] font-mono font-semibold uppercase tracking-wider text-zinc-400">
             Image Engineering Knowledge Base
           </p>
           <p className="text-xs text-zinc-300">
@@ -224,9 +224,9 @@ export function ConversionHubGrid({
           </Link>
           <Link
             href="/learn"
-            className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 ml-1"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-white hover:text-zinc-300 ml-1 transition"
           >
-            <span>All 20 Guides</span>
+            <span>All 28 Guides</span>
             <ArrowRight className="h-3 w-3" />
           </Link>
         </div>
