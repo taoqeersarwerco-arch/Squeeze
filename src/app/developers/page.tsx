@@ -6,8 +6,12 @@ import { Footer } from '@/components/Footer';
 import { DeveloperRequestForm } from '@/components/DeveloperRequestForm';
 
 export const metadata: Metadata = {
-  title: 'Developers - Squeeze',
-  description: 'Build with the Squeeze image processing engine. Request a free API key for your project.',
+  title: 'Client-Side Image Processing API & Sandbox | Squeeze Developers',
+  description:
+    'Build with the Squeeze client-side engine. Free instant API key, cURL snippets, and documentation for programmatic integrations.',
+  alternates: {
+    canonical: 'https://www.trysqueeze.online/developers',
+  },
 };
 
 export default function DevelopersPage() {

@@ -1,9 +1,11 @@
 import { MetadataRoute } from 'next';
 import { SEO_CONVERSION_PAIRS, SEO_COMPRESS_FORMATS } from '@/lib/constants';
 
-const BASE_URL = 'https://trysqueeze.online';
+const BASE_URL = 'https://www.trysqueeze.online';
 
 export default function sitemap(): MetadataRoute.Sitemap {
+  const now = new Date();
+
   const staticRoutes = [
     '',
     '/learn',
@@ -13,21 +15,21 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/terms',
   ].map((route) => ({
     url: `${BASE_URL}${route}`,
-    lastModified: new Date('2026-10-12'),
-    changeFrequency: 'weekly' as const,
+    lastModified: now,
+    changeFrequency: (route === '' ? 'daily' : 'weekly') as 'daily' | 'weekly',
     priority: route === '' ? 1.0 : 0.8,
   }));
 
   const conversionRoutes = SEO_CONVERSION_PAIRS.map((pair) => ({
     url: `${BASE_URL}/convert/${pair.from}-to-${pair.to}`,
-    lastModified: new Date('2026-10-12'),
+    lastModified: now,
     changeFrequency: 'weekly' as const,
     priority: 0.9,
   }));
 
   const compressionRoutes = SEO_COMPRESS_FORMATS.map((cf) => ({
     url: `${BASE_URL}/compress/${cf.format}`,
-    lastModified: new Date('2026-10-12'),
+    lastModified: now,
     changeFrequency: 'weekly' as const,
     priority: 0.9,
   }));
@@ -40,7 +42,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     'choosing-the-right-format',
   ].map((slug) => ({
     url: `${BASE_URL}/learn/${slug}`,
-    lastModified: new Date('2026-10-12'),
+    lastModified: now,
     changeFrequency: 'monthly' as const,
     priority: 0.7,
   }));

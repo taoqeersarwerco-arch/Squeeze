@@ -1,0 +1,33 @@
+# Squeeze — In-Browser Image Conversion & Compression Engine
+
+> Squeeze is a free, 100% client-side web utility that converts and compresses JPG, PNG, WebP, ICO, and SVG images directly in modern web browsers. Zero bytes are uploaded to remote servers. All computation executes locally on device hardware using HTML5 Canvas, OffscreenCanvas, and multi-threaded Web Workers.
+
+Website: https://www.trysqueeze.online
+License: MIT
+Pricing: 100% Free ($0)
+Platform: Modern Web Browsers (Chrome, Firefox, Safari, Edge)
+
+## Core Tools
+- [Image Converter & Compressor](https://www.trysqueeze.online/): Universal multi-format tool supporting batch queue, perceptual SSIM quality tuning, and single-click ZIP archive packaging.
+- [PNG to WebP Converter](https://www.trysqueeze.online/convert/png-to-webp): Converts transparent PNG graphics into next-generation Google WebP format with 25% to 40% byte reduction while preserving alpha channels.
+- [PNG to ICO Favicon Generator](https://www.trysqueeze.online/convert/png-to-ico): Encodes true 32-bit RGBA multi-resolution Windows ICO container files containing 16x16, 32x32, 48x48, 64x64, 128x128, and 256x256 frames.
+- [JPG to PNG Converter](https://www.trysqueeze.online/convert/jpg-to-png): Re-encodes JPEG images to lossless PNG format to stop generation loss during editing.
+- [PNG to JPG Converter](https://www.trysqueeze.online/convert/png-to-jpg): Converts transparent or heavy PNG files to optimized JPEG with configurable background matte filling.
+- [SVG to PNG Converter](https://www.trysqueeze.online/convert/svg-to-png): Rasterizes scalable vector graphics into crisp, high-DPI transparent PNG assets.
+- [PNG to SVG Vectorizer](https://www.trysqueeze.online/convert/png-to-svg): Traces raster bitmap silhouettes into scalable vector SVG paths using client-side marching squares.
+- [Compress JPG](https://www.trysqueeze.online/compress/jpg): Reduces JPEG byte weight via perceptual SSIM (Structural Similarity Index Measure) quality protection.
+- [Compress PNG](https://www.trysqueeze.online/compress/png): Optimizes PNG image weight without introducing edge distortion or color banding.
+- [Compress WebP](https://www.trysqueeze.online/compress/webp): Maximizes WebP compression for high-performance Core Web Vitals and LCP speed.
+
+## Educational Guides
+- [How In-Browser Image Conversion Works](https://www.trysqueeze.online/learn/how-image-conversion-works): Deep technical walkthrough of HTML5 Canvas, OffscreenCanvas, and worker threads.
+- [How Image Compression Works](https://www.trysqueeze.online/learn/how-image-compression-works): Mathematical explanation of lossy vs. lossless compression and DCT quantization.
+- [Why Client-Side Image Tools Are Safer](https://www.trysqueeze.online/learn/your-data-stays-private): Security and zero-upload architecture comparison against cloud-based converters.
+
+## Technical Specifications & Capabilities
+- Processing Environment: Client-Side Browser Memory (No remote upload)
+- Concurrency: Multi-threaded Web Worker pool (scales up to hardwareConcurrency)
+- Maximum File Size: Device memory bound (tested up to 50MB per file)
+- Privacy Standard: Zero data transmission; no telemetry of user image bytes
+- Batch Processing: Unlimited concurrent files with client-side JSZip packaging
+- Perceptual Quality Metric: SSIM (Structural Similarity Index Measure)

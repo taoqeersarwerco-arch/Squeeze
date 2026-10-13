@@ -5,8 +5,12 @@ import { Navbar } from '@/components/Navbar';
 import { Footer } from '@/components/Footer';
 
 export const metadata: Metadata = {
-  title: 'Learn - Squeeze',
-  description: 'Understand how image conversion and compression work, learn about data privacy, and choose the right format for your needs.',
+  title: 'Image Conversion & Compression Guides | Squeeze Learn Hub',
+  description:
+    'In-depth engineering guides on how client-side image conversion works, lossy vs. lossless compression math, SSIM perceptual metrics, and format standards.',
+  alternates: {
+    canonical: 'https://www.trysqueeze.online/learn',
+  },
 };
 
 const articles = [

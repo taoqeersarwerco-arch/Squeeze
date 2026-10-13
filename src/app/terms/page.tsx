@@ -4,8 +4,12 @@ import { Footer } from '@/components/Footer';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service - Squeeze',
-  description: 'Terms of Service and usage conditions for Squeeze image optimizer.',
+  title: 'Terms of Service | Squeeze',
+  description:
+    'Terms of Service and usage conditions for Squeeze in-browser image conversion and perceptual compression engine.',
+  alternates: {
+    canonical: 'https://www.trysqueeze.online/terms',
+  },
 };
 
 export default function TermsPage() {

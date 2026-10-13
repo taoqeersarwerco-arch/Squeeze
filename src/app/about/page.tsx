@@ -5,8 +5,12 @@ import { Cpu, Zap } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'About - Squeeze',
-  description: 'How Squeeze converts and compresses images locally in your browser with zero data collection.',
+  title: 'About the In-Browser Zero-Upload Engine | Squeeze',
+  description:
+    'Learn how Squeeze executes 100% of image conversions and perceptual compressions locally in your browser with zero server uploads.',
+  alternates: {
+    canonical: 'https://www.trysqueeze.online/about',
+  },
 };
 
 export default function AboutPage() {

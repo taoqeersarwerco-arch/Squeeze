@@ -250,9 +250,24 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const article = articles[slug];
   if (!article) return { title: 'Not Found' };
+  const url = `https://www.trysqueeze.online/learn/${slug}`;
   return {
-    title: `${article.title} - Squeeze`,
+    title: `${article.title} | Squeeze Technical Guide`,
     description: article.description,
+    alternates: {
+      canonical: url,
+    },
+    openGraph: {
+      title: `${article.title} | Squeeze Technical Guide`,
+      description: article.description,
+      url,
+      type: 'article',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: `${article.title} | Squeeze Technical Guide`,
+      description: article.description,
+    },
   };
 }
 
@@ -261,8 +276,55 @@ export default async function LearnArticlePage({ params }: { params: Promise<{ s
   const article = articles[slug];
   if (!article) notFound();
 
+  const url = `https://www.trysqueeze.online/learn/${slug}`;
+  const schema = {
+    '@context': 'https://schema.org',
+    '@graph': [
+      {
+        '@type': 'TechArticle',
+        '@id': `${url}#article`,
+        headline: article.title,
+        description: article.description,
+        url,
+        inLanguage: 'en-US',
+        publisher: {
+          '@type': 'Organization',
+          name: 'Squeeze',
+          url: 'https://www.trysqueeze.online',
+        },
+      },
+      {
+        '@type': 'BreadcrumbList',
+        '@id': `${url}#breadcrumb`,
+        itemListElement: [
+          {
+            '@type': 'ListItem',
+            position: 1,
+            name: 'Home',
+            item: 'https://www.trysqueeze.online',
+          },
+          {
+            '@type': 'ListItem',
+            position: 2,
+            name: 'Learn',
+            item: 'https://www.trysqueeze.online/learn',
+          },
+          {
+            '@type': 'ListItem',
+            position: 3,
+            name: article.title,
+          },
+        ],
+      },
+    ],
+  };
+
   return (
     <div className="relative min-h-[100dvh] flex flex-col bg-transparent text-zinc-100">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+      />
       <Navbar />
 
       <main className="relative z-10 flex-1">

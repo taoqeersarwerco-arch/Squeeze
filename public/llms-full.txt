@@ -1,0 +1,91 @@
+# Squeeze Complete System Documentation (llms-full.txt)
+
+> Squeeze is a free, private, client-side image conversion and compression engine. 
+> Canonical URL: https://www.trysqueeze.online
+> Architecture: 100% In-Browser Execution via HTML5 Canvas, OffscreenCanvas, and Web Workers.
+
+---
+
+## 1. System Overview & Privacy Architecture
+
+Traditional web image converters upload user images to remote cloud servers (AWS EC2, Google Cloud Storage, or third-party transcoding microservices). This poses significant privacy and compliance concerns regarding confidential photos, financial records, medical documents, and NDAs.
+
+Squeeze changes this paradigm through a Zero-Upload, Client-Side execution model:
+1. Files dropped onto the interface are read into memory via the browser's `FileReader` and `createImageBitmap` APIs.
+2. Binary ArrayBuffers are transferred off the main UI thread to a pool of background Web Workers (`/workers/conversion.worker.js`).
+3. Inside each worker, images are resampled, converted, or compressed using `OffscreenCanvas`.
+4. Output blobs are wrapped in local memory Object URLs (`blob:https://...`) for instant download or packaged into `.zip` archives via client-side `JSZip`.
+5. Zero image bytes leave the local computer. No server storage, no database records, and no API latency.
+
+---
+
+## 2. Supported Formats & Mechanics
+
+### PNG (Portable Network Graphics)
+- MIME: `image/png`
+- Compression: Lossless Deflate (LZ77 + Huffman coding)
+- Alpha Channel: Full 8-bit alpha channel (256 levels of transparency)
+- Best For: Logos, UI icons, sharp graphics, screenshots with text.
+- Conversion Notes: When converting from lossy formats (JPEG/WebP) to PNG, file size often increases because PNG uses strict lossless encoding.
+
+### JPEG / JPG (Joint Photographic Experts Group)
+- MIME: `image/jpeg`
+- Compression: Lossy Discrete Cosine Transform (DCT) + Chroma Subsampling (4:2:0)
+- Alpha Channel: Unsupported.
+- Transparency Behavior: When converting transparent PNG or WebP images to JPG, Squeeze automatically fills transparent pixels with a user-configurable matte color (default: `#FFFFFF` pure white) to prevent black-background artifacts.
+- Best For: Photographs, complex gradients, photorealistic art.
+
+### WebP (Google Modern Web Format)
+- MIME: `image/webp`
+- Compression: Supports both Lossy (VP8 intra-frame prediction) and Lossless modes.
+- Alpha Channel: Supported in both lossy and lossless modes.
+- Efficiency: Approximately 26% smaller than PNG (lossless) and 25-34% smaller than JPEG (lossy) at equivalent visual quality.
+- Best For: High-performance web publishing, e-commerce catalog assets, Core Web Vitals optimization.
+
+### ICO (Windows Icon Resource Container)
+- MIME: `image/x-icon`
+- Architecture: Binary multi-resolution container file packing multiple bitmap/PNG frames.
+- Squeeze Packaging: Automatically packs 16x16, 32x32, 48x48, 64x64, 128x128, and 256x256 pixel frames into a single `.ico` file.
+- Alpha Channel: Supported across all frames.
+- Best For: Website `favicon.ico`, Windows application icons, desktop shortcuts.
+
+### SVG (Scalable Vector Graphics)
+- MIME: `image/svg+xml`
+- Architecture: XML-based vector graphic definitions using coordinate math (`<path>`, `<rect>`, `<polygon>`).
+- Squeeze Vectorizer: Implements a client-side marching-squares contour tracing algorithm that vectorizes raster silhouettes into scalable vector SVG paths.
+- Best For: Logos, monochrome icons, vector assets requiring infinite zoom without pixelation.
+
+---
+
+## 3. Perceptual Quality Engine: Structural Similarity (SSIM)
+
+Rather than arbitrary compression sliders, Squeeze integrates client-side SSIM (Structural Similarity Index Measure) quality measurement:
+- Math: Evaluates luminance, contrast, and structural degradation against the uncompressed source bitmap.
+- Scale: 0.0 (total distortion) to 1.0 (bit-identical match).
+- Target Ratio & Sweet Spot: Squeeze dynamically targets an SSIM score >= 0.95, delivering between 50% and 80% byte reductions while keeping compression artifacts imperceptible to human vision.
+
+---
+
+## 4. Programmatic Conversion Pair Index
+
+Below is the directory of all 15 conversion pairs accessible on Squeeze:
+- PNG to WebP: `https://www.trysqueeze.online/convert/png-to-webp`
+- PNG to ICO: `https://www.trysqueeze.online/convert/png-to-ico`
+- PNG to JPG: `https://www.trysqueeze.online/convert/png-to-jpg`
+- PNG to SVG: `https://www.trysqueeze.online/convert/png-to-svg`
+- JPG to PNG: `https://www.trysqueeze.online/convert/jpg-to-png`
+- JPG to WebP: `https://www.trysqueeze.online/convert/jpg-to-webp`
+- JPG to ICO: `https://www.trysqueeze.online/convert/jpg-to-ico`
+- JPG to SVG: `https://www.trysqueeze.online/convert/jpg-to-svg`
+- WebP to PNG: `https://www.trysqueeze.online/convert/webp-to-png`
+- WebP to JPG: `https://www.trysqueeze.online/convert/webp-to-jpg`
+- SVG to PNG: `https://www.trysqueeze.online/convert/svg-to-png`
+- SVG to JPG: `https://www.trysqueeze.online/convert/svg-to-jpg`
+- SVG to WebP: `https://www.trysqueeze.online/convert/svg-to-webp`
+- SVG to ICO: `https://www.trysqueeze.online/convert/svg-to-ico`
+- ICO to PNG: `https://www.trysqueeze.online/convert/ico-to-png`
+
+Dedicated Compression Tools:
+- Compress JPG: `https://www.trysqueeze.online/compress/jpg`
+- Compress PNG: `https://www.trysqueeze.online/compress/png`
+- Compress WebP: `https://www.trysqueeze.online/compress/webp`

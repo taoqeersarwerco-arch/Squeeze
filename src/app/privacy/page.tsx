@@ -5,8 +5,12 @@ import { ShieldCheck, Lock, EyeOff } from 'lucide-react';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy - Squeeze',
-  description: 'Squeeze is built on a 100% client-side privacy model. Your image files are never uploaded, collected, or shared.',
+  title: '100% Client-Side Privacy Policy | Squeeze',
+  description:
+    'Squeeze operates on a strict zero-upload model. All image processing happens locally in client browser memory. No files are ever uploaded, collected, or shared.',
+  alternates: {
+    canonical: 'https://www.trysqueeze.online/privacy',
+  },
 };
 
 export default function PrivacyPage() {

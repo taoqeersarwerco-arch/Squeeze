@@ -21,42 +21,52 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://trysqueeze.online'),
+  metadataBase: new URL('https://www.trysqueeze.online'),
   alternates: {
     canonical: '/',
   },
-  title: 'Squeeze - Free In-Browser Image Converter & Compressor',
+  title: {
+    default: 'Free Image Converter & Compressor (100% In-Browser) | Squeeze',
+    template: '%s | Squeeze',
+  },
   description:
-    'Convert and compress JPG, PNG, ICO, SVG, and WebP images instantly in your browser. 100% private, nothing is uploaded. Fast and free.',
+    'Convert and compress JPG, PNG, WebP, SVG, and ICO images 100% in your browser. Zero file uploads, complete privacy, instant downloads, and $0 cost.',
   keywords: [
-    'image converter',
-    'compress images',
-    'png to ico',
-    'svg to png',
-    'jpg to webp',
-    'webp to jpg',
-    'favicon generator',
-    'lossless image compression',
-    'in-browser image converter',
+    'free image converter online',
+    'in-browser image compressor',
+    'private image converter no upload',
+    'convert png to webp',
+    'png to ico favicon generator',
+    'jpg to webp converter',
+    'lossless image compressor',
+    'client side image optimization',
   ],
   authors: [{ name: 'Squeeze' }],
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      'max-video-preview': -1,
+      'max-image-preview': 'large',
+      'max-snippet': -1,
+    },
   },
   openGraph: {
-    title: 'Squeeze - Free In-Browser Image Converter & Compressor',
+    title: 'Free Image Converter & Compressor (100% In-Browser) | Squeeze',
     description:
-      'Convert and compress JPG, PNG, ICO, SVG, and WebP images instantly in your browser. Private and free.',
+      'Convert and compress JPG, PNG, WebP, SVG, and ICO images 100% in your browser. Zero file uploads, complete privacy, and instant downloads.',
     type: 'website',
     locale: 'en_US',
     siteName: 'Squeeze',
+    url: 'https://www.trysqueeze.online',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Squeeze - Free In-Browser Image Converter & Compressor',
+    title: 'Free Image Converter & Compressor (100% In-Browser) | Squeeze',
     description:
-      'Convert and compress JPG, PNG, ICO, SVG, and WebP images instantly in your browser. Private and free.',
+      'Convert and compress JPG, PNG, WebP, SVG, and ICO images 100% in your browser. Zero file uploads, complete privacy, and instant downloads.',
   },
 };
 
