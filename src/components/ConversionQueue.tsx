@@ -48,7 +48,6 @@ export function ConversionQueue({
           const outSize = item.outSize;
           const isSmaller = isDone && outSize < origSize;
           const isLarger = isDone && outSize > origSize;
-          const isIdentical = isDone && outSize === origSize;
           const diffBytes = Math.abs(origSize - outSize);
           const deltaPercent = origSize > 0 ? Math.round((diffBytes / origSize) * 100) : 0;
           const outFileName = formatFileName(item.file.name, item.targetFormat, slugifyNames);
