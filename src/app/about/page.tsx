@@ -232,27 +232,27 @@ export default function AboutPage() {
               and privacy risks for developers, designers, and creators worldwide.
             </p>
 
-            {/* Quick Metrics Bar */}
+            {/* Quick Metrics Bar - Monochromatic Precision */}
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 pt-4">
               <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
-                <p className="text-xl sm:text-2xl font-bold text-emerald-400">0 B</p>
-                <p className="text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">Uploaded</p>
+                <p className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-tight">0 B</p>
+                <p className="text-[11px] text-zinc-500 uppercase tracking-wider mt-0.5">Uploaded</p>
               </div>
               <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
-                <p className="text-xl sm:text-2xl font-bold text-white">100%</p>
-                <p className="text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">In-Browser</p>
+                <p className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-tight">100%</p>
+                <p className="text-[11px] text-zinc-500 uppercase tracking-wider mt-0.5">In-Browser</p>
               </div>
               <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
-                <p className="text-xl sm:text-2xl font-bold text-cyan-400">18+</p>
-                <p className="text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">Tool Pairs</p>
+                <p className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-tight">18+</p>
+                <p className="text-[11px] text-zinc-500 uppercase tracking-wider mt-0.5">Tool Pairs</p>
               </div>
               <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
-                <p className="text-xl sm:text-2xl font-bold text-amber-400">28+</p>
-                <p className="text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">Learn Specs</p>
+                <p className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-tight">28+</p>
+                <p className="text-[11px] text-zinc-500 uppercase tracking-wider mt-0.5">Learn Specs</p>
               </div>
               <div className="col-span-2 sm:col-span-1 rounded-xl border border-white/[0.06] bg-white/[0.02] p-3 text-center">
-                <p className="text-xl sm:text-2xl font-bold text-zinc-200">0 ms</p>
-                <p className="text-[11px] text-zinc-400 uppercase tracking-wider mt-0.5">Queue Wait</p>
+                <p className="text-xl sm:text-2xl font-bold text-white tabular-nums tracking-tight">0 ms</p>
+                <p className="text-[11px] text-zinc-500 uppercase tracking-wider mt-0.5">Queue Wait</p>
               </div>
             </div>
           </header>
@@ -260,14 +260,14 @@ export default function AboutPage() {
           {/* Section 1: Answer Island & Executive Summary (AEO / GEO target) */}
           <section className="space-y-4">
             <div className="flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-emerald-400" />
+              <Sparkles className="h-4 w-4 text-zinc-400" />
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 What is Squeeze?
               </h2>
             </div>
 
             <div
-              className="rounded-xl border border-emerald-500/20 bg-emerald-500/[0.03] p-5 sm:p-6 text-zinc-200 leading-relaxed space-y-3"
+              className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 sm:p-6 text-zinc-200 leading-relaxed space-y-3"
               style={{ boxShadow: 'var(--glass-inset)' }}
             >
               <p className="text-base font-medium text-white">
@@ -275,7 +275,7 @@ export default function AboutPage() {
                 and developer engine that converts, compresses, packages, and vectorizes images entirely
                 on the client device.
               </p>
-              <p className="text-sm text-zinc-300">
+              <p className="text-sm text-zinc-400">
                 Unlike traditional online file converters that upload user files to remote servers,
                 Squeeze executes all raster rendering, perceptual SSIM optimization, binary Windows ICO packing,
                 and SVG vector tracing locally using modern web standards including HTML5 Canvas,
@@ -288,7 +288,7 @@ export default function AboutPage() {
           {/* Section 2: The Mission & Why We Built Squeeze */}
           <section className="space-y-4">
             <div className="flex items-center gap-2">
-              <Zap className="h-5 w-5 text-amber-400" />
+              <Zap className="h-4 w-4 text-zinc-400" />
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 The Mission: Rebuilding Image Processing for the Modern Web
               </h2>
@@ -320,7 +320,7 @@ export default function AboutPage() {
           {/* Section 3: Technical Architecture & Core Innovations */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <Cpu className="h-5 w-5 text-cyan-400" />
+              <Cpu className="h-4 w-4 text-zinc-400" />
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Under the Hood: How the Squeeze Engine Works
               </h2>
@@ -336,7 +336,7 @@ export default function AboutPage() {
                 style={{ boxShadow: 'var(--glass-inset)' }}
               >
                 <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                  <Workflow className="h-4 w-4 text-emerald-400" />
+                  <Workflow className="h-4 w-4 text-zinc-400" />
                   <span>Multi-Threaded Web Worker Pipeline</span>
                 </div>
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
@@ -351,7 +351,7 @@ export default function AboutPage() {
                 style={{ boxShadow: 'var(--glass-inset)' }}
               >
                 <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                  <Gauge className="h-4 w-4 text-cyan-400" />
+                  <Gauge className="h-4 w-4 text-zinc-400" />
                   <span>Perceptual SSIM Quality Preservation</span>
                 </div>
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
@@ -366,7 +366,7 @@ export default function AboutPage() {
                 style={{ boxShadow: 'var(--glass-inset)' }}
               >
                 <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                  <Layers className="h-4 w-4 text-purple-400" />
+                  <Layers className="h-4 w-4 text-zinc-400" />
                   <span>Binary Windows ICO Struct Packing</span>
                 </div>
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
@@ -381,7 +381,7 @@ export default function AboutPage() {
                 style={{ boxShadow: 'var(--glass-inset)' }}
               >
                 <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                  <FileCode className="h-4 w-4 text-amber-400" />
+                  <FileCode className="h-4 w-4 text-zinc-400" />
                   <span>Marching-Squares Vector Shape Tracing</span>
                 </div>
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
@@ -396,7 +396,7 @@ export default function AboutPage() {
                 style={{ boxShadow: 'var(--glass-inset)' }}
               >
                 <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                  <EyeOff className="h-4 w-4 text-rose-400" />
+                  <EyeOff className="h-4 w-4 text-zinc-400" />
                   <span>EXIF Privacy Sanitization</span>
                 </div>
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
@@ -411,7 +411,7 @@ export default function AboutPage() {
                 style={{ boxShadow: 'var(--glass-inset)' }}
               >
                 <div className="flex items-center gap-2 text-white font-semibold text-sm">
-                  <Archive className="h-4 w-4 text-blue-400" />
+                  <Archive className="h-4 w-4 text-zinc-400" />
                   <span>Streaming Client-Side ZIP Packaging</span>
                 </div>
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
@@ -426,7 +426,7 @@ export default function AboutPage() {
           {/* Section 4: Architectural Comparison Table (Information Gain for SEO/LLMs) */}
           <section className="space-y-4">
             <div className="flex items-center gap-2">
-              <Layers className="h-5 w-5 text-indigo-400" />
+              <Layers className="h-4 w-4 text-zinc-400" />
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Architectural Comparison: Squeeze vs. Legacy Solutions
               </h2>
@@ -440,9 +440,9 @@ export default function AboutPage() {
                 <thead>
                   <tr className="border-b border-white/[0.08] bg-white/[0.03] text-zinc-300 font-semibold">
                     <th className="p-3.5 sm:p-4">Key Criteria</th>
-                    <th className="p-3.5 sm:p-4 text-emerald-400 font-bold">Squeeze (In-Browser)</th>
-                    <th className="p-3.5 sm:p-4 text-zinc-400">Legacy Cloud Converters</th>
-                    <th className="p-3.5 sm:p-4 text-zinc-400">Desktop Software</th>
+                    <th className="p-3.5 sm:p-4 text-white font-bold">Squeeze (In-Browser)</th>
+                    <th className="p-3.5 sm:p-4 text-zinc-400 font-medium">Legacy Cloud Converters</th>
+                    <th className="p-3.5 sm:p-4 text-zinc-400 font-medium">Desktop Software</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-white/[0.06] text-zinc-300">
@@ -451,52 +451,52 @@ export default function AboutPage() {
                     <td className="p-3.5 sm:p-4 text-emerald-400 font-medium flex items-center gap-1.5">
                       <CheckCircle2 className="h-4 w-4 shrink-0" /> Zero (100% Local)
                     </td>
-                    <td className="p-3.5 sm:p-4 text-rose-400 flex items-center gap-1.5">
-                      <XCircle className="h-4 w-4 shrink-0" /> Mandatory Upload
+                    <td className="p-3.5 sm:p-4 text-zinc-400 flex items-center gap-1.5">
+                      <XCircle className="h-4 w-4 shrink-0 text-zinc-500" /> Mandatory Upload
                     </td>
                     <td className="p-3.5 sm:p-4 text-zinc-300">Zero (Local)</td>
                   </tr>
                   <tr>
                     <td className="p-3.5 sm:p-4 font-medium text-white">Privacy Guarantee</td>
                     <td className="p-3.5 sm:p-4 text-emerald-400 font-medium">Cryptographic / Zero-Trust</td>
-                    <td className="p-3.5 sm:p-4 text-rose-400">Cloud Storage Exposure</td>
+                    <td className="p-3.5 sm:p-4 text-zinc-400">Cloud Storage Exposure</td>
                     <td className="p-3.5 sm:p-4 text-zinc-300">Local Only</td>
                   </tr>
                   <tr>
                     <td className="p-3.5 sm:p-4 font-medium text-white">Network Bandwidth Needed</td>
-                    <td className="p-3.5 sm:p-4 text-emerald-400 font-medium">0 MB (Zero Transfer)</td>
+                    <td className="p-3.5 sm:p-4 text-white font-medium">0 MB (Zero Transfer)</td>
                     <td className="p-3.5 sm:p-4 text-zinc-400">2x File Size (Upload + Download)</td>
                     <td className="p-3.5 sm:p-4 text-zinc-300">0 MB</td>
                   </tr>
                   <tr>
                     <td className="p-3.5 sm:p-4 font-medium text-white">Processing Latency</td>
-                    <td className="p-3.5 sm:p-4 text-emerald-400 font-medium">Instant (Local CPU/GPU)</td>
+                    <td className="p-3.5 sm:p-4 text-white font-medium">Instant (Local CPU/GPU)</td>
                     <td className="p-3.5 sm:p-4 text-zinc-400">Upload Time + Queue Lag</td>
                     <td className="p-3.5 sm:p-4 text-zinc-300">Instant (Local)</td>
                   </tr>
                   <tr>
                     <td className="p-3.5 sm:p-4 font-medium text-white">Installation &amp; Setup</td>
-                    <td className="p-3.5 sm:p-4 text-emerald-400 font-medium">Instant Web Access</td>
+                    <td className="p-3.5 sm:p-4 text-white font-medium">Instant Web Access</td>
                     <td className="p-3.5 sm:p-4 text-zinc-300">Instant Web Access</td>
-                    <td className="p-3.5 sm:p-4 text-rose-400">Heavy GBs Download &amp; Install</td>
+                    <td className="p-3.5 sm:p-4 text-zinc-400">Heavy GBs Download &amp; Install</td>
                   </tr>
                   <tr>
                     <td className="p-3.5 sm:p-4 font-medium text-white">Usage Limits &amp; Cost</td>
                     <td className="p-3.5 sm:p-4 text-emerald-400 font-medium">100% Free / Unlimited</td>
-                    <td className="p-3.5 sm:p-4 text-rose-400">Daily Caps / Subscriptions</td>
-                    <td className="p-3.5 sm:p-4 text-rose-400">Costly Monthly Licenses</td>
+                    <td className="p-3.5 sm:p-4 text-zinc-400">Daily Caps / Subscriptions</td>
+                    <td className="p-3.5 sm:p-4 text-zinc-400">Costly Monthly Licenses</td>
                   </tr>
                   <tr>
                     <td className="p-3.5 sm:p-4 font-medium text-white">Works Completely Offline</td>
                     <td className="p-3.5 sm:p-4 text-emerald-400 font-medium">Yes (PWA &amp; Cache Ready)</td>
-                    <td className="p-3.5 sm:p-4 text-rose-400">No (Requires Connection)</td>
+                    <td className="p-3.5 sm:p-4 text-zinc-400">No (Requires Connection)</td>
                     <td className="p-3.5 sm:p-4 text-zinc-300">Yes</td>
                   </tr>
                   <tr>
                     <td className="p-3.5 sm:p-4 font-medium text-white">Open Source Code</td>
-                    <td className="p-3.5 sm:p-4 text-emerald-400 font-medium">Yes (MIT License on GitHub)</td>
-                    <td className="p-3.5 sm:p-4 text-rose-400">Proprietary / Closed</td>
-                    <td className="p-3.5 sm:p-4 text-rose-400">Proprietary / Closed</td>
+                    <td className="p-3.5 sm:p-4 text-white font-medium">Yes (MIT License on GitHub)</td>
+                    <td className="p-3.5 sm:p-4 text-zinc-400">Proprietary / Closed</td>
+                    <td className="p-3.5 sm:p-4 text-zinc-400">Proprietary / Closed</td>
                   </tr>
                 </tbody>
               </table>
@@ -506,7 +506,7 @@ export default function AboutPage() {
           {/* Section 5: The Squeeze Ecosystem (Connecting Everything We Built) */}
           <section className="space-y-6">
             <div className="flex items-center gap-2">
-              <Code2 className="h-5 w-5 text-emerald-400" />
+              <Code2 className="h-4 w-4 text-zinc-400" />
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 The Squeeze Ecosystem
               </h2>
@@ -524,7 +524,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between text-white font-semibold text-sm">
                   <div className="flex items-center gap-2">
-                    <Zap className="h-4 w-4 text-emerald-400" />
+                    <Zap className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
                     <span>In-Browser Converter &amp; Batch Dock</span>
                   </div>
                   <ArrowRight className="h-4 w-4 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition" />
@@ -542,7 +542,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between text-white font-semibold text-sm">
                   <div className="flex items-center gap-2">
-                    <Code2 className="h-4 w-4 text-cyan-400" />
+                    <Code2 className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
                     <span>Developer Hub &amp; API Sandbox</span>
                   </div>
                   <ArrowRight className="h-4 w-4 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition" />
@@ -560,7 +560,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between text-white font-semibold text-sm">
                   <div className="flex items-center gap-2">
-                    <BookOpen className="h-4 w-4 text-amber-400" />
+                    <BookOpen className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
                     <span>Engineering Knowledge Base (28+ Guides)</span>
                   </div>
                   <ArrowRight className="h-4 w-4 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition" />
@@ -580,7 +580,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between text-white font-semibold text-sm">
                   <div className="flex items-center gap-2">
-                    <GithubIcon className="h-4 w-4 text-white" />
+                    <GithubIcon className="h-4 w-4 text-zinc-400 group-hover:text-white transition-colors" />
                     <span>Open-Source Repository on GitHub</span>
                   </div>
                   <ExternalLink className="h-4 w-4 text-zinc-500 group-hover:text-white group-hover:translate-x-0.5 transition" />
@@ -593,10 +593,10 @@ export default function AboutPage() {
             </div>
           </section>
 
-          {/* Section 6: Supported Formats Matrix */}
+          {/* Section 6: Supported Formats Matrix - Subtle Monochromatic Badges */}
           <section className="space-y-4">
             <div className="flex items-center gap-2">
-              <Layers className="h-5 w-5 text-purple-400" />
+              <Layers className="h-4 w-4 text-zinc-400" />
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Supported Image Formats &amp; Capabilities
               </h2>
@@ -612,7 +612,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">PNG</span>
-                  <span className="text-[10px] uppercase font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-semibold text-zinc-300 bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 rounded">
                     Lossless
                   </span>
                 </div>
@@ -627,7 +627,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">JPG / JPEG</span>
-                  <span className="text-[10px] uppercase font-semibold text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-semibold text-zinc-300 bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 rounded">
                     Lossy
                   </span>
                 </div>
@@ -642,7 +642,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">WebP</span>
-                  <span className="text-[10px] uppercase font-semibold text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-semibold text-zinc-300 bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 rounded">
                     Modern Web
                   </span>
                 </div>
@@ -657,7 +657,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">SVG</span>
-                  <span className="text-[10px] uppercase font-semibold text-amber-400 bg-amber-500/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-semibold text-zinc-300 bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 rounded">
                     Vector
                   </span>
                 </div>
@@ -672,7 +672,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">ICO</span>
-                  <span className="text-[10px] uppercase font-semibold text-purple-400 bg-purple-500/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-semibold text-zinc-300 bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 rounded">
                     Favicon
                   </span>
                 </div>
@@ -687,7 +687,7 @@ export default function AboutPage() {
               >
                 <div className="flex items-center justify-between">
                   <span className="font-bold text-white text-sm">ZIP</span>
-                  <span className="text-[10px] uppercase font-semibold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded">
+                  <span className="text-[10px] uppercase font-semibold text-zinc-300 bg-white/[0.04] border border-white/[0.08] px-2 py-0.5 rounded">
                     Archive
                   </span>
                 </div>
@@ -701,7 +701,7 @@ export default function AboutPage() {
           {/* Section 7: Frequently Asked Questions (FAQ Section) */}
           <section className="space-y-5">
             <div className="flex items-center gap-2">
-              <HelpCircle className="h-5 w-5 text-amber-400" />
+              <HelpCircle className="h-4 w-4 text-zinc-400" />
               <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
                 Frequently Asked Questions
               </h2>
@@ -740,7 +740,7 @@ export default function AboutPage() {
 
               <div
                 className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 space-y-2"
-                style={{ fontStyle: 'normal', boxShadow: 'var(--glass-inset)' }}
+                style={{ boxShadow: 'var(--glass-inset)' }}
               >
                 <h3 className="font-semibold text-white text-sm">
                   Why is Squeeze completely free without paywalls or file size restrictions?
@@ -792,7 +792,7 @@ export default function AboutPage() {
                 <p className="text-xs text-[var(--text-secondary)] leading-relaxed">
                   Developers can integrate our client-side Web Worker architecture into any React, Vue,
                   or vanilla web app, or connect to our headless Cloud REST API for server workflows. Visit our{' '}
-                  <Link href="/developers" className="text-emerald-400 underline underline-offset-2 hover:text-emerald-300">
+                  <Link href="/developers" className="text-white underline underline-offset-2 hover:text-zinc-300">
                     Developer Hub
                   </Link>{' '}
                   for typed TypeScript definitions, API sandboxes, and copyable snippets.
