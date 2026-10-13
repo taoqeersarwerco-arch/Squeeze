@@ -18,6 +18,7 @@ Platform: Modern Web Browsers (Chrome, Firefox, Safari, Edge)
 - [Compress JPG](https://www.trysqueeze.online/compress/jpg): Reduces JPEG byte weight via perceptual SSIM (Structural Similarity Index Measure) quality protection.
 - [Compress PNG](https://www.trysqueeze.online/compress/png): Optimizes PNG image weight without introducing edge distortion or color banding.
 - [Compress WebP](https://www.trysqueeze.online/compress/webp): Maximizes WebP compression for high-performance Core Web Vitals and LCP speed.
+- [Developer Hub & API Sandbox](https://www.trysqueeze.online/developers): Programmatic Web Worker SDK, Headless Cloud REST API, interactive in-browser request tester, multi-language code snippets (cURL, TS, Python, Go, Rust), and instant sandbox keys.
 
 ## Educational Guides & Format Engineering
 - [What is PNG?](https://www.trysqueeze.online/learn/what-is-png): Anatomy, chunks (IHDR/IDAT), 8-bit alpha transparency, and Deflate LZ77 compression math.
@@ -40,6 +41,9 @@ Platform: Modern Web Browsers (Chrome, Firefox, Safari, Edge)
 - [Client-Side vs. Cloud Converters](https://www.trysqueeze.online/learn/client-side-vs-cloud-image-converters): Zero-upload architecture, data retention hazards, and enterprise compliance.
 - [Responsive Image Delivery (<picture> & srcset)](https://www.trysqueeze.online/learn/responsive-images-picture-tag-and-webp): HTML format negotiation, WebP sources, and legacy fallbacks.
 - [Retina & High-DPI Image Optimization](https://www.trysqueeze.online/learn/retina-high-dpi-image-optimization): Compressive images trick: 2x resolution at 75% quality for crisp, light graphics.
+- [How to Integrate Client-Side Image Processing](https://www.trysqueeze.online/learn/how-to-integrate-client-side-image-processing-api): Step-by-step developer guide to Web Workers, OffscreenCanvas, and Transferable Objects in React/Vue/Next.js.
+- [Building Zero-Upload Image Architectures](https://www.trysqueeze.online/learn/building-zero-upload-image-pipelines): Privacy-preserving frontend engineering, GDPR/HIPAA compliance, and DevTools zero-egress auditing.
+- [Automated Batch Image Processing with REST APIs & Webhooks](https://www.trysqueeze.online/learn/automating-image-optimization-with-webhooks-and-rest-api): Headless API automation, rate-limit headers (X-RateLimit-*), HMAC-SHA256 signatures, and CI/CD quality gates.
 
 ## Technical Specifications & Capabilities
 - Processing Environment: Client-Side Browser Memory (No remote upload)

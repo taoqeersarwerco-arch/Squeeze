@@ -581,6 +581,71 @@ export function DeveloperHubClient() {
         </div>
       </section>
 
+      {/* ─── Developer Engineering Guides ─── */}
+      <section className="max-w-4xl mx-auto">
+        <div className="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div>
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+              Technical Documentation
+            </span>
+            <h2 className="text-xl sm:text-2xl font-bold text-white mt-1">
+              Developer Guides &amp; Architecture Tutorials
+            </h2>
+          </div>
+          <Link
+            href="/learn"
+            className="inline-flex items-center gap-1.5 text-xs text-zinc-400 hover:text-white transition"
+          >
+            <span>Browse All 28 Engineering Guides</span>
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
+        </div>
+
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <Link
+            href="/learn/how-to-integrate-client-side-image-processing-api"
+            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-emerald-500/40 hover:bg-emerald-950/10 transition block"
+            style={{ boxShadow: 'var(--glass-inset)' }}
+          >
+            <Cpu className="h-4 w-4 text-emerald-400 mb-2" />
+            <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition mb-1">
+              Integrating In-Browser Processing
+            </h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Step-by-step tutorial on Web Workers, OffscreenCanvas, and Transferable Objects in React, Vue, and Next.js.
+            </p>
+          </Link>
+
+          <Link
+            href="/learn/building-zero-upload-image-pipelines"
+            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-emerald-500/40 hover:bg-emerald-950/10 transition block"
+            style={{ boxShadow: 'var(--glass-inset)' }}
+          >
+            <Lock className="h-4 w-4 text-emerald-400 mb-2" />
+            <h3 className="text-sm font-bold text-white group-hover:text-emerald-400 transition mb-1">
+              Building Zero-Upload Architectures
+            </h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Privacy-preserving frontend engineering, GDPR/HIPAA compliance, and DevTools network verification.
+            </p>
+          </Link>
+
+          <Link
+            href="/learn/automating-image-optimization-with-webhooks-and-rest-api"
+            className="group rounded-xl border border-white/[0.08] bg-white/[0.02] p-5 hover:border-emerald-500/40 hover:bg-cyan-950/10 transition block"
+            style={{ boxShadow: 'var(--glass-inset)' }}
+          >
+            <Server className="h-4 w-4 text-cyan-400 mb-2" />
+            <h3 className="text-sm font-bold text-white group-hover:text-cyan-400 transition mb-1">
+              REST API Automation &amp; Webhooks
+            </h3>
+            <p className="text-xs text-zinc-400 leading-relaxed">
+              Headless media processing in CI/CD, rate-limit headers (X-RateLimit-*), and HMAC-SHA256 signatures.
+            </p>
+          </Link>
+        </div>
+      </section>
+
       {/* ─── Developer FAQ Accordion ─── */}
       <section className="max-w-4xl mx-auto">
         <div className="mb-6">

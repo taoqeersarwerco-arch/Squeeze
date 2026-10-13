@@ -1652,6 +1652,401 @@ export const ARTICLES_MAP: Record<string, ArticleData> = {
       </>
     ),
   },
+
+  // ─── ARTICLE 26 (DEVELOPER HUB GUIDE 1) ───
+  'how-to-integrate-client-side-image-processing-api': {
+    slug: 'how-to-integrate-client-side-image-processing-api',
+    title: 'How to Integrate Client-Side Image Processing: Web Workers, OffscreenCanvas & Browser SDK',
+    seoTitle: 'Integrating In-Browser Image Processing: Web Worker SDK & API Tutorial',
+    description:
+      'Learn how to integrate programmatic, zero-upload image conversion into React, Vue, or Next.js applications using Web Workers, OffscreenCanvas, and the Squeeze browser engine.',
+    category: 'Web Performance & Engineering',
+    readTime: '9 min read',
+    publishedAt: '2026-10-13T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Developer Relations Team',
+    keywords: [
+      'client side image processing api',
+      'in browser image conversion',
+      'web worker image processing',
+      'offscreen canvas image compression',
+      'squeeze developer sdk',
+      'javascript image converter tutorial',
+    ],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • In-Browser SDK Integration</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            <strong>Client-Side Image Processing</strong> executes image decoding, quantization, and re-encoding directly on user device hardware using HTML5 <code>OffscreenCanvas</code>, background Web Workers, and WebAssembly. By decoupling image manipulation from centralized backend servers, frontend applications eliminate network bandwidth egress costs, achieve instant zero-latency processing, and maintain strict data privacy compliance (GDPR and HIPAA) because user graphics never leave the local browser environment.
+          </p>
+        </div>
+
+        <h2>1. The Architecture Shift: Edge Silicon vs. Centralized Cloud Clusters</h2>
+        <p>
+          For over two decades, web applications handled user uploads through centralized server pipelines: uploading large raw PNG or JPEG binaries to cloud storage (Amazon S3), triggering asynchronous microservices (Node.js <code>sharp</code> or ImageMagick), and writing outputs back to Content Delivery Networks. While functional, this paradigm introduces severe bottlenecks:
+        </p>
+        <ul>
+          <li><strong>Bandwidth Egress Bills:</strong> Uploading 20MB raw camera photos consumes costly mobile bandwidth and server ingress/egress transfer fees.</li>
+          <li><strong>Queue Latency:</strong> Users wait tens of seconds during peak traffic hours while backend worker pools process batch tasks.</li>
+          <li><strong>Compliance Liabilities:</strong> Storing uncompressed raw media exposes platforms to GDPR right-to-erasure audits and cloud storage exfiltration risks.</li>
+        </ul>
+        <p>
+          Modern consumer hardware—from Apple Silicon iPhones to modest Snapdragon Android devices—boasts multi-core processors capable of resizing and converting high-resolution images in milliseconds. Squeeze&apos;s client-side SDK leverages this distributed edge computing power.
+        </p>
+
+        <h2>2. Core Browser Primitives: OffscreenCanvas &amp; Parallel Workers</h2>
+        <p>
+          To convert images client-side without freezing the UI or dropping frame rates below 60 FPS, all compute-heavy operations must run off the browser&apos;s main thread. This is achieved via two standardized W3C APIs:
+        </p>
+        <ol>
+          <li>
+            <strong>Web Workers:</strong> Independent background execution threads running parallel JavaScript loops isolated from the DOM window.
+          </li>
+          <li>
+            <strong>OffscreenCanvas:</strong> A canvas context capable of rendering and rasterizing 2D pixel matrices off-thread without requiring a visible HTML <code>&lt;canvas&gt;</code> element in the document tree.
+          </li>
+        </ol>
+
+        <div className="rounded-xl border border-white/[0.08] bg-black/60 p-4 font-mono text-xs overflow-x-auto my-6 text-zinc-300">
+          <pre className="text-emerald-400 font-semibold mb-2">{`// Standard Worker Message Dispatch with Transferable ArrayBuffer`}</pre>
+          <pre>{`// 1. Read source file into a zero-copy transferable buffer
+const buffer = await file.arrayBuffer();
+
+// 2. Dispatch to off-thread Worker without memory duplication
+worker.postMessage({
+  command: 'convert',
+  buffer,
+  targetFormat: 'webp',
+  quality: 0.85,
+  stripExif: true,
+}, [buffer]); // <-- Transferable Object transfers ownership`}</pre>
+        </div>
+
+        <h2>3. Step-by-Step Implementation with Vanilla TypeScript</h2>
+        <p>
+          The simplest integration wraps worker communication in an asynchronous Promise interface:
+        </p>
+        <div className="rounded-xl border border-white/[0.08] bg-black/60 p-4 font-mono text-xs overflow-x-auto my-6 text-zinc-300">
+          <pre>{`export async function convertClientSide(
+  file: File,
+  targetFormat: 'webp' | 'png' | 'jpg' | 'ico',
+  quality: number = 85
+): Promise<Blob> {
+  return new Promise((resolve, reject) => {
+    const worker = new Worker('/workers/squeeze-engine.worker.js', { type: 'module' });
+
+    worker.onmessage = (e: MessageEvent) => {
+      if (e.data.success) {
+        resolve(e.data.blob);
+      } else {
+        reject(new Error(e.data.error));
+      }
+      worker.terminate(); // Clean up thread allocation
+    };
+
+    worker.onerror = (err) => {
+      reject(err);
+      worker.terminate();
+    };
+
+    file.arrayBuffer().then((buffer) => {
+      worker.postMessage({ buffer, targetFormat, quality }, [buffer]);
+    });
+  });
+}`}</pre>
+        </div>
+
+        <h2>4. React Hook Implementation: useSqueezeConverter</h2>
+        <p>
+          For React, Next.js, or Remix applications, wrap the execution in a custom hook that tracks progress and provides memory cleanup:
+        </p>
+        <div className="rounded-xl border border-white/[0.08] bg-black/60 p-4 font-mono text-xs overflow-x-auto my-6 text-zinc-300">
+          <pre>{`import { useState, useCallback } from 'react';
+
+export function useSqueezeConverter() {
+  const [isProcessing, setIsProcessing] = useState(false);
+  const [resultBlob, setResultBlob] = useState<Blob | null>(null);
+
+  const convertImage = useCallback(async (file: File, format: string) => {
+    setIsProcessing(true);
+    try {
+      const result = await convertClientSide(file, format as any);
+      setResultBlob(result);
+      return result;
+    } finally {
+      setIsProcessing(false);
+    }
+  }, []);
+
+  return { convertImage, isProcessing, resultBlob };
+}`}</pre>
+        </div>
+
+        <h2>5. Memory Hygiene &amp; Preventing Mobile Browser Crashes</h2>
+        <p>
+          When processing high-resolution batch queues (such as twenty 48-megapixel camera photos) on mobile devices with constrained memory, observe these three critical rules:
+        </p>
+        <ul>
+          <li><strong>Revoke Object URLs:</strong> Always call <code>URL.revokeObjectURL(url)</code> as soon as download links or previews are dismissed.</li>
+          <li><strong>Limit Concurrency:</strong> Restrict concurrent active workers to <code>navigator.hardwareConcurrency || 4</code> to prevent out-of-memory (OOM) browser crashes.</li>
+          <li><strong>Downscale Oversized Assets:</strong> Pre-scale ultra-large assets exceeding 4,000 pixels down to standard web dimensions prior to high-quality re-encoding.</li>
+        </ul>
+
+        <h2>Next Steps for Developers</h2>
+        <ul>
+          <li>Visit the <Link href="/developers">Squeeze Developer Hub &amp; Sandbox</Link> to test API snippets and generate a free API key.</li>
+          <li>Read about <Link href="/learn/how-in-browser-image-conversion-works">How In-Browser Image Conversion Works Under the Hood</Link>.</li>
+          <li>Explore our <Link href="/privacy">Zero-Upload Privacy Policy</Link> for enterprise compliance documentation.</li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 27 (DEVELOPER HUB GUIDE 2) ───
+  'building-zero-upload-image-pipelines': {
+    slug: 'building-zero-upload-image-pipelines',
+    title: 'Building Zero-Upload Image Architectures: Privacy-Preserving Frontend Engineering',
+    seoTitle: 'Building Zero-Upload Image Architectures: Frontend Privacy & Engineering',
+    description:
+      'Architecting privacy-first web applications with zero-upload image conversion. Eliminate GDPR/HIPAA compliance risks, server bandwidth bills, and cloud storage liabilities.',
+    category: 'Privacy & Architecture',
+    readTime: '8 min read',
+    publishedAt: '2026-10-13T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Privacy & Systems Architecture Team',
+    keywords: [
+      'zero upload image pipeline',
+      'privacy preserving image architecture',
+      'gdpr compliant image converter',
+      'client side privacy engineering',
+      'exif sanitization architecture',
+      'offline web app image processing',
+    ],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Zero-Upload Architecture</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            A <strong>Zero-Upload Image Architecture</strong> is a software design pattern where media ingest, format conversion, EXIF sanitization, and compression occur strictly inside the client&apos;s browser memory before any data is stored or transmitted. By executing transformation logic client-side via WebAssembly and Web Workers, applications satisfy strict data privacy mandates (GDPR Article 25 &quot;Data Protection by Design&quot; and HIPAA de-identification) while eliminating cloud processing costs and server-side data breach attack surfaces.
+          </p>
+        </div>
+
+        <h2>1. The Legal &amp; Security Liabilities of Centralized Media Storage</h2>
+        <p>
+          Every image uploaded to a centralized cloud bucket creates legal and architectural exposure:
+        </p>
+        <ul>
+          <li><strong>GDPR Article 9 (Special Category Data):</strong> User uploads often contain biometric faces, religious identifiers, or health documents that legally require strict data protection impact assessments (DPIAs).</li>
+          <li><strong>EXIF Geolocation Leaking:</strong> Photos taken on mobile smartphones embed precise GPS coordinates in their metadata. Server-side systems that fail to scrub EXIF data expose users to stalking and privacy violations.</li>
+          <li><strong>Ransomware &amp; S3 Misconfiguration:</strong> Millions of private customer images have leaked through misconfigured public S3 buckets. If you never store raw files on cloud servers, they cannot be breached.</li>
+        </ul>
+
+        <h2>2. Architecture Blueprint: Comparing Traditional vs. Zero-Upload</h2>
+        <div className="rounded-xl border border-white/[0.08] bg-black/40 overflow-x-auto my-6 text-xs">
+          <table className="w-full text-left">
+            <thead className="border-b border-white/[0.08] text-zinc-400 bg-white/[0.02]">
+              <tr>
+                <th className="p-3">Attribute</th>
+                <th className="p-3">Traditional Cloud Pipeline</th>
+                <th className="p-3">Squeeze Zero-Upload Pipeline</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/[0.04] text-zinc-300">
+              <tr>
+                <td className="p-3 font-semibold text-white">Execution Location</td>
+                <td className="p-3 text-zinc-400">AWS Lambda / Cloud Microservice</td>
+                <td className="p-3 text-emerald-400 font-semibold">User Device Hardware (Client RAM)</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-white">Network Transmission</td>
+                <td className="p-3 text-rose-400">Full Raw File Sent Over Internet</td>
+                <td className="p-3 text-emerald-400 font-semibold">Zero Image Bytes Sent Across Network</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-white">Server Egress Cost</td>
+                <td className="p-3 text-zinc-400">$0.09 / GB bandwidth billing</td>
+                <td className="p-3 text-emerald-400 font-semibold">$0.00 (Zero hosting bandwidth)</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-white">Compliance Burden</td>
+                <td className="p-3 text-zinc-400">High (GDPR DPIA, HIPAA BAA)</td>
+                <td className="p-3 text-emerald-400 font-semibold">Zero Server Storage Liability</td>
+              </tr>
+              <tr>
+                <td className="p-3 font-semibold text-white">Offline Capability</td>
+                <td className="p-3 text-rose-400">Impossible (Requires network)</td>
+                <td className="p-3 text-emerald-400 font-semibold">Works 100% Offline (PWA Ready)</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>3. Client-Side EXIF Metadata Sanitization</h2>
+        <p>
+          Before emitting a final image blob, Squeeze&apos;s pipeline scrubs camera serial numbers, exposure metadata, and GPS geolocation coordinates. By re-encoding image pixels onto an <code>OffscreenCanvas</code>, camera-specific metadata chunks (such as JPEG APP1 or PNG eXIf segments) are discarded naturally, delivering clean, sanitized output files.
+        </p>
+
+        <h2>4. How to Verify Zero Network Egress with DevTools</h2>
+        <p>
+          Developers and security compliance auditors can independently verify zero-upload operation in three simple steps:
+        </p>
+        <ol>
+          <li>Open your browser&apos;s Developer Tools (<code>F12</code> or <code>Cmd+Option+I</code>) and select the <strong>Network</strong> tab.</li>
+          <li>Filter network requests by <code>Fetch / XHR</code>.</li>
+          <li>Drag and drop any multi-megabyte image into the Squeeze converter and execute the conversion. Notice that <strong>zero outbound POST requests or image byte payloads appear in the network timeline</strong>.</li>
+        </ol>
+
+        <h2>Related Technical Guides</h2>
+        <ul>
+          <li><Link href="/privacy">Read Squeeze&apos;s 100% Client-Side Privacy Policy</Link>.</li>
+          <li><Link href="/learn/exif-metadata-privacy-risks">EXIF Metadata Privacy Risks: What Your Photos Reveal</Link>.</li>
+          <li><Link href="/developers">Explore the Squeeze Developer Hub &amp; Client SDK</Link>.</li>
+        </ul>
+      </>
+    ),
+  },
+
+  // ─── ARTICLE 28 (DEVELOPER HUB GUIDE 3) ───
+  'automating-image-optimization-with-webhooks-and-rest-api': {
+    slug: 'automating-image-optimization-with-webhooks-and-rest-api',
+    title: 'Automating Batch Image Optimization with REST APIs, Rate Limits & Webhooks',
+    seoTitle: 'Automated Batch Image Processing: Headless REST API & Webhooks Guide',
+    description:
+      'Automate programmatic image conversion in CI/CD and backend pipelines. Master authentication, rate limit headers (X-RateLimit-*), HMAC-SHA256 webhooks, and SSIM quality thresholds.',
+    category: 'Web Performance & Engineering',
+    readTime: '10 min read',
+    publishedAt: '2026-10-13T00:00:00.000Z',
+    modifiedAt: '2026-10-13T00:00:00.000Z',
+    author: 'Squeeze Developer Platform Team',
+    keywords: [
+      'image optimization api',
+      'batch image conversion rest api',
+      'webhook image processing',
+      'rate limit headers api',
+      'ssim quality automation',
+      'squeeze api integration guide',
+    ],
+    content: (
+      <>
+        <div className="rounded-2xl border border-emerald-500/20 bg-emerald-950/10 p-5 sm:p-6 backdrop-blur-xl relative overflow-hidden my-6">
+          <div className="flex items-center gap-2 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+            <ShieldCheck className="h-4 w-4" />
+            <span>AEO Answer Island • Headless Image API Automation</span>
+          </div>
+          <p className="text-sm sm:text-[15px] text-zinc-200 leading-relaxed font-normal m-0">
+            A <strong>Headless Image Optimization API</strong> enables server-to-server automated media conversion for CMS platforms, CI/CD deployment pipelines, and backend microservices. By sending multipart HTTP requests to endpoints like <code>/v1/convert</code> and <code>/v1/compress</code>, developers automate WebP generation, SVG vector tracing, and EXIF sanitization while inspecting standard rate-limit headers (<code>X-RateLimit-Remaining</code>) and receiving asynchronous HMAC-SHA256 signed Webhooks upon batch completion.
+          </p>
+        </div>
+
+        <h2>1. Authentication with Developer Sandbox Keys</h2>
+        <p>
+          All programmatic REST API requests require a Bearer token header provisioned from the <Link href="/developers">Developer Hub</Link>:
+        </p>
+        <div className="rounded-xl border border-white/[0.08] bg-black/60 p-4 font-mono text-xs overflow-x-auto my-4 text-zinc-300">
+          <pre>{`curl -X POST https://api.trysqueeze.online/v1/convert \\
+  -H "Authorization: Bearer sqz_live_YOUR_API_KEY" \\
+  -F "file=@photo.png" \\
+  -F "format=webp" \\
+  -F "quality=85" \\
+  -F "targetSsim=0.95" \\
+  -F "stripExif=true"`}</pre>
+        </div>
+
+        <h2>2. Managing Rate Limits &amp; Automated Backoff</h2>
+        <p>
+          To ensure service stability across free sandbox keys (100 requests per rolling hour), Squeeze returns standard rate-limit headers with every response:
+        </p>
+        <div className="rounded-xl border border-white/[0.08] bg-black/40 overflow-x-auto my-6 text-xs">
+          <table className="w-full text-left">
+            <thead className="border-b border-white/[0.08] text-zinc-400 bg-white/[0.02]">
+              <tr>
+                <th className="p-3">HTTP Header</th>
+                <th className="p-3">Example</th>
+                <th className="p-3">Purpose</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-white/[0.04] text-zinc-300 font-mono text-[11px]">
+              <tr>
+                <td className="p-3 text-emerald-400">X-RateLimit-Limit</td>
+                <td className="p-3 text-zinc-400">100</td>
+                <td className="p-3 font-sans text-zinc-300">Max requests permitted in the rolling 1-hour window.</td>
+              </tr>
+              <tr>
+                <td className="p-3 text-emerald-400">X-RateLimit-Remaining</td>
+                <td className="p-3 text-zinc-400">84</td>
+                <td className="p-3 font-sans text-zinc-300">Remaining calls before receiving HTTP 429 Too Many Requests.</td>
+              </tr>
+              <tr>
+                <td className="p-3 text-emerald-400">X-RateLimit-Reset</td>
+                <td className="p-3 text-zinc-400">1741872000</td>
+                <td className="p-3 font-sans text-zinc-300">Unix epoch timestamp when the hourly quota refreshes.</td>
+              </tr>
+              <tr>
+                <td className="p-3 text-emerald-400">X-Squeeze-SSIM</td>
+                <td className="p-3 text-zinc-400">0.968</td>
+                <td className="p-3 font-sans text-zinc-300">Perceptual structural similarity score of the converted output.</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <h2>3. Asynchronous Webhooks &amp; HMAC-SHA256 Signature Verification</h2>
+        <p>
+          For large batches, your backend can register a Webhook URL in the <Link href="/developers">Developer Console</Link>. When conversion finishes, Squeeze dispatches an HTTP POST payload signed with your webhook secret:
+        </p>
+        <div className="rounded-xl border border-white/[0.08] bg-black/60 p-4 font-mono text-xs overflow-x-auto my-4 text-zinc-300">
+          <pre>{`import crypto from 'node:crypto';
+import express from 'express';
+
+const app = express();
+app.use(express.json());
+
+app.post('/api/webhooks/squeeze', (req, res) => {
+  const signature = req.headers['x-squeeze-signature-256'];
+  const webhookSecret = process.env.SQUEEZE_WEBHOOK_SECRET;
+
+  // Verify HMAC-SHA256 signature
+  const hmac = crypto.createHmac('sha256', webhookSecret)
+    .update(JSON.stringify(req.body))
+    .digest('hex');
+
+  if (signature !== hmac) {
+    return res.status(401).send('Invalid webhook signature');
+  }
+
+  const { event, data } = req.body;
+  console.log(\`Received event: \${event}\`, data.downloadUrl, \`SSIM: \${data.ssimScore}\`);
+
+  res.status(200).json({ received: true });
+});`}</pre>
+        </div>
+
+        <h2>4. Automated SSIM Quality Gates in CI/CD</h2>
+        <p>
+          In automated deployment pipelines, setting a minimum acceptable SSIM threshold prevents image artifacts from slipping into production:
+        </p>
+        <ul>
+          <li><strong>SSIM &ge; 0.98:</strong> Lossless or near-lossless fidelity for hero branding and UI logos.</li>
+          <li><strong>SSIM &ge; 0.94:</strong> High-efficiency web compression for ecommerce product catalogs.</li>
+          <li><strong>SSIM &lt; 0.90:</strong> Aggressive compression suitable only for background thumbnails and low-priority previews.</li>
+        </ul>
+
+        <h2>Next Steps for Developers</h2>
+        <ul>
+          <li>Open the <Link href="/developers">Developer Console</Link> to generate an instant sandbox key and simulate requests.</li>
+          <li>Learn about <Link href="/learn/what-is-ssim-image-quality">What is SSIM? Measuring Perceptual Image Quality</Link>.</li>
+          <li>Review our <Link href="/terms">Developer API Terms of Service &amp; Acceptable Use Guidelines</Link>.</li>
+        </ul>
+      </>
+    ),
+  },
 };
 
 export const ALL_ARTICLES = Object.values(ARTICLES_MAP);
