@@ -114,9 +114,19 @@ export function DeveloperApiTester({ apiKey, onLogRequest }: DeveloperApiTesterP
           </h3>
         </div>
 
-        <span className="text-[11px] font-mono text-zinc-400 bg-white/[0.04] border border-white/[0.08] px-2.5 py-1 rounded-md self-start sm:self-auto">
-          Auth: {apiKey ? 'Bearer sqz_live_***' : 'Sandbox Demo Mode'}
-        </span>
+        {apiKey ? (
+          <span className="inline-flex items-center gap-1.5 text-[11px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-1 rounded-md self-start sm:self-auto">
+            <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-pulse" />
+            Auth: Bearer {apiKey.slice(0, 12)}••• (Connected)
+          </span>
+        ) : (
+          <span
+            className="inline-flex items-center gap-1.5 text-[11px] font-mono text-zinc-400 bg-white/[0.04] border border-white/[0.08] px-2.5 py-1 rounded-md self-start sm:self-auto"
+            title="Running in unauthenticated sandbox mode. Generate a key in the Developer Console above to authenticate."
+          >
+            Auth: Sandbox Demo Mode (No Key Required)
+          </span>
+        )}
       </div>
 
       {/* Control Grid */}
