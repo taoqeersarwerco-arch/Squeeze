@@ -78,7 +78,7 @@ export function BatchDock({ items, onClearAll, slugifyNames }: BatchDockProps) {
   };
 
   return (
-    <aside aria-label="Batch Actions" className="fixed bottom-5 left-0 right-0 z-40 px-4 pointer-events-none">
+    <aside aria-label="Batch Actions" className="fixed bottom-[calc(1.25rem+env(safe-area-inset-bottom,0px))] left-0 right-0 z-40 px-4 pointer-events-none">
       <div className="relative mx-auto flex max-w-3xl items-center justify-between gap-4 rounded-2xl border border-white/[0.08] bg-zinc-950/90 backdrop-blur-2xl p-2.5 sm:px-4 shadow-[0_16px_48px_-12px_rgba(0,0,0,0.8)] pointer-events-auto">
         {/* Specular edge */}
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/4 h-px bg-gradient-to-r from-transparent via-white/[0.10] to-transparent" />

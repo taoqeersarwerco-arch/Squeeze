@@ -158,8 +158,13 @@ class EngineManager {
 
   constructor() {
     if (typeof window !== 'undefined') {
+      const isMobile =
+        typeof navigator !== 'undefined' &&
+        /Android|iPhone|iPad|iPod|webOS|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
       const concurrency = typeof navigator !== 'undefined' ? navigator.hardwareConcurrency || 4 : 4;
-      this.poolSize = Math.max(1, Math.min(4, concurrency - 1));
+      // On mobile devices, cap to 2 workers to prevent memory pressure from heavy smartphone camera photos
+      const maxWorkers = isMobile ? 2 : 4;
+      this.poolSize = Math.max(1, Math.min(maxWorkers, concurrency - 1));
       this.initWorkers();
     }
   }

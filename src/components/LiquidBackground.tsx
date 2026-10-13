@@ -20,35 +20,42 @@ export function LiquidBackground() {
       containerRef.current.style.setProperty('--scroll-y', `${scrollY}px`);
     };
 
-    // Smooth lerp pointer follow
-    const handlePointerMove = (e: PointerEvent) => {
-      targetX = e.clientX;
-      targetY = e.clientY;
-    };
-
-    const animatePointer = () => {
-      // Lerp smoothing (0.08 speed for elegant fluid resistance)
-      currentX += (targetX - currentX) * 0.08;
-      currentY += (targetY - currentY) * 0.08;
-
-      if (spotlightRef.current) {
-        spotlightRef.current.style.transform = `translate3d(${currentX - 300}px, ${currentY - 300}px, 0)`;
-      }
-
-      animationFrameId = requestAnimationFrame(animatePointer);
-    };
-
     window.addEventListener('scroll', handleScroll, { passive: true });
-    window.addEventListener('pointermove', handlePointerMove, { passive: true });
-    animationFrameId = requestAnimationFrame(animatePointer);
-
-    // Initial trigger
     handleScroll();
+
+    // On mobile touchscreens, skip continuous rAF pointer loop to conserve 100% CPU/GPU and battery
+    const hasFinePointer = typeof window !== 'undefined' && window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+    if (hasFinePointer) {
+      const handlePointerMove = (e: PointerEvent) => {
+        targetX = e.clientX;
+        targetY = e.clientY;
+      };
+
+      const animatePointer = () => {
+        // Lerp smoothing (0.08 speed for elegant fluid resistance)
+        currentX += (targetX - currentX) * 0.08;
+        currentY += (targetY - currentY) * 0.08;
+
+        if (spotlightRef.current) {
+          spotlightRef.current.style.transform = `translate3d(${currentX - 300}px, ${currentY - 300}px, 0)`;
+        }
+
+        animationFrameId = requestAnimationFrame(animatePointer);
+      };
+
+      window.addEventListener('pointermove', handlePointerMove, { passive: true });
+      animationFrameId = requestAnimationFrame(animatePointer);
+
+      return () => {
+        window.removeEventListener('scroll', handleScroll);
+        window.removeEventListener('pointermove', handlePointerMove);
+        cancelAnimationFrame(animationFrameId);
+      };
+    }
 
     return () => {
       window.removeEventListener('scroll', handleScroll);
-      window.removeEventListener('pointermove', handlePointerMove);
-      cancelAnimationFrame(animationFrameId);
     };
   }, []);
 
