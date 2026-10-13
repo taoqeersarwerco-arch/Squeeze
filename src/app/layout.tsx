@@ -69,6 +69,9 @@ export const metadata: Metadata = {
     description:
       'Convert and compress JPG, PNG, WebP, SVG, and ICO images 100% in your browser. Zero file uploads, complete privacy, and instant downloads.',
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
+  },
 };
 
 export default function RootLayout({
