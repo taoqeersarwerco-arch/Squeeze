@@ -188,6 +188,49 @@ export function ConversionHubGrid({
           })}
         </div>
       )}
+
+      {/* Featured Educational Guides Bar */}
+      <div
+        className="rounded-xl border border-white/[0.08] bg-white/[0.02] p-4 sm:p-5 flex flex-col sm:flex-row sm:items-center justify-between gap-4 backdrop-blur-xl"
+        style={{ boxShadow: 'var(--glass-inset)' }}
+      >
+        <div className="space-y-0.5">
+          <p className="text-xs font-semibold uppercase tracking-wider text-emerald-400">
+            Image Engineering Knowledge Base
+          </p>
+          <p className="text-xs text-zinc-300">
+            Learn format anatomies, Deflate &amp; DCT math, and platform upload rules in our in-depth guides.
+          </p>
+        </div>
+
+        <div className="flex flex-wrap items-center gap-2">
+          <Link
+            href="/learn/what-is-webp"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-zinc-300 hover:text-white hover:bg-white/[0.08] transition"
+          >
+            What is WebP?
+          </Link>
+          <Link
+            href="/learn/what-is-png"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-zinc-300 hover:text-white hover:bg-white/[0.08] transition"
+          >
+            What is PNG?
+          </Link>
+          <Link
+            href="/learn/what-is-ico"
+            className="rounded-lg border border-white/[0.08] bg-white/[0.04] px-2.5 py-1 text-[11px] font-medium text-zinc-300 hover:text-white hover:bg-white/[0.08] transition"
+          >
+            Favicon.ico
+          </Link>
+          <Link
+            href="/learn"
+            className="inline-flex items-center gap-1 text-[11px] font-semibold text-emerald-400 hover:text-emerald-300 ml-1"
+          >
+            <span>All 20 Guides</span>
+            <ArrowRight className="h-3 w-3" />
+          </Link>
+        </div>
+      </div>
     </section>
   );
 }

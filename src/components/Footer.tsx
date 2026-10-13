@@ -76,25 +76,45 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 3: Resources */}
+          {/* Col 3: Resources & Guides */}
           <div>
             <p className="font-medium text-zinc-400 text-[11px] uppercase tracking-wider mb-3">
-              Resources
+              Guides &amp; Specs
             </p>
             <ul className="space-y-2">
               <li>
                 <Link href="/learn" className="hover:text-zinc-200 transition-colors">
-                  Learn
+                  Learn Hub
+                </Link>
+              </li>
+              <li>
+                <Link href="/learn/what-is-webp" className="hover:text-zinc-200 transition-colors">
+                  What is WebP?
+                </Link>
+              </li>
+              <li>
+                <Link href="/learn/what-is-png" className="hover:text-zinc-200 transition-colors">
+                  What is PNG?
+                </Link>
+              </li>
+              <li>
+                <Link href="/learn/what-is-ico" className="hover:text-zinc-200 transition-colors">
+                  Favicon.ico Guide
+                </Link>
+              </li>
+              <li>
+                <Link href="/learn/what-is-ssim-image-quality" className="hover:text-zinc-200 transition-colors">
+                  SSIM Compression
                 </Link>
               </li>
               <li>
                 <Link href="/developers" className="hover:text-zinc-200 transition-colors">
-                  Developers
+                  Developers &amp; API
                 </Link>
               </li>
               <li>
                 <Link href="/about" className="hover:text-zinc-200 transition-colors">
-                  About
+                  About Squeeze
                 </Link>
               </li>
             </ul>

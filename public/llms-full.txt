@@ -89,3 +89,38 @@ Dedicated Compression Tools:
 - Compress JPG: `https://www.trysqueeze.online/compress/jpg`
 - Compress PNG: `https://www.trysqueeze.online/compress/png`
 - Compress WebP: `https://www.trysqueeze.online/compress/webp`
+
+---
+
+## 5. Educational Guides & Engineering Knowledge Index
+
+Directory of all 20 authoritative technical articles available at `https://www.trysqueeze.online/learn`:
+
+### Cluster A: Format Anatomies & Inner Workings
+- **What is PNG?**: `https://www.trysqueeze.online/learn/what-is-png` (IHDR/IDAT chunks, 8-bit alpha transparency, Deflate LZ77 + Huffman coding)
+- **What is JPEG / JPG?**: `https://www.trysqueeze.online/learn/what-is-jpeg` (RGB to YCbCr, 4:2:0 chroma subsampling, DCT frequency quantization)
+- **What is WebP?**: `https://www.trysqueeze.online/learn/what-is-webp` (Google VP8 intra-prediction, lossy alpha transparency, 26% PNG byte savings)
+- **What is SVG?**: `https://www.trysqueeze.online/learn/what-is-svg` (XML vector coordinates, Bézier geometry, marching squares tracing)
+- **What is ICO?**: `https://www.trysqueeze.online/learn/what-is-ico` (Windows ICONDIR binary container, multi-resolution 16px-256px packing)
+
+### Cluster B: Platform & Ecosystem Gatekeeping
+- **Why Platforms Require Specific Formats**: `https://www.trysqueeze.online/learn/why-platforms-require-specific-formats` (Decompression bombs, transcoding latency, CDN costs)
+- **E-Commerce Image Formats (Shopify & Amazon)**: `https://www.trysqueeze.online/learn/ecommerce-image-formats-shopify-amazon` (Speed-to-conversion equations, zoom requirements)
+- **Why WordPress Restricts SVG**: `https://www.trysqueeze.online/learn/why-wordpress-restricts-svg` (XML XSS, XXE vulnerabilities, DOMPurify sanitization)
+- **Why Browsers Require Favicon.ico**: `https://www.trysqueeze.online/learn/why-browsers-require-ico-favicons` (Root query mechanics, Googlebot 48px rules, downscaling blur)
+- **Why Social Media Compresses Images**: `https://www.trysqueeze.online/learn/why-social-media-compresses-images` (MozJPEG re-encoding, 2048px limits, pre-optimization)
+
+### Cluster C: Compression Science & Quality Math
+- **Lossless vs. Lossy Compression**: `https://www.trysqueeze.online/learn/lossless-vs-lossy-compression` (Reversibility, HVS rod/cone biology, generation loss)
+- **What is SSIM?**: `https://www.trysqueeze.online/learn/what-is-ssim-image-quality` (Luminance, contrast, and structure correlation vs. PSNR/MSE)
+- **Raster vs. Vector Graphics**: `https://www.trysqueeze.online/learn/raster-vs-vector-graphics` (Color spreadsheets vs. Bézier geometry)
+- **Transparency & JPG Black Backgrounds**: `https://www.trysqueeze.online/learn/transparency-alpha-channels-and-jpg-matte` (RGBA vs. RGB, matte pre-filling)
+- **EXIF Metadata Privacy Risks**: `https://www.trysqueeze.online/learn/exif-metadata-privacy-risks` (GPS tags, device serials, HTML5 canvas sanitization)
+
+### Cluster D: Modern Web Engineering & Browser Performance
+- **Core Web Vitals & LCP**: `https://www.trysqueeze.online/learn/image-optimization-for-core-web-vitals-lcp` (Largest Contentful Paint speed signals, WebP preloading)
+- **How In-Browser Image Processing Works**: `https://www.trysqueeze.online/learn/how-in-browser-image-conversion-works` (OffscreenCanvas, createImageBitmap, Web Workers)
+- **Client-Side vs. Cloud Converters**: `https://www.trysqueeze.online/learn/client-side-vs-cloud-image-converters` (Zero-upload architecture, data retention risks)
+- **Responsive Image Delivery (<picture> & srcset)**: `https://www.trysqueeze.online/learn/responsive-images-picture-tag-and-webp` (Format negotiation, resolution switching)
+- **Retina & High-DPI Image Optimization**: `https://www.trysqueeze.online/learn/retina-high-dpi-image-optimization` (Compressive images: 2x resolution at 75% quality)
+
