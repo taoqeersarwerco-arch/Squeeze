@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { Sliders, Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { SEO_CONVERSION_PAIRS, SEO_COMPRESS_FORMATS } from '@/lib/constants';
 import { SqueezeLogo } from './SqueezeLogo';
+import { GithubIcon } from './SocialIcons';
 
 interface NavbarProps {
   onOpenSettings?: () => void;
@@ -246,7 +247,20 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
         </nav>
 
         {/* Actions */}
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          {/* GitHub Repo Link */}
+          <a
+            href="https://github.com/taoqeersarwerco-arch/Squeeze"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center gap-1.5 rounded-lg border border-white/[0.08] bg-white/[0.04] px-2.5 py-1.5 text-[13px] font-medium text-zinc-300 hover:bg-white/[0.08] hover:border-white/[0.14] hover:text-white transition-all duration-150 cursor-pointer"
+            aria-label="View Squeeze repository on GitHub"
+            title="Star Squeeze on GitHub"
+          >
+            <GithubIcon className="h-3.5 w-3.5" />
+            <span className="hidden lg:inline text-xs">Star</span>
+          </a>
+
           {onOpenSettings && (
             <button
               onClick={onOpenSettings}
@@ -340,6 +354,20 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
             >
               Developers
             </Link>
+
+            <a
+              href="https://github.com/taoqeersarwerco-arch/Squeeze"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              className="flex items-center justify-between px-3 py-2 rounded-xl text-xs font-medium text-zinc-300 hover:text-white hover:bg-white/[0.06] border-t border-white/[0.04] pt-2"
+            >
+              <div className="flex items-center gap-2">
+                <GithubIcon className="h-3.5 w-3.5 text-zinc-400" />
+                <span>GitHub Repository</span>
+              </div>
+              <ArrowRight className="h-3 w-3 text-zinc-500" />
+            </a>
           </div>
         )}
       </div>

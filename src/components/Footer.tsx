@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { SEO_COMPRESS_FORMATS } from '@/lib/constants';
 import { SqueezeLogo } from './SqueezeLogo';
+import { GithubIcon } from './SocialIcons';
 
 export function Footer() {
   return (
@@ -12,8 +13,8 @@ export function Footer() {
         {/* Trust Chips */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-10 border-b border-white/[0.06]">
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-            <p className="font-medium text-zinc-300 text-sm">Private by design</p>
-            <p className="mt-1 text-zinc-500 text-xs leading-relaxed">Images are processed on your device. Nothing is uploaded or stored.</p>
+            <p className="font-medium text-zinc-300 text-sm">Private &amp; open source</p>
+            <p className="mt-1 text-zinc-500 text-xs leading-relaxed">Images process 100% on your device. Inspect and audit our Web Worker code on GitHub.</p>
           </div>
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
             <p className="font-medium text-zinc-300 text-sm">Fast processing</p>
@@ -26,7 +27,7 @@ export function Footer() {
         </div>
 
         {/* Links Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 py-10 border-b border-white/[0.06]">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 py-10 border-b border-white/[0.06]">
           {/* Col 1: Popular Converters */}
           <div>
             <p className="font-medium text-zinc-400 text-[11px] uppercase tracking-wider mb-3">
@@ -108,25 +109,75 @@ export function Footer() {
                   SSIM Compression
                 </Link>
               </li>
+            </ul>
+          </div>
+
+          {/* Col 4: Open Source & Community */}
+          <div>
+            <p className="font-medium text-zinc-400 text-[11px] uppercase tracking-wider mb-3">
+              Open Source
+            </p>
+            <ul className="space-y-2">
+              <li>
+                <a
+                  href="https://github.com/taoqeersarwerco-arch/Squeeze"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-200 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <GithubIcon className="h-3 w-3" />
+                  <span>GitHub Repository</span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/taoqeersarwerco-arch/Squeeze/issues"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-200 transition-colors"
+                >
+                  Report an Issue
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/taoqeersarwerco-arch/Squeeze/pulls"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-200 transition-colors"
+                >
+                  Contribute Code
+                </a>
+              </li>
               <li>
                 <Link href="/developers" className="hover:text-zinc-200 transition-colors">
-                  Developers &amp; API
+                  Developer API Hub
                 </Link>
               </li>
               <li>
-                <Link href="/about" className="hover:text-zinc-200 transition-colors">
-                  About Squeeze
-                </Link>
+                <a
+                  href="https://github.com/taoqeersarwerco-arch/Squeeze/blob/main/LICENSE"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-200 transition-colors"
+                >
+                  MIT License
+                </a>
               </li>
             </ul>
           </div>
 
-          {/* Col 4: Legal */}
+          {/* Col 5: Legal & About */}
           <div>
             <p className="font-medium text-zinc-400 text-[11px] uppercase tracking-wider mb-3">
               Legal
             </p>
             <ul className="space-y-2">
+              <li>
+                <Link href="/about" className="hover:text-zinc-200 transition-colors">
+                  About Squeeze
+                </Link>
+              </li>
               <li>
                 <Link href="/privacy" className="hover:text-zinc-200 transition-colors">
                   Privacy Policy
@@ -142,7 +193,7 @@ export function Footer() {
         </div>
 
         {/* Bottom copyright & brand signature */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-zinc-500">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-zinc-500">
           <div className="flex items-center gap-2">
             <div className="flex h-6 w-6 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.02] text-zinc-400">
               <SqueezeLogo size={13} />
@@ -151,7 +202,19 @@ export function Footer() {
             <span className="text-zinc-600">&bull;</span>
             <span className="text-zinc-500">&copy; 2026 Squeeze. In-Browser Image Processing.</span>
           </div>
-          <p className="text-zinc-600 text-[11px]">Zero server uploads &bull; 100% Client-side privacy</p>
+
+          <div className="flex items-center gap-3">
+            <a
+              href="https://github.com/taoqeersarwerco-arch/Squeeze"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-2.5 py-1 rounded-lg border border-white/[0.08] bg-white/[0.02] hover:bg-white/[0.06] hover:border-white/[0.14] text-zinc-400 hover:text-white transition"
+              title="Star and view Squeeze source on GitHub"
+            >
+              <GithubIcon className="h-3.5 w-3.5" />
+              <span className="text-[11px] font-medium">GitHub</span>
+            </a>
+          </div>
         </div>
       </div>
     </footer>
