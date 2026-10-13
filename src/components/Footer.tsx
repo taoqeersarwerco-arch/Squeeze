@@ -3,6 +3,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { SEO_COMPRESS_FORMATS } from '@/lib/constants';
+import { SqueezeLogo } from './SqueezeLogo';
 
 export function Footer() {
   return (
@@ -140,9 +141,17 @@ export function Footer() {
           </div>
         </div>
 
-        {/* Bottom copyright */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-zinc-600">
-          <p>&copy; 2026 Squeeze</p>
+        {/* Bottom copyright & brand signature */}
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3 text-zinc-500">
+          <div className="flex items-center gap-2">
+            <div className="flex h-6 w-6 items-center justify-center rounded-md border border-white/[0.08] bg-white/[0.02] text-zinc-400">
+              <SqueezeLogo size={13} />
+            </div>
+            <span className="font-semibold text-zinc-300">Squeeze</span>
+            <span className="text-zinc-600">&bull;</span>
+            <span className="text-zinc-500">&copy; 2026 Squeeze. In-Browser Image Processing.</span>
+          </div>
+          <p className="text-zinc-600 text-[11px]">Zero server uploads &bull; 100% Client-side privacy</p>
         </div>
       </div>
     </footer>

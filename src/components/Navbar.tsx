@@ -4,6 +4,7 @@ import React, { useState, useRef } from 'react';
 import Link from 'next/link';
 import { Sliders, Menu, X, ChevronDown, ArrowRight } from 'lucide-react';
 import { SEO_CONVERSION_PAIRS, SEO_COMPRESS_FORMATS } from '@/lib/constants';
+import { SqueezeLogo } from './SqueezeLogo';
 
 interface NavbarProps {
   onOpenSettings?: () => void;
@@ -81,7 +82,10 @@ export function Navbar({ onOpenSettings }: NavbarProps) {
         <div className="absolute top-0 left-1/2 -translate-x-1/2 w-1/3 h-px bg-gradient-to-r from-transparent via-white/[0.12] to-transparent" />
 
         {/* Brand */}
-        <Link href="/" onClick={closeDropdown} className="flex items-center gap-2 group">
+        <Link href="/" onClick={closeDropdown} className="flex items-center gap-2.5 group">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-white/[0.12] bg-white/[0.04] text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)] backdrop-blur-xl group-hover:border-white/25 group-hover:bg-white/[0.08] transition-all">
+            <SqueezeLogo size={15} className="text-white" />
+          </div>
           <span className="font-bold text-[15px] tracking-tight text-white group-hover:text-zinc-200 transition-colors">
             Squeeze
           </span>
