@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
+import { Analytics } from '@vercel/analytics/next';
 import './globals.css';
 import { LiquidBackground } from '@/components/LiquidBackground';
 
@@ -72,6 +73,7 @@ export default function RootLayout({
       <body className="relative min-h-full flex flex-col font-sans bg-[#08090B] text-zinc-100 overflow-x-hidden">
         <LiquidBackground />
         {children}
+        <Analytics />
       </body>
     </html>
   );
