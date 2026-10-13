@@ -5,16 +5,16 @@ import { Navbar, Footer } from '@/components';
 import { ShieldCheck, Lock, EyeOff, Server, Database, KeyRound, Cookie, FileText, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | 100% Client-Side Zero-Upload Architecture | Squeeze',
+  title: 'Privacy Policy | Browser Zero-Upload Engine & API Privacy | Squeeze',
   description:
-    'Squeeze operates on a strict zero-upload model. Learn how our in-browser Web Worker engine processes files locally without remote servers, our EXIF stripping policy, and developer API privacy.',
+    'Squeeze browser converter operates on a zero-upload model where image conversions run locally in client memory. Learn about our in-browser engine, EXIF sanitization, and developer API privacy.',
   alternates: {
     canonical: 'https://www.trysqueeze.online/privacy',
   },
   openGraph: {
-    title: 'Privacy Policy | Squeeze Client-Side Engine',
+    title: 'Privacy Policy | Squeeze Browser Engine & Data Protection',
     description:
-      'Zero uploads. Zero storage. All image conversions happen locally in client browser memory. Full privacy disclosure for web users and developers.',
+      'Browser image conversions run 100% locally in client memory with zero file uploads. Full privacy, EXIF stripping, and API transit disclosures for web users and developers.',
     url: 'https://www.trysqueeze.online/privacy',
     siteName: 'Squeeze',
     images: [
@@ -36,7 +36,7 @@ export default function PrivacyPage() {
     '@type': 'WebPage',
     name: 'Squeeze Privacy Policy',
     description:
-      'Official privacy policy and zero-upload client-side data protection practices for Squeeze.',
+      'Official privacy policy detailing zero-upload browser conversion architecture, EXIF metadata sanitization, and ephemeral API transit data practices for Squeeze.',
     url: 'https://www.trysqueeze.online/privacy',
     publisher: {
       '@type': 'Organization',
