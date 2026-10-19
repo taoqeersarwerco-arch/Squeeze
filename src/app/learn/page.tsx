@@ -7,7 +7,7 @@ import { ALL_ARTICLES } from '@/lib/articles';
 import { ShieldCheck, BookOpen, Clock, ArrowRight } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Image Conversion & Compression Guides | Squeeze Learn Hub',
+  title: 'Image Conversion & Compression Guides | Learn Hub',
   description:
     'In-depth technical guides on raster format anatomies, Deflate & DCT mathematics, platform upload restrictions, and client-side zero-upload privacy.',
   alternates: {

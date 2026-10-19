@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     siteName: 'Squeeze',
     images: [
       {
-        url: 'https://www.trysqueeze.online/og-image.png',
+        url: 'https://www.trysqueeze.online/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'About Squeeze - In-Browser Image Processing Engine',

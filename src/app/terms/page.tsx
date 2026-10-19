@@ -5,7 +5,7 @@ import { Navbar, Footer } from '@/components';
 import { FileText, Shield, KeyRound, AlertTriangle, Scale, Cpu, Globe } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Squeeze',
+  title: 'Terms of Service',
   description:
     'Terms of Service, acceptable use guidelines, and Developer API agreements for Squeeze in-browser image conversion and perceptual compression engine.',
   alternates: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'Squeeze',
     images: [
       {
-        url: 'https://www.trysqueeze.online/og-image.png',
+        url: 'https://www.trysqueeze.online/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Squeeze Terms of Service',

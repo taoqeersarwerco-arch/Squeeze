@@ -3,7 +3,7 @@ import type { Metadata } from 'next';
 import { Navbar, Footer, DeveloperHubClient } from '@/components';
 
 export const metadata: Metadata = {
-  title: 'Client-Side Image Processing API & Sandbox | Squeeze Developers',
+  title: 'Client-Side Image Processing API & Sandbox',
   description:
     'Build with the Squeeze engine. Client-side Web Worker SDK and Headless Cloud REST API with zero-upload privacy, perceptual SSIM guarantees, and instant free API keys.',
   alternates: {
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     siteName: 'Squeeze',
     images: [
       {
-        url: 'https://www.trysqueeze.online/og-image.png',
+        url: 'https://www.trysqueeze.online/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Squeeze Developer API & Sandbox',

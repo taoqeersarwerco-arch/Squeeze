@@ -5,7 +5,7 @@ import { Navbar, Footer } from '@/components';
 import { ShieldCheck, Lock, EyeOff, Server, Database, KeyRound, Cookie, FileText, CheckCircle2 } from 'lucide-react';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Browser Zero-Upload Engine & API Privacy | Squeeze',
+  title: 'Privacy Policy | Browser Zero-Upload Engine & API Privacy',
   description:
     'Squeeze browser converter operates on a zero-upload model where image conversions run locally in client memory. Learn about our in-browser engine, EXIF sanitization, and developer API privacy.',
   alternates: {
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'Squeeze',
     images: [
       {
-        url: 'https://www.trysqueeze.online/og-image.png',
+        url: 'https://www.trysqueeze.online/opengraph-image',
         width: 1200,
         height: 630,
         alt: 'Squeeze Privacy Policy',
