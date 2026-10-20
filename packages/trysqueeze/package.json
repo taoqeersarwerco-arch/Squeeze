@@ -22,7 +22,7 @@
   "homepage": "https://www.trysqueeze.online",
   "repository": {
     "type": "git",
-    "url": "https://github.com/taoqeersarwerco-arch/Squeeze.git",
+    "url": "git+https://github.com/taoqeersarwerco-arch/Squeeze.git",
     "directory": "packages/trysqueeze"
   },
   "bugs": {
