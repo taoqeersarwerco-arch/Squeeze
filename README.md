@@ -1,14 +1,14 @@
 # Squeeze ⚡
 
 > **Private, zero-upload in-browser image conversion and perceptual compression engine.**  
-> Convert between **JPG, PNG, ICO, SVG, and WebP** with lossless precision for supported formats, SSIM-guided perceptual fidelity, and $0 server hosting bills.  
-> Live at: [trysqueeze.online](https://trysqueeze.online)
+> Convert and compress **JPG, PNG, ICO, SVG, and WebP** with lossless precision, SSIM-guided perceptual fidelity, and $0 server hosting bills.  
+> Live at: [www.trysqueeze.online](https://www.trysqueeze.online)
 
 ---
 
 ## 🏛️ Architecture & Core Mechanics
 
-Squeeze runs entirely on client-side hardware using HTML5 Canvas, WebAssembly-ready pipelines, and multi-threaded Web Workers. No image bytes ever leave the user's browser.
+Squeeze runs entirely on client-side hardware using HTML5 Canvas, Next.js 16.4 Static Site Generation (SSG), and multi-threaded Web Workers. No image bytes ever leave the user's browser.
 
 ```
 ┌─────────────────────────────────────────────────────────────────┐
@@ -32,8 +32,8 @@ Squeeze runs entirely on client-side hardware using HTML5 Canvas, WebAssembly-re
 - **Perceptual SSIM Quality Guard** ([`src/lib/ssim.ts`](./src/lib/ssim.ts)): Mathematical Structural Similarity Index Measure computes exact visual degradation to find optimal compression sweet spots.
 - **Binary Windows ICO Packer** ([`src/lib/ico.ts`](./src/lib/ico.ts)): Encodes genuine 32-bit RGBA multi-resolution Windows `.ico` container files (16×16, 32×32, 48×48, 64×64, 128×128, 256×256).
 - **Raster-to-SVG Vector Tracer** ([`src/lib/svg-tracer.ts`](./src/lib/svg-tracer.ts)): Marching-squares contour tracer converts raster silhouettes into scalable vector SVG paths.
-- **Developer API & CLI Sandbox** ([`/developers`](https://trysqueeze.online/developers)): Free instant API key issuance and cURL snippets for programmatic integrations.
-- **Programmatic SEO (38 Routes)**: 15 dedicated conversion pairs, 3 smart compression routes, and educational guides with structured JSON-LD schema.
+- **Developer API & Sandbox** ([`/developers`](https://www.trysqueeze.online/developers)): Free instant API key issuance and multi-language snippets (cURL, TS, Python, Go, Rust).
+- **Programmatic Static SEO (65 Routes)**: 15 dedicated conversion pairs, 3 smart compression routes, and 28 in-depth educational guides with structured JSON-LD Knowledge Graph schema.
 
 ---
 
@@ -103,7 +103,7 @@ npm run dev
 
 ### Production Build & Verification
 ```bash
-# Type check and build all 38 prerendered routes
+# Type check and build all 65 prerendered static routes
 npm run build
 
 # Verify code style and zero-lint errors
