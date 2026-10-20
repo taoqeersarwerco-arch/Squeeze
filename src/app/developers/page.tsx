@@ -52,6 +52,20 @@ export default function DevelopersPage() {
         termsOfService: 'https://www.trysqueeze.online/terms',
       },
       {
+        '@type': 'SoftwareSourceCode',
+        name: 'Squeeze In-Browser Image Converter & Compressor',
+        codeRepository: 'https://github.com/taoqeersarwerco-arch/Squeeze',
+        programmingLanguage: 'TypeScript',
+        license: 'https://opensource.org/licenses/MIT',
+        author: {
+          '@type': 'Organization',
+          name: 'Squeeze',
+          url: 'https://www.trysqueeze.online',
+        },
+        description:
+          'Open-source in-browser image conversion and perceptual compression engine powered by Web Workers and OffscreenCanvas.',
+      },
+      {
         '@type': 'BreadcrumbList',
         itemListElement: [
           {
