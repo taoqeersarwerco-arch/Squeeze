@@ -1,0 +1,48 @@
+{
+  "name": "trysqueeze",
+  "version": "1.0.0",
+  "description": "Zero-dependency browser and Node.js engine for binary Windows ICO encoding, perceptual SSIM quality metrics, and SVG contour tracing.",
+  "type": "module",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "homepage": "https://www.trysqueeze.online",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/taoqeersarwerco-arch/Squeeze.git",
+    "directory": "packages/trysqueeze"
+  },
+  "bugs": {
+    "url": "https://github.com/taoqeersarwerco-arch/Squeeze/issues"
+  },
+  "keywords": [
+    "trysqueeze",
+    "squeeze",
+    "image-processing",
+    "ico",
+    "ico-encoder",
+    "favicon-generator",
+    "ssim",
+    "image-quality",
+    "svg-tracer",
+    "vectorizer",
+    "in-browser",
+    "web-worker",
+    "client-side"
+  ],
+  "author": "Taoqeer Sarwer",
+  "license": "MIT"
+}
