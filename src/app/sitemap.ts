@@ -12,6 +12,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/learn',
     '/developers',
     '/about',
+    '/contact',
+    '/security',
     '/privacy',
     '/terms',
   ].map((route) => ({

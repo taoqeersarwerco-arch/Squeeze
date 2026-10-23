@@ -62,7 +62,30 @@ export function generateRootSchema() {
           url: `${BASE_URL}/favicon.ico`,
         },
         description:
-          'Privacy-focused developer tooling providing client-side image processing engines.',
+          'Open-source, privacy-focused developer initiative providing 100% in-browser client-side image processing engines and developer tooling.',
+        sameAs: [
+          'https://github.com/taoqeersarwerco-arch/Squeeze',
+          'https://www.npmjs.com/package/trysqueeze',
+        ],
+        contactPoint: [
+          {
+            '@type': 'ContactPoint',
+            contactType: 'customer support',
+            email: 'contact@trysqueeze.online',
+            url: `${BASE_URL}/contact`,
+            availableLanguage: ['English'],
+          },
+          {
+            '@type': 'ContactPoint',
+            contactType: 'technical support',
+            url: 'https://github.com/taoqeersarwerco-arch/Squeeze/issues',
+          },
+        ],
+        founder: {
+          '@type': 'Person',
+          name: 'Taoqeer Sarwer',
+          url: 'https://github.com/taoqeersarwerco-arch',
+        },
       },
       {
         '@type': 'WebApplication',
@@ -115,6 +138,10 @@ export function generateToolPageSchema({
       '@id': `${BASE_URL}/#organization`,
       name: 'Squeeze',
       url: BASE_URL,
+      sameAs: [
+        'https://github.com/taoqeersarwerco-arch/Squeeze',
+        'https://www.npmjs.com/package/trysqueeze',
+      ],
     },
     {
       '@type': 'WebApplication',

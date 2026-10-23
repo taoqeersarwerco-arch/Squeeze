@@ -12,10 +12,17 @@ export function Footer() {
       <div className="mx-auto max-w-5xl px-4 sm:px-6">
         {/* Trust Chips */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pb-10 border-b border-white/[0.06]">
-          <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
-            <p className="font-medium text-zinc-300 text-sm">Private &amp; open source</p>
-            <p className="mt-1 text-zinc-500 text-xs leading-relaxed">Images process 100% on your device. Inspect and audit our Web Worker code on GitHub.</p>
-          </div>
+          <Link
+            href="/security"
+            className="group rounded-xl border border-white/[0.06] bg-white/[0.02] p-4 hover:border-emerald-500/30 hover:bg-white/[0.04] transition-all block"
+          >
+            <p className="font-medium text-zinc-300 text-sm group-hover:text-emerald-400 transition-colors">
+              Private &amp; open source &rarr;
+            </p>
+            <p className="mt-1 text-zinc-500 text-xs leading-relaxed">
+              Images process 100% on your device with zero uploads. Read our security guarantee.
+            </p>
+          </Link>
           <div className="rounded-xl border border-white/[0.06] bg-white/[0.02] p-4">
             <p className="font-medium text-zinc-300 text-sm">Fast processing</p>
             <p className="mt-1 text-zinc-500 text-xs leading-relaxed">Runs on your browser&apos;s built-in capabilities. Multiple images at once.</p>
@@ -156,6 +163,17 @@ export function Footer() {
               </li>
               <li>
                 <a
+                  href="https://www.npmjs.com/package/trysqueeze"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-zinc-200 transition-colors inline-flex items-center gap-1.5"
+                >
+                  <span className="font-mono text-[10px] text-emerald-400 font-bold">npm</span>
+                  <span>trysqueeze Package</span>
+                </a>
+              </li>
+              <li>
+                <a
                   href="https://github.com/taoqeersarwerco-arch/Squeeze/blob/main/LICENSE"
                   target="_blank"
                   rel="noopener noreferrer"
@@ -167,15 +185,25 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Col 5: Legal & About */}
+          {/* Col 5: Trust & Legal */}
           <div>
             <p className="font-medium text-zinc-400 text-[11px] uppercase tracking-wider mb-3">
-              Legal
+              Trust &amp; Legal
             </p>
             <ul className="space-y-2">
               <li>
                 <Link href="/about" className="hover:text-zinc-200 transition-colors">
                   About Squeeze
+                </Link>
+              </li>
+              <li>
+                <Link href="/security" className="hover:text-zinc-200 transition-colors text-emerald-400">
+                  Security Guarantee
+                </Link>
+              </li>
+              <li>
+                <Link href="/contact" className="hover:text-zinc-200 transition-colors">
+                  Contact Support
                 </Link>
               </li>
               <li>
